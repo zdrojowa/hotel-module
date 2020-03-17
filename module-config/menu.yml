@@ -1,0 +1,5 @@
+hotels:
+  name: Hoteli
+  icon: mdi mdi-office-building
+  permission: HotelModule
+  route: HotelModule::hotels

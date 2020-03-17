@@ -1,0 +1,7 @@
+name: HotelModule
+version: 1.0.0
+
+aclAnchor: HotelModule
+aclName: Hotele
+
+routePrefix: HotelModule

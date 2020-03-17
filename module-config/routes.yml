@@ -1,0 +1,49 @@
+hotels:
+  path: /dashboard/hotels
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@index
+  methods:
+    - GET
+  permission: HotelModule
+
+hotels.ajax:
+  path: /dashboard/hotels/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@ajax
+  methods:
+    - POST
+  permission: HotelModule
+
+hotels.create:
+  path: /dashboard/hotels/create
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@create
+  methods:
+    - GET
+  permission: HotelModule.add
+
+hotels.store:
+  path: /dashboard/hotels/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@store
+  methods:
+    - POST
+  permission: HotelModule.add
+
+hotels.edit:
+  path: /dashboard/hotels/{{hotel}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@edit
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+hotels.update:
+  path: /dashboard/hotels/{{hotel}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@update
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+hotels.destroy:
+  path: /dashboard/hotels/{{hotel}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@destroy
+  methods:
+    - DELETE
+  permission: HotelModule.delete
