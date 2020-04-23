@@ -1,4 +1,14 @@
-@extends('DashboardModule::dashboard.index')
+@extends('DashboardModule::base')
+
+@section('title','Dashboard')
+
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ mix('vendor/css/HotelModule.css','') }}">
+@endsection
+
+@section('sidebar')
+    @include('DashboardModule::sidebar.index', ['menu' => Selene\Support\Facades\MenuRepository::getPresences()])
+@endsection
 
 @section('content')
     <div class="content-wrapper">
@@ -54,23 +64,44 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label for="photo">Zdjęcie obiektu</label>
-                                <input
-                                    id="photo"
-                                    type="file"
-                                    name="photo_file"
-                                    class="dropify"
-                                    data-height="100"
-                                    data-allowed-file-extensions="svg png jpg jpeg"
-                                    @if(isset($hotel))
-                                        data-default-file="{{asset($hotel->photo)}}"
-                                    @endif
-                                    data-max-file-size="1M">
+                            <div class="d-flex justify-content-center">
 
-                                @error('photo_file')
+                                <div class="form-group @error('star') has-danger @enderror">
+                                    @php
+                                        $stars = isset($hotel) ? $hotel->star : (old('star') >> 0);
+                                    @endphp
+                                    <input type="hidden" name="star" value="{{ $stars }}">
+
+                                    @for($i = 1; $i < 6; $i++)
+                                        @if ($i <= $stars)
+                                            <span class="mdi mdi-star checked" id="{{ $i }}"></span>
+                                        @else
+                                            <span class="mdi mdi-star" id="{{ $i }}"></span>
+                                        @endif
+                                    @endfor
+
+                                    @error('star')
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group @error('reservation') has-danger @enderror col-6">
+                                    <label for="">Rezerwacja</label>
+                                    <input type="text" class="form-control" name="reservation" value="{{ isset($hotel) ? $hotel->reservation : old('reservation')}}">
+                                    @error('reservation')
                                     <small class="error mt-1 text-danger d-block">{{ $message }}</small>
-                                @enderror
+                                    @enderror
+                                </div>
+
+                                <div class="form-group @error('reception') has-danger @enderror col-6">
+                                    <label for="">Recepcja</label>
+                                    <input type="text" class="form-control" name="reception" value="{{ isset($hotel) ? $hotel->reception : old('reception')}}">
+                                    @error('reception')
+                                    <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="d-flex justify-content-center">
@@ -92,24 +123,6 @@
                             </div>
 
                             <div class="d-flex justify-content-center">
-                                <div class="form-group @error('reservation') has-danger @enderror col-6">
-                                    <label for="">Rezerwacja</label>
-                                    <input type="text" class="form-control" name="reservation" value="{{ isset($hotel) ? $hotel->reservation : old('reservation')}}">
-                                    @error('reservation')
-                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group @error('reception') has-danger @enderror col-6">
-                                    <label for="">Recepcja</label>
-                                    <input type="text" class="form-control" name="reception" value="{{ isset($hotel) ? $hotel->reception : old('reception')}}">
-                                    @error('reception')
-                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="d-flex justify-content-center">
                                 <div class="form-group @error('localization') has-danger @enderror col-6">
                                     <label for="">Miasto</label>
                                     <input type="text" class="form-control" name="localization" value="{{ isset($hotel) ? $hotel->localization : old('localization')}}">
@@ -118,37 +131,21 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group @error('status') has-danger @enderror col-6">
-                                    <label for="">Rezerwacja</label>
-                                    <select type="text" class="form-control" name="status">
-                                        @php
-                                            $currentStatus = isset($hotel) ? $hotel->status : old('status')
-                                        @endphp
-                                        @foreach($statuses as $status)
-                                            <option value="{{$status}}" @if($currentStatus === $status) selected @endif>
-                                                {{ $status }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="d-flex justify-content-center">
                                 <div class="form-group @error('street') has-danger @enderror col-6">
                                     <label for="">Ulica</label>
                                     <input type="text" class="form-control" name="street" value="{{ isset($hotel) ? $hotel->street : old('street') }}">
                                     @error('street')
-                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    <small class="error mt-1 text-danger d-block">{{ $message }}</small>
                                     @enderror
                                 </div>
+                            </div>
 
-                                <div class="form-group @error('sell') has-danger @enderror col-6">
-                                    <label for="">Sprzedaż</label>
-                                    <input type="text" class="form-control" name="sell" value="{{ isset($hotel) ? $hotel->sell : old('sell') }}">
-                                    @error('sell')
-                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
-                                    @enderror
-                                </div>
+                            <div class="form-group @error('adres') has-danger @enderror col-12">
+                                <label for="">Adres</label>
+                                <input type="text" class="form-control" name="adres" value="{{ isset($hotel) ? $hotel->adres : old('adres') }}">
+                                @error('adres')
+                                <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="form-group @error('arrive') has-danger @enderror col-12">
@@ -159,12 +156,59 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group @error('copyright') has-danger @enderror col-12">
-                                <label for="">Copyright</label>
-                                <input type="text" class="form-control" name="copyright" value="{{ isset($hotel) ? $hotel->copyright : old('copyright') }}">
-                                @error('copyright')
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group @error('facebook') has-danger @enderror col-6">
+                                    <label for="">Facebook</label>
+                                    <input type="text" class="form-control" name="facebook" value="{{ isset($hotel) ? $hotel->facebook : old('facebook')}}">
+                                    @error('facebook')
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group @error('instagram') has-danger @enderror col-6">
+                                    <label for="">Instagram</label>
+                                    <input type="text" class="form-control" name="instagram" value="{{ isset($hotel) ? $hotel->instagram : old('instagram') }}">
+                                    @error('instagram')
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group @error('twitter') has-danger @enderror col-6">
+                                    <label for="">Twitter</label>
+                                    <input type="text" class="form-control" name="twitter" value="{{ isset($hotel) ? $hotel->twitter : old('twitter')}}">
+                                    @error('twitter')
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group @error('instagram') has-danger @enderror col-6">
+                                    <label for="">Linkedin</label>
+                                    <input type="text" class="form-control" name="linkedin" value="{{ isset($hotel) ? $hotel->linkedin : old('linkedin') }}">
+                                    @error('linkedin')
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+
+                                <div class="form-group @error('mail') has-danger @enderror col-6">
+                                    <label for="">E-mail</label>
+                                    <input type="text" class="form-control" name="mail" value="{{ isset($hotel) ? $hotel->mail : old('mail') }}">
+                                    @error('mail')
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group @error('copyright') has-danger @enderror col-6">
+                                    <label for="">Copyright</label>
+                                    <input type="text" class="form-control" name="copyright" value="{{ isset($hotel) ? $hotel->copyright : old('copyright') }}">
+                                    @error('copyright')
                                     <small class="error mt-1 text-danger d-block">{{ $message }}</small>
-                                @enderror
+                                    @enderror
+                                </div>
                             </div>
 
                             <button type="submit" class="float-right mt-2 btn btn-success mr-2">Zapisz</button>
@@ -176,9 +220,24 @@
     </div>
 
 @endsection
+
 @section('javascripts')
     @parent
     <script>
-        $('.dropify').dropify({})
+        $('.dropify').dropify({});
+
+        let $stars = $('.mdi-star');
+
+        $stars.click(function() {
+
+            let id = $(this).attr('id');
+            $('input[name="star"]').val(id);
+
+            $stars.removeClass('checked');
+
+            for (let i = 1; i <= id; i++) {
+                $('#' + i).addClass('checked');
+            }
+        });
     </script>
 @endsection

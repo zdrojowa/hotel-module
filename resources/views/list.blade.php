@@ -50,12 +50,6 @@
                     orderable: true
                 },
                 {
-                    name: 'Status',
-                    type: 'text',
-                    ajax: 'status',
-                    orderable: true
-                },
-                {
                     name: 'Data utworzenia',
                     orderable: true,
                     ajax: 'created_at'
