@@ -1,5 +1,5 @@
 hotels:
-  name: Hoteli
+  name: Hotele
   icon: mdi mdi-office-building
   permission: HotelModule
   route: HotelModule::hotels

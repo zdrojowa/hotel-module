@@ -63,16 +63,19 @@ class HotelController extends Controller
 
     private function save(Request $request, Hotels $hotel = null) {
 
-        if ($request->has('logo_file')) {
+        $images = ['photo', 'logo', 'marker'];
+        foreach ($images as $image) {
+            if ($request->has($image . '_file')) {
 
-            $photo    = $request->file('logo_file');
-            $filename = md5(uniqid($photo->getClientOriginalName(), true));
-            $path     = $photo->move(
-                'storage/hotels/',
-                $filename . '.' . $photo->getClientOriginalExtension()
-            )->getPathName();
+                $photo    = $request->file($image . '_file');
+                $filename = md5(uniqid($photo->getClientOriginalName(), true));
+                $path     = $photo->move(
+                    'storage/hotels/',
+                    $filename . '.' . $photo->getClientOriginalExtension()
+                )->getPathName();
 
-            $request->merge(['logo' => $path]);
+                $request->merge([$image => $path]);
+            }
         }
 
         if ($hotel === null) {

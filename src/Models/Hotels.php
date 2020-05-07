@@ -13,20 +13,22 @@ class Hotels extends Model
         'name',
         'full_name',
         'logo',
+        'photo',
         'star',
         'reservation',
         'reception',
         'coordinates',
         'localization',
         'street',
-        'adres',
+        'address',
         'arrive',
         'facebook',
         'instagram',
         'twitter',
         'linkedin',
         'mail',
-        'copyright'
+        'copyright',
+        'marker'
     ];
 
     /**

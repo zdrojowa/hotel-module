@@ -8,3 +8,8 @@
 - address
 - socials
 - e-mail
+
+## Version 2.0.1
+- photo
+- marker
+- bugfix

@@ -45,23 +45,46 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="photo">Logo</label>
-                                <input
-                                    id="logo"
-                                    type="file"
-                                    name="logo_file"
-                                    class="dropify"
-                                    data-height="100"
-                                    data-allowed-file-extensions="svg png jpg jpeg"
-                                    @if(isset($hotel) && isset($hotel->logo))
-                                        data-default-file="{{asset($hotel->logo)}}"
-                                    @endif
-                                    data-max-file-size="1M">
+                            <div class="d-flex justify-content-center">
 
-                                @error('logo_file')
-                                    <small class="error mt-1 text-danger d-block">{{ $message }}</small>
-                                @enderror
+                                <div class="form-group col-lg-4">
+                                    <label for="logo">Logo</label>
+                                    <input id="logo" type="file" name="logo_file" class="dropify" data-height="100" data-allowed-file-extensions="svg png jpg jpeg"
+                                        @if(isset($hotel) && isset($hotel->logo))
+                                            data-default-file="{{ asset($hotel->logo) }}"
+                                        @endif
+                                        data-max-file-size="1M">
+
+                                    @error('logo_file')
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-lg-4">
+                                    <label for="photo">Zdjęcie obiektu</label>
+                                    <input id="photo" type="file" name="photo_file" class="dropify" data-height="100" data-allowed-file-extensions="svg png jpg jpeg"
+                                           @if(isset($hotel) && isset($hotel->photo))
+                                              data-default-file="{{ asset($hotel->photo_file) }}"
+                                           @endif
+                                           data-max-file-size="1M">
+
+                                    @error('photo_file')
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-lg-4">
+                                    <label for="marker">Marker</label>
+                                    <input id="marker" type="file" name="marker_file" class="dropify" data-height="100" data-allowed-file-extensions="svg png jpg jpeg"
+                                           @if(isset($hotel) && isset($hotel->marker))
+                                            data-default-file="{{ asset($hotel->marker) }}"
+                                           @endif
+                                           data-max-file-size="1M">
+
+                                    @error('marker_file')
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="d-flex justify-content-center">
@@ -135,16 +158,16 @@
                                     <label for="">Ulica</label>
                                     <input type="text" class="form-control" name="street" value="{{ isset($hotel) ? $hotel->street : old('street') }}">
                                     @error('street')
-                                    <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="form-group @error('adres') has-danger @enderror col-12">
+                            <div class="form-group @error('address') has-danger @enderror col-12">
                                 <label for="">Adres</label>
-                                <input type="text" class="form-control" name="adres" value="{{ isset($hotel) ? $hotel->adres : old('adres') }}">
-                                @error('adres')
-                                <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                <input type="text" class="form-control" name="address" value="{{ isset($hotel) ? $hotel->address : old('address') }}">
+                                @error('address')
+                                    <small class="error mt-1 text-danger d-block">{{ $message }}</small>
                                 @enderror
                             </div>
 
