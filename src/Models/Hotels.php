@@ -23,6 +23,7 @@ class Hotels extends Model
         'address',
         'arrive',
         'facebook',
+        'facebook_page_id',
         'instagram',
         'twitter',
         'linkedin',

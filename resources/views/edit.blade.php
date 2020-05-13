@@ -188,10 +188,10 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group @error('instagram') has-danger @enderror col-6">
-                                    <label for="">Instagram</label>
-                                    <input type="text" class="form-control" name="instagram" value="{{ isset($hotel) ? $hotel->instagram : old('instagram') }}">
-                                    @error('instagram')
+                                <div class="form-group @error('facebook_page_id') has-danger @enderror col-6">
+                                    <label for="">Facebook ID Strony</label>
+                                    <input type="text" class="form-control" name="facebook_page_id" value="{{ isset($hotel) ? $hotel->facebook_page_id : old('facebook_page_id')}}">
+                                    @error('facebook_page_id')
                                         <small class="error mt-1 text-danger d-block">{{ $message }}</small>
                                     @enderror
                                 </div>
@@ -206,7 +206,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group @error('instagram') has-danger @enderror col-6">
+                                <div class="form-group @error('linkedin') has-danger @enderror col-6">
                                     <label for="">Linkedin</label>
                                     <input type="text" class="form-control" name="linkedin" value="{{ isset($hotel) ? $hotel->linkedin : old('linkedin') }}">
                                     @error('linkedin')
@@ -217,6 +217,14 @@
 
                             <div class="d-flex justify-content-center">
 
+                                <div class="form-group @error('instagram') has-danger @enderror col-6">
+                                    <label for="">Instagram</label>
+                                    <input type="text" class="form-control" name="instagram" value="{{ isset($hotel) ? $hotel->instagram : old('instagram') }}">
+                                    @error('instagram')
+                                        <small class="error mt-1 text-danger d-block">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
                                 <div class="form-group @error('mail') has-danger @enderror col-6">
                                     <label for="">E-mail</label>
                                     <input type="text" class="form-control" name="mail" value="{{ isset($hotel) ? $hotel->mail : old('mail') }}">
@@ -224,7 +232,9 @@
                                         <small class="error mt-1 text-danger d-block">{{ $message }}</small>
                                     @enderror
                                 </div>
+                            </div>
 
+                            <div class="d-flex justify-content-center">
                                 <div class="form-group @error('copyright') has-danger @enderror col-6">
                                     <label for="">Copyright</label>
                                     <input type="text" class="form-control" name="copyright" value="{{ isset($hotel) ? $hotel->copyright : old('copyright') }}">

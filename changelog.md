@@ -13,3 +13,6 @@
 - photo
 - marker
 - bugfix
+
+## Version 2.0.2
+- Facebook Page ID
