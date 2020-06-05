@@ -7,8 +7,11 @@
                 <div class="card">
                     <div class="card-header clearfix">
                         <h4 class="card-title float-left">Lista wszystkich Hoteli</h4>
-                        <a href="{{route('HotelModule::hotels.create')}}" class="text-success float-right">
+                        <a href="{{route('HotelModule::hotels.create')}}" class="btn btn-success float-right mr-2">
                             <i class="mdi mdi-plus-circle"></i> Dodaj
+                        </a>
+                        <a href="{{route('HotelModule::hotels.sort')}}" class="btn btn-primary float-right mr-2">
+                            <i class="mdi mdi-sort"></i> Sortuj
                         </a>
                     </div>
                     <div class="card-body">
@@ -47,6 +50,12 @@
                     name: 'Pelna nazwa',
                     type: 'text',
                     ajax: 'full_name',
+                    orderable: true
+                },
+                {
+                    name: 'Order',
+                    type: 'text',
+                    ajax: 'order',
                     orderable: true
                 },
                 {

@@ -23,6 +23,11 @@ class HotelController extends Controller
         return view('HotelModule::list');
     }
 
+    public function sort()
+    {
+        return view('HotelModule::sort');
+    }
+
     public function ajax(Request $request): JsonResponse
     {
         return ZdrojowaTable::response(Hotels::query(), $request);
@@ -95,8 +100,12 @@ class HotelController extends Controller
         }
     }
 
-    public function getAll(): JsonResponse
+    public function saveOrder(Request $request)
     {
-        return response()->json(Hotels::all()->toArray());
+        $list = json_decode($request->get('list'), true);
+        foreach ($list as $i => $hotel) {
+            Hotels::query()->where('_id', '=', $hotel['_id'])->update(['order' => $i + 1]);
+        }
+        return ['redirect' => route('HotelModule::hotels')];
     }
 }

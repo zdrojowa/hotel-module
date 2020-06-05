@@ -29,7 +29,8 @@ class Hotels extends Model
         'linkedin',
         'mail',
         'copyright',
-        'marker'
+        'marker',
+        'order'
     ];
 
     /**

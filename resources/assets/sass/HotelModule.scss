@@ -1,3 +1,26 @@
 span.mdi-star.checked {
     color: orange;
 }
+
+.container-fluid {
+    flex-wrap: wrap;
+}
+
+.item-container {
+    margin: 0;
+}
+
+.list-group {
+    width: 100%;
+}
+
+.list-group-item {
+    padding: 1rem;
+    border: solid black 1px;
+    background-color: #2d2e31;
+    cursor: pointer;
+
+    i.mdi {
+        font-size: 25px;
+    }
+}

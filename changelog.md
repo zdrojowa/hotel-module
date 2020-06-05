@@ -16,3 +16,7 @@
 
 ## Version 2.0.2
 - Facebook Page ID
+
+## Version 2.1.0
+- add API get hotels
+- add sort

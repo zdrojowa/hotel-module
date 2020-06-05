@@ -5,6 +5,13 @@ hotels:
     - GET
   permission: HotelModule
 
+hotels.sort:
+  path: /dashboard/hotels/sort
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@sort
+  methods:
+    - GET
+  permission: HotelModule
+
 hotels.ajax:
   path: /dashboard/hotels/ajax
   controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@ajax
@@ -47,3 +54,10 @@ hotels.destroy:
   methods:
     - DELETE
   permission: HotelModule.delete
+
+hotels.saveOrder:
+  path: /dashboard/hotels/saveOrder
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@saveOrder
+  methods:
+    - POST
+  permission: HotelModule.edit

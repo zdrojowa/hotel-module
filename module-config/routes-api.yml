@@ -1,5 +1,5 @@
-hotels.get:
+api.hotels:
   path: /hotels
-  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@getAll
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@get
   methods:
     - GET
