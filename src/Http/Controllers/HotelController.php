@@ -84,6 +84,7 @@ class HotelController extends Controller
         }
 
         if ($hotel === null) {
+            $request->merge(['order' => Hotels::query()->count() + 1]);
             return Hotels::create($request->all());
         }
 
