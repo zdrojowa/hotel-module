@@ -17,6 +17,6 @@ class ApiController extends Controller
     public function cities(): JsonResponse
     {
         $cities = Hotels::query()->pluck('city');
-        return response()->json(City::query()->whereIn('city', $cities)->orderBy('order')->get());
+        return response()->json(City::query()->whereIn('_id', $cities)->orderBy('order')->get());
     }
 }

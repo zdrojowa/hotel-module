@@ -26,3 +26,6 @@
 
 ## Version 3.0.0
 - add cities
+
+## Version 3.0.1
+- fix cities API
