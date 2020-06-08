@@ -37,8 +37,10 @@
             },
             headers: [
                 {
-                    name: 'L.p',
-                    type: 'index',
+                    name: 'Order',
+                    type: 'text',
+                    ajax: 'order',
+                    orderable: true
                 },
                 {
                     name: 'Nazwa',
@@ -50,12 +52,6 @@
                     name: 'Pelna nazwa',
                     type: 'text',
                     ajax: 'full_name',
-                    orderable: true
-                },
-                {
-                    name: 'Order',
-                    type: 'text',
-                    ajax: 'order',
                     orderable: true
                 },
                 {

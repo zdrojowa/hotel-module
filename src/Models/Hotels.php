@@ -3,6 +3,7 @@
 namespace Selene\Modules\HotelModule\Models;
 
 use Jenssegers\Mongodb\Eloquent\Model;
+use Selene\Modules\CityModule\Models\City;
 
 class Hotels extends Model
 {
@@ -18,7 +19,7 @@ class Hotels extends Model
         'reservation',
         'reception',
         'coordinates',
-        'localization',
+        'city',
         'street',
         'address',
         'arrive',
@@ -37,4 +38,9 @@ class Hotels extends Model
      * @var string
      */
     protected $connection = 'mongodb';
+
+    public function getCity()
+    {
+        return City::find($this->city);
+    }
 }

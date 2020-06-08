@@ -11,7 +11,7 @@ class HotelStoreRequest extends FormRequest
         return [
             'name'                  => 'required|string|max:250|unique:mongodb.hotels',
             'full_name'             => 'required|string|max:250|unique:mongodb.hotels',
-            'localization'          => 'required|string|max:250',
+            'city'                  => 'required',
             'coordinates.latitude'  => 'required|numeric',
             'coordinates.longitude' => 'required|numeric',
             'logo_file'             => 'image',
@@ -23,7 +23,7 @@ class HotelStoreRequest extends FormRequest
     {
         return [
             'full_name.required'     => 'To pole jest wymagane.',
-            'localization.required'  => 'To pole jest wymagane.',
+            'city.required'          => 'To pole jest wymagane.',
             'name.required'          => 'To pole jest wymagane.',
             'coordinates.*.required' => 'To pole jest wymagane.',
             '*.string'               => 'To pole wymaga podania wartosci alfanumerycznej.',

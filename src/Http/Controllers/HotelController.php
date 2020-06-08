@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Selene\Modules\CityModule\Models\City;
 use Selene\Modules\DashboardModule\ZdrojowaTable;
 use Selene\Modules\HotelModule\Http\Requests\HotelStoreRequest;
 use Selene\Modules\HotelModule\Models\Hotels;
@@ -35,12 +36,19 @@ class HotelController extends Controller
 
     public function create()
     {
-        return view('HotelModule::edit', ['statuses' => HotelsStatusesEnum::toArray()]);
+        return view('HotelModule::edit', [
+            'statuses' => HotelsStatusesEnum::toArray(),
+            'cities'   => City::query()->orderBy('order')->get()
+        ]);
     }
 
     public function edit(Hotels $hotel = null)
     {
-        return view('HotelModule::edit', ['hotel' => $hotel, 'statuses' => HotelsStatusesEnum::toArray()]);
+        return view('HotelModule::edit', [
+            'hotel'    => $hotel,
+            'statuses' => HotelsStatusesEnum::toArray(),
+            'cities'   => City::query()->orderBy('order')->get()
+        ]);
     }
 
     public function store(HotelStoreRequest $request): RedirectResponse

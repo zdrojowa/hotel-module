@@ -3,3 +3,9 @@ api.hotels:
   controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@get
   methods:
     - GET
+
+api.cities:
+  path: /hotels/cities
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@cities
+  methods:
+    - GET

@@ -17,8 +17,8 @@
                 <div class="card" id="app">
                     <div class="card-header clearfix">
                         <h4 class="card-title float-left">Sortuj Hotele</h4>
-                        <a href="{{route('HotelModule::hotels')}}" class="text-warning float-right">
-                            <i class="mdi mdi-view-list"></i> Do listy
+                        <a href="{{route('HotelModule::hotels')}}" class="btn btn-primary float-right">
+                            <i class="mdi mdi-keyboard-backspace"></i> Do listy
                         </a>
                     </div>
                     <div class="card-body">

@@ -146,10 +146,17 @@
                             </div>
 
                             <div class="d-flex justify-content-center">
-                                <div class="form-group @error('localization') has-danger @enderror col-6">
+                                <div class="form-group @error('city') has-danger @enderror col-6">
                                     <label for="">Miasto</label>
-                                    <input type="text" class="form-control" name="localization" value="{{ isset($hotel) ? $hotel->localization : old('localization')}}">
-                                    @error('localization')
+                                    @php
+                                        $currentCity = isset($hotel) ? $hotel->city : old('city');
+                                    @endphp
+                                    <select name="city" class="form-control">
+                                        @foreach($cities as $city)
+                                            <option value="{{ $city->_id }}" @if($currentCity === $city->_id) selected @endif>{{ $city->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('city')
                                         <small class="error mt-1 text-danger d-block">{{ $message }}</small>
                                     @enderror
                                 </div>
