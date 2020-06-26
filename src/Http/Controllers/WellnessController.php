@@ -66,6 +66,23 @@ class WellnessController extends Controller
             $request->merge(['logo' => null]);
         }
 
+        if ($request->has('coordinates')) {
+            $coordinates = $request->get('coordinates');
+            if ($coordinates['latitude'] === 'null') {
+                $coordinates['latitude'] = null;
+            }
+            if ($coordinates['longitude'] === 'null') {
+                $coordinates['longitude'] = null;
+            }
+            $request->merge(['coordinates' => $coordinates]);
+        }
+
+        foreach ($request->all() as $key => $val) {
+            if ($val === 'null') {
+                $request->merge([$key => null]);
+            }
+        }
+
         if ($wellness === null) {
             $request->merge(['order' => Wellness::query()->count() + 1]);
             return Wellness::create($request->all());

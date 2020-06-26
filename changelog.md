@@ -32,3 +32,6 @@
 
 ## Version 4.0.0
 - add Wellness
+
+## Version 4.0.1
+- bugfix store
