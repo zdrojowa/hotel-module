@@ -9,3 +9,15 @@ api.cities:
   controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@cities
   methods:
     - GET
+
+api.wellness:
+  path: /hotels/wellness
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@wellness
+  methods:
+    - GET
+
+api.hotels-wellness:
+  path: /hotels-wellness
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@wellness
+  methods:
+    - GET

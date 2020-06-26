@@ -1,3 +1,6 @@
+@import "~vue-multiselect/dist/vue-multiselect.min.css";
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+
 span.mdi-star.checked {
     color: orange;
 }
@@ -8,6 +11,7 @@ span.mdi-star.checked {
 
 .item-container {
     margin: 0;
+    display: contents;
 }
 
 .list-group {
@@ -22,5 +26,11 @@ span.mdi-star.checked {
 
     i.mdi {
         font-size: 25px;
+        color: #ffffff;
     }
+}
+
+div.file-item {
+    display: flex;
+    justify-content: space-between;
 }

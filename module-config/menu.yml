@@ -2,4 +2,12 @@ hotels:
   name: Hotele
   icon: mdi mdi-office-building
   permission: HotelModule
-  route: HotelModule::hotels
+  children:
+    hotele:
+      name: Hotele
+      permission: HotelModule
+      route: HotelModule::hotels
+    wellness:
+      name: Wellness
+      permission: HotelModule
+      route: HotelModule::wellness

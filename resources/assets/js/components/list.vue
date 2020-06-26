@@ -16,7 +16,7 @@
 
     export default {
         name: 'list',
-        props: {},
+        props: ['name'],
 
         data() {
             return {
@@ -32,7 +32,7 @@
 
             getList() {
                 let self = this;
-                axios.get('/api/hotels')
+                axios.get('/api/' + this.name)
                     .then(res => {
                         if (typeof res.data == 'undefined') {
                             self.list = [];
@@ -49,7 +49,7 @@
                 formData.append('_method', 'POST');
                 formData.append('list', JSON.stringify(this.list));
 
-                axios.post('/dashboard/hotels/saveOrder', formData, {
+                axios.post('/dashboard/' + this.name + '/saveOrder', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

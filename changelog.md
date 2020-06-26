@@ -29,3 +29,6 @@
 
 ## Version 3.0.1
 - fix cities API
+
+## Version 4.0.0
+- add Wellness
