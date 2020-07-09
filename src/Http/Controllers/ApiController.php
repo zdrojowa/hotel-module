@@ -11,9 +11,26 @@ use Selene\Modules\HotelModule\Models\Wellness;
 
 class ApiController extends Controller
 {
-    public function get(): JsonResponse
+    public function get(Request $request): JsonResponse
     {
-        return response()->json(Hotels::query()->orderBy('order')->get());
+        $hotels = Hotels::query()->orderBy('order');
+        if ($request->has('id')) {
+            $hotels->where('_id', '=', $request->get('id'));
+            return response()->json($hotels->first());
+        }
+
+        if ($request->has('per_page')) {
+            return response()->json(
+                $hotels->paginate(
+                    $request->get('per_page') >> 0,
+                    ['*'],
+                    'page',
+                    $request->get('page', 1)
+                )
+            );
+        }
+
+        return response()->json($hotels->get());
     }
 
     public function cities(): JsonResponse

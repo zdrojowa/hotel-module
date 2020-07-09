@@ -35,3 +35,6 @@
 
 ## Version 4.0.1
 - bugfix store
+
+## Version 4.0.2
+- develop api/hotels
