@@ -14,6 +14,9 @@ Vue.component('media-selector', require('./components/media-selector.vue').defau
 Vue.component('nested', require('./components/nested.vue').default);
 Vue.component('list', require('./components/list.vue').default);
 Vue.component('wellness', require('./components/wellness.vue').default);
+Vue.component('apartment', require('./components/apartment.vue').default);
+Vue.component('convenience', require('./components/convenience.vue').default);
+Vue.component('cost', require('./components/cost.vue').default);
 Vue.component('files', require('./components/files.vue').default);
 
 const app = new Vue({

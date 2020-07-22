@@ -38,3 +38,6 @@
 
 ## Version 4.0.2
 - develop api/hotels
+
+## Version 5.0.0
+- apartments

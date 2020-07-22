@@ -21,7 +21,9 @@ class HotelController extends Controller
 {
     public function index()
     {
-        return view('HotelModule::list');
+        return view('HotelModule::list', [
+            'hotels' => Hotels::query()->orderBy('order')->get()
+        ]);
     }
 
     public function sort()

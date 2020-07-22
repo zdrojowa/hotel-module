@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Selene\Modules\CityModule\Models\City;
+use Selene\Modules\HotelModule\Models\Apartment;
 use Selene\Modules\HotelModule\Models\Hotels;
 use Selene\Modules\HotelModule\Models\Wellness;
 
@@ -60,5 +61,32 @@ class ApiController extends Controller
         }
 
         return response()->json($wellness->get());
+    }
+
+    public function apartments(Request $request): JsonResponse
+    {
+        $apartments = Apartment::query()->orderBy('order');
+
+        if ($request->has('id')) {
+            $apartments->where('_id', '=', $request->get('id'));
+            return response()->json($apartments->first());
+        }
+
+        if ($request->has('hotel')) {
+            $apartments->where('hotel', '=', $request->get('hotel'));
+        }
+
+        if ($request->has('per_page')) {
+            return response()->json(
+                $apartments->paginate(
+                    $request->get('per_page') >> 0,
+                    ['*'],
+                    'page',
+                    $request->get('page', 1)
+                )
+            );
+        }
+
+        return response()->json($apartments->get());
     }
 }

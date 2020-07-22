@@ -16,7 +16,17 @@
 
     export default {
         name: 'list',
-        props: ['name'],
+        props: {
+            name: {
+                type: String,
+                required: true
+            },
+            hotel: {
+                type: String,
+                required: false,
+                default: ''
+            }
+        },
 
         data() {
             return {
@@ -28,11 +38,21 @@
             this.getList();
         },
 
+        computed: {
+            url() {
+                let url = '/api/' + this.name;
+                if (this.hotel != null) {
+                    url += '?hotel=' + this.hotel;
+                }
+                return url;
+            }
+        },
+
         methods: {
 
             getList() {
                 let self = this;
-                axios.get('/api/' + this.name)
+                axios.get(this.url)
                     .then(res => {
                         if (typeof res.data == 'undefined') {
                             self.list = [];

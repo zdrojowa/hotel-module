@@ -12,9 +12,15 @@ use Selene\Modules\HotelModule\Models\Wellness;
 
 class WellnessController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('HotelModule::wellness.list');
+        $wellness = Wellness::query()->orderBy('order');
+
+        if ($request->has('hotel')) {
+            $wellness->where('hotel', '=', $request->get('hotel'));
+        }
+
+        return view('HotelModule::wellness.list', ['wellnesses' => $wellness->get()]);
     }
 
     public function sort()

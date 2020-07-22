@@ -62,6 +62,70 @@ hotels.saveOrder:
     - POST
   permission: HotelModule.edit
 
+apartments:
+  path: /dashboard/hotels-apartments
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApartmentController@index
+  methods:
+    - GET
+  permission: HotelModule
+
+apartments.sort:
+  path: /dashboard/hotels-apartments/sort
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApartmentController@sort
+  methods:
+    - GET
+  permission: HotelModule
+
+apartments.ajax:
+  path: /dashboard/hotels-apartments/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApartmentController@ajax
+  methods:
+    - POST
+  permission: HotelModule
+
+apartments.create:
+  path: /dashboard/hotels-apartments/create
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApartmentController@create
+  methods:
+    - GET
+  permission: HotelModule.add
+
+apartments.store:
+  path: /dashboard/hotels-apartments/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApartmentController@store
+  methods:
+    - POST
+  permission: HotelModule.add
+
+apartments.edit:
+  path: /dashboard/hotels-apartments/{{apartment}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApartmentController@edit
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+apartments.update:
+  path: /dashboard/hotels-apartments/{{apartment}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApartmentController@update
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+apartments.destroy:
+  path: /dashboard/hotels-apartments/{{apartment}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApartmentController@destroy
+  methods:
+    - DELETE
+  permission: HotelModule.delete
+
+apartments.saveOrder:
+  path: /dashboard/hotels-apartments/saveOrder
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApartmentController@saveOrder
+  methods:
+    - POST
+  permission: HotelModule.edit
+
 wellness:
   path: /dashboard/hotels-wellness
   controller: Selene\Modules\HotelModule\Http\Controllers\WellnessController@index

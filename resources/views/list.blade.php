@@ -7,15 +7,58 @@
                 <div class="card">
                     <div class="card-header clearfix">
                         <h4 class="card-title float-left">Lista wszystkich Hoteli</h4>
-                        <a href="{{route('HotelModule::hotels.create')}}" class="btn btn-success float-right mr-2">
+                        <a href="{{ route('HotelModule::hotels.create') }}" class="btn btn-success float-right mr-2">
                             <i class="mdi mdi-plus-circle"></i> Dodaj
                         </a>
-                        <a href="{{route('HotelModule::hotels.sort')}}" class="btn btn-primary float-right mr-2">
+                        <a href="{{ route('HotelModule::hotels.sort') }}" class="btn btn-primary float-right mr-2">
                             <i class="mdi mdi-sort"></i> Sortuj
                         </a>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped"></table>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td>Order</td>
+                                    <td>Nazwa</td>
+                                    <td>Data utworzenia</td>
+                                    <td>Akcje</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($hotels as $hotel)
+                                    <tr>
+                                        <td>{{ $hotel->order }}</td>
+                                        <td>{{ $hotel->name }}</td>
+                                        <td>{{ $hotel->created_at }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="{{ $hotel->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Akcje
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="{{ $hotel->id }}">
+                                                    <a class="dropdown-item" href="{{ route('HotelModule::apartments', ['hotel' => $hotel->id ]) }}" target="_blank">
+                                                        Apartamenty
+                                                    </a>
+                                                    <a class="dropdown-item" href="{{ route('HotelModule::wellness', ['hotel' => $hotel->id ]) }}" target="_blank">
+                                                        Wellness
+                                                    </a>
+                                                    <a class="dropdown-item" href="{{ route('HotelModule::hotels.edit', ['hotel' => $hotel->id ]) }}">
+                                                        <button class="btn btn-primary">
+                                                            <i class="mdi mdi-pencil"></i>
+                                                        </button>
+                                                    </a>
+                                                    <a class="dropdown-item remove" href="{{ route('HotelModule::hotels.destroy', ['hotel' => $hotel->id ]) }}">
+                                                        <button class="btn btn-danger">
+                                                            <i class="mdi mdi-delete"></i>
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -25,64 +68,41 @@
 
 @section('javascripts')
     @parent
-
     <script>
-        $('.table').zdrojowaTable({
-            ajax: {
-                url: "{{route('HotelModule::hotels.ajax')}}",
-                method: "POST",
-                data: {
-                    "_token": "{{csrf_token()}}"
-                },
-            },
-            headers: [
-                {
-                    name: 'Order',
-                    type: 'text',
-                    ajax: 'order',
-                    orderable: true
-                },
-                {
-                    name: 'Nazwa',
-                    type: 'text',
-                    ajax: 'name',
-                    orderable: true,
-                },
-                {
-                    name: 'Pelna nazwa',
-                    type: 'text',
-                    ajax: 'full_name',
-                    orderable: true
-                },
-                {
-                    name: 'Data utworzenia',
-                    orderable: true,
-                    ajax: 'created_at'
-                },
-                {
-                    name: 'Akcje',
-                    ajax: 'key',
-                    type: 'actions',
-                    buttons: [
-                        @permission('HotelModule.edit')
-                        {
-                            color: 'primary',
-                            icon: 'mdi mdi-pencil',
-                            class: 'remove',
-                            url: "{{route('HotelModule::hotels.edit', ['hotel' => '%%id%%'])}}"
+        $(document).ready(function(){
+
+            $('a.remove').click(function(e){
+                e.preventDefault();
+                let url = $(this).attr('href');
+
+                Swal.fire({
+                    title: 'Na pewno chcesz to zrobić?',
+                    text: 'Nie będzie można tego przywrócić!',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d53f3a',
+                    confirmButtonText: 'Tak',
+                    cancelButtonText: 'Powrót'
+                }).then(result => {
+                    if(!result.value) return;
+
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        data: {
+                            "_method": "DELETE",
+                            "_token": $('meta[name="csrf-token"]').attr("content")
                         },
-                        @endpermission
-                        @permission('HotelModule.delete')
-                        {
-                            color: 'danger',
-                            icon: 'mdi mdi-delete',
-                            class: 'ZdrojowaTable--remove-action',
-                            url: "{{route('HotelModule::hotels.destroy', ['hotel' => '%%id%%'])}}"
+                        success: function () {
+                            Swal.fire('Usunięto!', 'Akcja zakończyła się sukcesem', 'success');
+                            location.reload() ;
                         },
-                        @endpermission
-                    ]
-                }
-            ]
+                        error: function () {
+                            Swal.fire('Wystąpił błąd!', 'Wystąpił błąd po stronie serwera', 'error');
+                        }
+                    })
+                })
+            });
         });
     </script>
 @endsection
