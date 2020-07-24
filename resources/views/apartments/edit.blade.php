@@ -33,14 +33,6 @@
                     @if(isset($apartment))
                         <b-tab>
                             <template v-slot:title>
-                                <b-icon-credit-card></b-icon-credit-card> Ceny
-                            </template>
-                            <cost :_id=`{{ $apartment->_id }}`>
-                                {{ csrf_field() }}
-                            </cost>
-                        </b-tab>
-                        <b-tab>
-                            <template v-slot:title>
                                 <b-icon-plus></b-icon-plus> Udogodnienia
                             </template>
                             <convenience :_id=`{{ $apartment->_id }}`>

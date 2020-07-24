@@ -41,3 +41,6 @@
 
 ## Version 5.0.0
 - apartments
+
+## Version 5.0.1
+- apartments fix square & price

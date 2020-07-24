@@ -37,8 +37,25 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Powierzchniea, m<sup>2</sup></label>
+                    <label>Cena</label>
+                    <input type="number" class="form-control" placeholder="Wpisz cenę" v-model.lazy="price" step="0.01">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Powierzchnia, m<sup>2</sup></label>
                     <input type="number" class="form-control" placeholder="Wpisz powierzchnię" v-model.lazy="square" step="0.01">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Powierzchnia do, m<sup>2</sup></label>
+                    <input type="number" class="form-control" placeholder="Wpisz powierzchnię do" v-model.lazy="square_to" step="0.01">
                 </div>
             </div>
         </div>
@@ -67,7 +84,9 @@
                 name: '',
                 hotel: {},
                 guests: 0,
+                price: 0,
                 square: 0,
+                square_to: 0,
                 errors: {
                     name: {}
                 }
@@ -136,10 +155,12 @@
                 if (self._id) {
                     axios.get('/api/hotels/apartments?id=' + self._id)
                         .then(res => {
-                            self.id     = res.data.id;
-                            self.name   = res.data.name;
-                            self.guests = res.data.guests;
-                            self.square = res.data.square;
+                            self.id        = res.data.id;
+                            self.name      = res.data.name;
+                            self.guests    = res.data.guests;
+                            self.price     = res.data.price;
+                            self.square    = res.data.square;
+                            self.square_to = res.data.square_to;
 
                             self.hotel = self.getItem(self.hotels, '_id', res.data.hotel);
 
@@ -168,7 +189,9 @@
                     formData.append('name', this.name);
                     formData.append('hotel', this.hotel._id);
                     formData.append('guests', this.guests);
+                    formData.append('price', this.price);
                     formData.append('square', this.square);
+                    formData.append('square_to', this.square_to);
 
                     axios.post(this.url, formData, {
                         headers: {

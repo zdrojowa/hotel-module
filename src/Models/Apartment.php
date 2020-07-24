@@ -22,7 +22,8 @@ class Apartment extends Model
         'hotel',
         'guests',
         'square',
-        'costs',
+        'square_to',
+        'price',
         'conveniences',
         'order'
     ];

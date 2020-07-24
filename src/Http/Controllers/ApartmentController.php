@@ -78,7 +78,7 @@ class ApartmentController extends Controller
     private function save(Request $request, Apartment $apartment = null) {
 
         foreach ($request->all() as $key => $val) {
-            if ($val === 'null') {
+            if ($val === 'null' || $val == '') {
                 $request->merge([$key => null]);
             }
         }
@@ -88,10 +88,6 @@ class ApartmentController extends Controller
                 'order' => Apartment::query()->where('hotel', '=', $request->get('hotel'))->count() + 1
             ]);
             return Apartment::create($request->all());
-        }
-
-        if ($request->has('costs')) {
-            $request->merge(['costs' => json_decode($request->get('costs'))]);
         }
 
         if ($request->has('conveniences')) {
