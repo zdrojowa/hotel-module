@@ -31,6 +31,11 @@ class Hotels extends Model
         'mail',
         'copyright',
         'marker',
+        'check_in',
+        'check_out',
+        'children',
+        'animals',
+        'parking',
         'order'
     ];
 

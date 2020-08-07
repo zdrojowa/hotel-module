@@ -93,9 +93,27 @@ class HotelController extends Controller
             }
         }
 
+        foreach ($request->all() as $key => $val) {
+            if ($val === 'null' || $val == '') {
+                $request->merge([$key => null]);
+            }
+        }
+
         if ($hotel === null) {
             $request->merge(['order' => Hotels::query()->count() + 1]);
             return Hotels::create($request->all());
+        }
+
+        if ($request->has('animals')) {
+            $request->merge(['animals' => $request->get('animals', false) === 'true']);
+        }
+
+        if ($request->has('children')) {
+            $request->merge(['children' => json_decode($request->get('children'))]);
+        }
+
+        if ($request->has('parking')) {
+            $request->merge(['parking' => json_decode($request->get('parking'))]);
         }
 
         return $hotel->update($request->all());

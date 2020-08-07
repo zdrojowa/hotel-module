@@ -44,3 +44,10 @@
 
 ## Version 5.0.1
 - apartments fix square & price
+
+## Version 6.0.0
++ check-in
++ check-out
++ animals
++ children
++ parking

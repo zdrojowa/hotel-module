@@ -9,7 +9,7 @@
         }
     ],
     "homepage": "https://github.com/zdrojowa/hotelmodule",
-    "keywords": ["Laravel", "HotelModule"],
+    "keywords": ["Laravel", "HotelModule", "Vue"],
     "require": {
         "illuminate/support": "^6.0",
         "zdrojowa/cms-kernel": "^2.0",

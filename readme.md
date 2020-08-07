@@ -16,6 +16,8 @@ $ composer require zdrojowa/hotel-module
 ## NPM required:
 
 ``` bash
+"@ckeditor/ckeditor5-vue": "1.0.1",
+"@ckeditor/ckeditor5-build-classic": "18.0.0",
 "axios": "^0.19",
 "bootstrap-vue": "2.11.0"
 "vue": "^2.6.10",
