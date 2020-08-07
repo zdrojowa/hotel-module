@@ -60,3 +60,6 @@
 
 ## Version 7.0.0
 - hotels: new edit style
+
+## Version 7.0.1
+- hotels: add label

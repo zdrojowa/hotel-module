@@ -16,6 +16,7 @@ class Hotels extends Model
         'logo',
         'photo',
         'star',
+        'label',
         'reservation',
         'reception',
         'coordinates',

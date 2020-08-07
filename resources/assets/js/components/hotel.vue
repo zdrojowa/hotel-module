@@ -10,17 +10,24 @@
 
         <div class="row">
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Nazwa</label>
                     <b-form-input type="text" v-model.lazy="name" :state="name.length > 0"></b-form-input>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Pełna nazwa</label>
                     <b-form-input type="text" v-model.lazy="full_name"></b-form-input>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Etykieta</label>
+                    <b-form-input type="text" v-model.lazy="label"></b-form-input>
                 </div>
             </div>
         </div>
@@ -178,6 +185,7 @@
                 id: 0,
                 name: '',
                 full_name: '',
+                label: '',
                 city: {},
                 star: 0,
                 logo: '',
@@ -264,6 +272,7 @@
                         self.id          = res.data._id;
                         self.name        = res.data.name;
                         self.full_name   = res.data.full_name;
+                        self.label       = res.data.label;
                         self.logo        = res.data.logo;
                         self.photo       = res.data.photo;
                         self.marker      = res.data.marker;
@@ -300,6 +309,7 @@
                     formData.append('_method', this.id ? 'PUT' : 'POST');
                     formData.append('name', this.name);
                     formData.append('full_name', this.full_name);
+                    formData.append('label', this.label);
                     formData.append('city', this.city._id);
                     formData.append('logo', this.logo);
                     formData.append('photo', this.photo);
