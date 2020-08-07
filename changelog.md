@@ -57,3 +57,6 @@
 
 ## Version 6.0.2
 - fix edit hotel view
+
+## Version 7.0.0
+- hotels: new edit style

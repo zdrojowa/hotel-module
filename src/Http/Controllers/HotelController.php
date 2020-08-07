@@ -53,7 +53,7 @@ class HotelController extends Controller
         ]);
     }
 
-    public function store(HotelStoreRequest $request): RedirectResponse
+    public function store(HotelStoreRequest $request)
     {
         $hotel = $this->save($request);
         if ($hotel) {
@@ -62,18 +62,17 @@ class HotelController extends Controller
         }
 
         $request->session()->flash('alert-error', 'Ooops. Try again.');
-        return redirect()->back();
+        return ['redirect' => route('HotelModule::hotels.edit', ['hotel' => $hotel])];
     }
 
-    public function update(Request $request, Hotels $hotel): RedirectResponse
+    public function update(Request $request, Hotels $hotel)
     {
         if ($this->save($request, $hotel)) {
             $request->session()->flash('alert-success', 'Hotel został pomyślnie zaktualizowany.');
         } else {
             $request->session()->flash('alert-error', 'Ooops. Try again.');
         }
-
-        return redirect()->back();
+        return ['redirect' => route('HotelModule::hotels.edit', ['hotel' => $hotel])];
     }
 
     private function save(Request $request, Hotels $hotel = null) {

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import draggable from 'vuedraggable';
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import { BootstrapVue, IconsPlugin, FormRatingPlugin } from 'bootstrap-vue';
 import MultiSelect from 'vue-multiselect'
 
 window.axios = require('axios');
@@ -9,6 +9,7 @@ window.axios = require('axios');
 Vue.use(CKEditor);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+Vue.use(FormRatingPlugin);
 
 Vue.component('multiselect', MultiSelect);
 Vue.component('draggable', draggable);
@@ -23,6 +24,7 @@ Vue.component('socials', require('./components/socials.vue').default);
 Vue.component('info', require('./components/info.vue').default);
 Vue.component('children', require('./components/children.vue').default);
 Vue.component('parking', require('./components/parking.vue').default);
+Vue.component('hotel', require('./components/hotel.vue').default);
 
 const app = new Vue({
     el: '#app'
