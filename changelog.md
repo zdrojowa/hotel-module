@@ -54,3 +54,6 @@
 
 ## Version 6.0.1
 - hotels list style
+
+## Version 6.0.2
+- fix edit hotel view

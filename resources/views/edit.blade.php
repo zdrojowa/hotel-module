@@ -234,7 +234,7 @@
                         </b-tab>
                         <b-tab>
                             <template v-slot:title>
-                                <bold>P</bold> Parking
+                                P Parking
                             </template>
                             <parking :_id=`{{ $hotel->_id }}`>
                                 {{ csrf_field() }}
