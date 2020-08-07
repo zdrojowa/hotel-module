@@ -51,3 +51,6 @@
 + animals
 + children
 + parking
+
+## Version 6.0.1
+- hotels list style

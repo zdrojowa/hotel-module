@@ -22,6 +22,7 @@
                                     <td>Nazwa</td>
                                     <td>Data utworzenia</td>
                                     <td>Akcje</td>
+                                    <td>Objekty</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,9 +32,19 @@
                                         <td>{{ $hotel->name }}</td>
                                         <td>{{ $hotel->created_at }}</td>
                                         <td>
+                                            <div>
+                                                <a class="btn btn-sm btn-primary" href="{{ route('HotelModule::hotels.edit', ['hotel' => $hotel->id ]) }}">
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                                <a class="btn btn-sm btn-danger remove" href="{{ route('HotelModule::hotels.destroy', ['hotel' => $hotel->id ]) }}">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="{{ $hotel->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Akcje
+                                                    Objekty
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="{{ $hotel->id }}">
                                                     <a class="dropdown-item" href="{{ route('HotelModule::apartments', ['hotel' => $hotel->id ]) }}" target="_blank">
@@ -41,16 +52,6 @@
                                                     </a>
                                                     <a class="dropdown-item" href="{{ route('HotelModule::wellness', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Wellness
-                                                    </a>
-                                                    <a class="dropdown-item" href="{{ route('HotelModule::hotels.edit', ['hotel' => $hotel->id ]) }}">
-                                                        <button class="btn btn-primary">
-                                                            <i class="mdi mdi-pencil"></i>
-                                                        </button>
-                                                    </a>
-                                                    <a class="dropdown-item remove" href="{{ route('HotelModule::hotels.destroy', ['hotel' => $hotel->id ]) }}">
-                                                        <button class="btn btn-danger">
-                                                            <i class="mdi mdi-delete"></i>
-                                                        </button>
                                                     </a>
                                                 </div>
                                             </div>
