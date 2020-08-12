@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Selene\Modules\CityModule\Models\City;
 use Selene\Modules\HotelModule\Models\Apartment;
 use Selene\Modules\HotelModule\Models\Hotels;
+use Selene\Modules\HotelModule\Models\Kitchen;
+use Selene\Modules\HotelModule\Models\KitchenType;
 use Selene\Modules\HotelModule\Models\Wellness;
 
 class ApiController extends Controller
@@ -88,5 +90,44 @@ class ApiController extends Controller
         }
 
         return response()->json($apartments->get());
+    }
+
+    public function kitchenTypes(Request $request): JsonResponse
+    {
+        $types = KitchenType::query()->orderBy('name');
+
+        if ($request->has('id')) {
+            $types->where('_id', '=', $request->get('id'));
+            return response()->json($types->first());
+        }
+
+        return response()->json($types->get());
+    }
+
+    public function kitchen(Request $request): JsonResponse
+    {
+        $kitchens = Kitchen::query()->orderBy('order');
+
+        if ($request->has('id')) {
+            $kitchens->where('_id', '=', $request->get('id'));
+            return response()->json($kitchens->first());
+        }
+
+        if ($request->has('hotel')) {
+            $kitchens->where('hotel', '=', $request->get('hotel'));
+        }
+
+        if ($request->has('per_page')) {
+            return response()->json(
+                $kitchens->paginate(
+                    $request->get('per_page') >> 0,
+                    ['*'],
+                    'page',
+                    $request->get('page', 1)
+                )
+            );
+        }
+
+        return response()->json($kitchens->get());
     }
 }

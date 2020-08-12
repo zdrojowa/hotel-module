@@ -2,4 +2,12 @@ hotels:
   name: Hotele
   icon: mdi mdi-office-building
   permission: HotelModule
-  route: HotelModule::hotels
+  children:
+    hotels:
+      name: Hotele
+      permission: HotelModule
+      route: HotelModule::hotels
+    kitchen:
+      name: Kuchnia
+      permission: HotelModule
+      route: HotelModule::kitchen.type

@@ -53,6 +53,9 @@
                                                     <a class="dropdown-item" href="{{ route('HotelModule::wellness', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Wellness
                                                     </a>
+                                                    <a class="dropdown-item" href="{{ route('HotelModule::kitchen', ['hotel' => $hotel->id ]) }}" target="_blank">
+                                                        Kuchnia
+                                                    </a>
                                                 </div>
                                             </div>
                                         </td>

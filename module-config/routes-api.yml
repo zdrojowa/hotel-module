@@ -33,3 +33,21 @@ api.hotels-wellness:
   controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@wellness
   methods:
     - GET
+
+api.kitchen-type:
+  path: /hotels/kitchen-types
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@kitchenTypes
+  methods:
+    - GET
+
+api.kitchen:
+  path: /hotels/kitchen
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@kitchen
+  methods:
+    - GET
+
+api.hotels-kitchen:
+  path: /hotels-kitchen
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@kitchen
+  methods:
+    - GET

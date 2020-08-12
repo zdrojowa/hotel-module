@@ -189,3 +189,117 @@ wellness.saveOrder:
   methods:
     - POST
   permission: HotelModule.edit
+
+kitchen:
+  path: /dashboard/hotels-kitchen
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenController@index
+  methods:
+    - GET
+  permission: HotelModule
+
+kitchen.sort:
+  path: /dashboard/hotels-kitchen/sort
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenController@sort
+  methods:
+    - GET
+  permission: HotelModule
+
+kitchen.ajax:
+  path: /dashboard/hotels-kitchen/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenController@ajax
+  methods:
+    - POST
+  permission: HotelModule
+
+kitchen.create:
+  path: /dashboard/hotels-kitchen/create
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenController@create
+  methods:
+    - GET
+  permission: HotelModule.add
+
+kitchen.store:
+  path: /dashboard/hotels-kitchen/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenController@store
+  methods:
+    - POST
+  permission: HotelModule.add
+
+kitchen.edit:
+  path: /dashboard/hotels-kitchen/{{kitchen}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenController@edit
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+kitchen.update:
+  path: /dashboard/hotels-kitchen/{{kitchen}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenController@update
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+kitchen.destroy:
+  path: /dashboard/hotels-kitchen/{{kitchen}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenController@destroy
+  methods:
+    - DELETE
+  permission: HotelModule.delete
+
+kitchen.saveOrder:
+  path: /dashboard/hotels-kitchen/saveOrder
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenController@saveOrder
+  methods:
+    - POST
+  permission: HotelModule.edit
+
+kitchen.type:
+  path: /dashboard/hotels-kitchen-type
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenTypeController@index
+  methods:
+    - GET
+  permission: HotelModule
+
+kitchen.type.ajax:
+  path: /dashboard/hotels-kitchen-type/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenTypeController@ajax
+  methods:
+    - POST
+  permission: HotelModule
+
+kitchen.type.create:
+  path: /dashboard/hotels-kitchen-type/create
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenTypeController@create
+  methods:
+    - GET
+  permission: HotelModule.add
+
+kitchen.type.store:
+  path: /dashboard/hotels-kitchen-type/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenTypeController@store
+  methods:
+    - POST
+  permission: HotelModule.add
+
+kitchen.type.edit:
+  path: /dashboard/hotels-kitchen-type/{{type}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenTypeController@edit
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+kitchen.type.update:
+  path: /dashboard/hotels-kitchen-type/{{type}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenTypeController@update
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+kitchen.type.destroy:
+  path: /dashboard/hotels-kitchen-type/{{type}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\KitchenTypeController@destroy
+  methods:
+    - DELETE
+  permission: HotelModule.delete

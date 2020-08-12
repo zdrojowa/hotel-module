@@ -63,3 +63,6 @@
 
 ## Version 7.0.1
 - hotels: add label
+
+## Version 8.0.0
+- add Kitchen

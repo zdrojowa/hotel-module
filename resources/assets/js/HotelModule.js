@@ -22,9 +22,12 @@ Vue.component('convenience', require('./components/convenience.vue').default);
 Vue.component('files', require('./components/files.vue').default);
 Vue.component('socials', require('./components/socials.vue').default);
 Vue.component('info', require('./components/info.vue').default);
-Vue.component('children', require('./components/children.vue').default);
-Vue.component('parking', require('./components/parking.vue').default);
 Vue.component('hotel', require('./components/hotel.vue').default);
+Vue.component('kitchen-type', require('./components/kitchen-type.vue').default);
+Vue.component('kitchen', require('./components/kitchen.vue').default);
+Vue.component('awards', require('./components/awards.vue').default);
+Vue.component('description', require('./components/description.vue').default);
+Vue.component('gallery', require('./components/gallery.vue').default);
 
 const app = new Vue({
     el: '#app'

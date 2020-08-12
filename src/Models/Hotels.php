@@ -29,6 +29,7 @@ class Hotels extends Model
         'instagram',
         'twitter',
         'linkedin',
+        'video',
         'mail',
         'copyright',
         'marker',

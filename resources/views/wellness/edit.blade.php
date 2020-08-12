@@ -35,7 +35,7 @@
                             <template v-slot:title>
                                 <b-icon-files></b-icon-files> Pliki
                             </template>
-                            <files :_id=`{{ $wellness->_id }}`>
+                            <files :_id=`{{ $wellness->_id }}` url_get="/api/hotels/wellness" url_post="/dashboard/hotels-wellness/">
                                 {{ csrf_field() }}
                             </files>
                         </b-tab>

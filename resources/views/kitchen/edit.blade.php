@@ -18,50 +18,58 @@
                 <b-tabs card>
                     <b-tab active>
                         <template v-slot:title>
-                            <b-icon-pencil></b-icon-pencil> Hotel
+                            <b-icon-cup></b-icon-cup> Kuchnia
                         </template>
-                        @if (isset($hotel))
-                            <hotel :_id=`{{ $hotel->_id }}`>
+                        @if (isset($kitchen))
+                            <kitchen :_id=`{{ $kitchen->_id }}`>
                                 {{ csrf_field() }}
-                            </hotel>
+                            </kitchen>
                         @else
-                            <hotel :_id="0">
+                            <kitchen :_hotel=`{{ $hotel }}`>
                                 {{ csrf_field() }}
-                            </hotel>
+                            </kitchen>
                         @endif
                     </b-tab>
-                    @if(isset($hotel))
+                    @if(isset($kitchen))
                         <b-tab>
                             <template v-slot:title>
-                                <b-icon-info></b-icon-info> Informacja
+                                <b-icon-card-text></b-icon-card-text> Opis
                             </template>
-                            <info :_id=`{{ $hotel->_id }}`>
+                            <description :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/" field="descriptions">
                                 {{ csrf_field() }}
-                            </info>
+                            </description>
+                        </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
+                                <b-icon-images></b-icon-images> Galeria
+                            </template>
+                            <gallery :id=`{{ $kitchen->_id }}`>
+                                {{ csrf_field() }}
+                            </gallery>
+                        </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
+                                <b-icon-files></b-icon-files> Pliki
+                            </template>
+                            <files :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/">
+                                {{ csrf_field() }}
+                            </files>
+                        </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
+                                <b-icon-trophy></b-icon-trophy> Nagrody
+                            </template>
+                            <awards :_id=`{{ $kitchen->_id }}`>
+                                {{ csrf_field() }}
+                            </awards>
                         </b-tab>
                         <b-tab>
                             <template v-slot:title>
                                 <b-icon-person></b-icon-person> Sociale
                             </template>
-                            <socials :_id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/">
+                            <socials :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/">
                                 {{ csrf_field() }}
                             </socials>
-                        </b-tab>
-                        <b-tab>
-                            <template v-slot:title>
-                                <b-icon-person></b-icon-person> Dzieci
-                            </template>
-                            <description :_id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/" field="children">
-                                {{ csrf_field() }}
-                            </description>
-                        </b-tab>
-                        <b-tab>
-                            <template v-slot:title>
-                                P Parking
-                            </template>
-                            <description :_id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/" field="parking">
-                                {{ csrf_field() }}
-                            </description>
                         </b-tab>
                     @endif
                 </b-tabs>

@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Selene\Modules\CityModule\Models\City;
 use Selene\Modules\DashboardModule\ZdrojowaTable;
-use Selene\Modules\HotelModule\Http\Requests\HotelStoreRequest;
 use Selene\Modules\HotelModule\Models\Hotels;
 use Selene\Modules\HotelModule\Support\HotelsStatusesEnum;
 
@@ -53,7 +52,7 @@ class HotelController extends Controller
         ]);
     }
 
-    public function store(HotelStoreRequest $request)
+    public function store(Request $request)
     {
         $hotel = $this->save($request);
         if ($hotel) {
@@ -101,6 +100,10 @@ class HotelController extends Controller
         if ($hotel === null) {
             $request->merge(['order' => Hotels::query()->count() + 1]);
             return Hotels::create($request->all());
+        }
+
+        if ($request->has('video')) {
+            $request->merge(['video' => json_decode($request->get('video'))]);
         }
 
         if ($request->has('animals')) {

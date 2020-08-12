@@ -9,41 +9,31 @@
         </b-nav>
 
         <div v-for="lang in langs" class="row">
-            <div class="row">
-                <b-form-group :label="lang.name">
-                    <media-selector extensions="all" @media-selected="select(lang.key, $event)"></media-selector>
-                </b-form-group>
-            </div>
-
-            <div class="row item-container">
-                <draggable class="list-group" ghost-class="ghost" :list="files[lang.key]">
-                    <div class="list-group-item" v-for="(element, index) in files[lang.key]" :key="lang.key + element.url">
-                        <div class="item file-item">
-                            <a :href="element.url" target="_blank">
-                                <i class="mdi mdi-file-outline"></i>
-                            </a>
-                            <b-input-group prepend="Opis" class="mx-2">
-                                <b-form-input v-model.lazy="element.name"></b-form-input>
-                            </b-input-group>
-                            <button type="button" aria-label="Close" class="close" @click="remove(lang.key, index)">×</button>
-                        </div>
-                    </div>
-                </draggable>
+            <div class="form-group col-sm-12">
+                <label>{{ lang.name }}</label>
+                <ckeditor :editor="editor" v-model="descriptions[lang.key]" :config="editorConfig"></ckeditor>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     export default {
-        name: 'files',
-        props : ['_id', 'url_get', 'url_post'],
+        name: 'description',
+        props : ['_id', 'url_get', 'url_post', 'field'],
 
         data() {
             return {
+                editor: ClassicEditor,
+                editorConfig: {
+                    toolbar: {
+                        items: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'undo', 'redo']
+                    }
+                },
                 langs: [],
-                files: {}
+                descriptions: {}
             };
         },
 
@@ -52,14 +42,6 @@
         },
 
         methods: {
-
-            select: function(lang, $event) {
-                this.files[lang].push({url: $event, name: ''});
-            },
-
-            remove: function(lang, position) {
-                this.files[lang].splice(position, 1);
-            },
 
             getLangs: function() {
                 axios.get('/dashboard/languages/get')
@@ -75,13 +57,13 @@
                 let self = this;
                 if (self._id) {
                     axios.get(self.url_get + '?id=' + self._id)
-                        .then(res => {
-                            if (res.data.files != null) {
-                                self.files = res.data.files;
-                                self.checkLangs();
-                            }
+                    .then(res => {
+                        if (res.data[self.field] != null) {
+                            self.descriptions = res.data[self.field];
                             self.checkLangs();
-                        }).catch(err => {
+                        }
+                        self.checkLangs();
+                    }).catch(err => {
                         console.log(err);
                         self.checkLangs();
                     })
@@ -92,8 +74,8 @@
             checkLangs: function() {
                 let self = this;
                 self.langs.forEach(lang => {
-                    if (!(lang.key in self.files)) {
-                        self.files[lang.key] = [];
+                    if (!(lang.key in self.descriptions)) {
+                        self.descriptions[lang.key] = '';
                     }
                 });
             },
@@ -104,16 +86,16 @@
 
                 let formData = new FormData();
                 formData.append('_method','PUT');
-                formData.append('files', JSON.stringify(self.files));
+                formData.append(self.field, JSON.stringify(this.descriptions));
 
-                axios.post(self.url_post + self._id, formData, {
+                axios.post(self.url_post + this._id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
                     .then(res => {
-                        this.$bvToast.toast('Pliki zaktualizowane', {
-                            title: `Pliki`,
+                        this.$bvToast.toast('Opisy zaktualizowane', {
+                            title: `Opisy`,
                             variant: 'success',
                             solid: true
                         })

@@ -51,6 +51,32 @@
                 </div>
             </div>
         </div>
+
+        <b-card>
+            <b-form-group
+                label-cols-lg="3"
+                label="Video"
+                label-size="lg"
+                label-class="font-weight-bold pt-0"
+                class="mb-0"
+            >
+                <b-form-group
+                    label-cols-sm="3"
+                    label="Nazwa"
+                    label-align-sm="right"
+                >
+                    <b-form-input v-model.lazy="video.name"></b-form-input>
+                </b-form-group>
+
+                <b-form-group
+                    label-cols-sm="3"
+                    label="Link"
+                    label-align-sm="right"
+                >
+                    <b-form-input v-model.lazy="video.link"></b-form-input>
+                </b-form-group>
+            </b-form-group>
+        </b-card>
     </div>
 </template>
 
@@ -58,7 +84,7 @@
 
     export default {
         name: 'socials',
-        props : ['_id'],
+        props : ['_id', 'url_get', 'url_post'],
 
         data() {
             return {
@@ -67,42 +93,49 @@
                 twitter: '',
                 linkedin: '',
                 instagram: '',
+                video: {name: '', link: ''},
             };
         },
 
         created() {
-            this.getHotel();
+            this.getItem();
         },
 
         methods: {
 
-            getHotel: function() {
+            getItem: function() {
                 let self = this;
 
-                axios.get('/api/hotels?id=' + self._id)
+                axios.get(self.url_get + '?id=' + self._id)
                 .then(res => {
                     self.facebook         = res.data.facebook;
                     self.facebook_page_id = res.data.facebook_page_id;
                     self.twitter          = res.data.twitter;
                     self.linkedin         = res.data.linkedin;
                     self.instagram        = res.data.instagram;
+
+                    if (res.data.video != null) {
+                        self.video = res.data.video;
+                    }
                 }).catch(err => {
                     console.log(err)
                 })
             },
 
             save: function(e) {
+                let self = this;
                 e.preventDefault();
 
                 let formData = new FormData();
                 formData.append('_method', 'PUT');
-                formData.append('facebook', this.facebook);
-                formData.append('facebook_page_id', this.facebook_page_id);
-                formData.append('twitter', this.twitter);
-                formData.append('linkedin', this.linkedin);
-                formData.append('instagram', this.instagram);
+                formData.append('facebook', self.facebook);
+                formData.append('facebook_page_id', self.facebook_page_id);
+                formData.append('twitter', self.twitter);
+                formData.append('linkedin', self.linkedin);
+                formData.append('instagram', self.instagram);
+                formData.append('video', JSON.stringify(this.video));
 
-                axios.post('/dashboard/hotels/' + this._id, formData, {
+                axios.post(self.url_post + self._id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
