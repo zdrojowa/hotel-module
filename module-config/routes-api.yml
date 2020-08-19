@@ -51,3 +51,15 @@ api.hotels-kitchen:
   controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@kitchen
   methods:
     - GET
+
+api.spa:
+  path: /hotels/spa
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@spa
+  methods:
+    - GET
+
+api.hotels-spa:
+  path: /hotels-spa
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@spa
+  methods:
+    - GET

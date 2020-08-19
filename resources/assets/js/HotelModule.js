@@ -28,6 +28,9 @@ Vue.component('kitchen', require('./components/kitchen.vue').default);
 Vue.component('awards', require('./components/awards.vue').default);
 Vue.component('description', require('./components/description.vue').default);
 Vue.component('gallery', require('./components/gallery.vue').default);
+Vue.component('spa', require('./components/spa.vue').default);
+Vue.component('spa-gallery', require('./components/spa-gallery.vue').default);
+Vue.component('spa-highlights', require('./components/spa-highlights.vue').default);
 
 const app = new Vue({
     el: '#app'

@@ -303,3 +303,67 @@ kitchen.type.destroy:
   methods:
     - DELETE
   permission: HotelModule.delete
+
+spa:
+  path: /dashboard/hotels-spa
+  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@index
+  methods:
+    - GET
+  permission: HotelModule
+
+spa.sort:
+  path: /dashboard/hotels-spa/sort
+  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@sort
+  methods:
+    - GET
+  permission: HotelModule
+
+spa.ajax:
+  path: /dashboard/hotels-spa/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@ajax
+  methods:
+    - POST
+  permission: HotelModule
+
+spa.create:
+  path: /dashboard/hotels-spa/create
+  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@create
+  methods:
+    - GET
+  permission: HotelModule.add
+
+spa.store:
+  path: /dashboard/hotels-spa/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@store
+  methods:
+    - POST
+  permission: HotelModule.add
+
+spa.edit:
+  path: /dashboard/hotels-spa/{{spa}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@edit
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+spa.update:
+  path: /dashboard/hotels-spa/{{spa}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@update
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+spa.destroy:
+  path: /dashboard/hotels-spa/{{spa}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@destroy
+  methods:
+    - DELETE
+  permission: HotelModule.delete
+
+spa.saveOrder:
+  path: /dashboard/hotels-spa/saveOrder
+  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@saveOrder
+  methods:
+    - POST
+  permission: HotelModule.edit

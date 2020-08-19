@@ -10,6 +10,7 @@ use Selene\Modules\HotelModule\Models\Apartment;
 use Selene\Modules\HotelModule\Models\Hotels;
 use Selene\Modules\HotelModule\Models\Kitchen;
 use Selene\Modules\HotelModule\Models\KitchenType;
+use Selene\Modules\HotelModule\Models\Spa;
 use Selene\Modules\HotelModule\Models\Wellness;
 
 class ApiController extends Controller
@@ -129,5 +130,32 @@ class ApiController extends Controller
         }
 
         return response()->json($kitchens->get());
+    }
+
+    public function spa(Request $request): JsonResponse
+    {
+        $spa = Spa::query()->orderBy('order');
+
+        if ($request->has('id')) {
+            $spa->where('_id', '=', $request->get('id'));
+            return response()->json($spa->first());
+        }
+
+        if ($request->has('hotel')) {
+            $spa->where('hotel', '=', $request->get('hotel'));
+        }
+
+        if ($request->has('per_page')) {
+            return response()->json(
+                $spa->paginate(
+                    $request->get('per_page') >> 0,
+                    ['*'],
+                    'page',
+                    $request->get('page', 1)
+                )
+            );
+        }
+
+        return response()->json($spa->get());
     }
 }

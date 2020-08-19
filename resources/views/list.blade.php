@@ -50,6 +50,9 @@
                                                     <a class="dropdown-item" href="{{ route('HotelModule::apartments', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Apartamenty
                                                     </a>
+                                                    <a class="dropdown-item" href="{{ route('HotelModule::spa', ['hotel' => $hotel->id ]) }}" target="_blank">
+                                                        SPA
+                                                    </a>
                                                     <a class="dropdown-item" href="{{ route('HotelModule::wellness', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Wellness
                                                     </a>

@@ -66,3 +66,6 @@
 
 ## Version 8.0.0
 - add Kitchen
+
+## Version 9.0.0
+- add SPA
