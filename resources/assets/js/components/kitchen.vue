@@ -71,45 +71,31 @@
 
         <div class="row">
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Dni otwarcia</label>
-                    <input type="text" class="form-control" name="work_days" placeholder="Wpisz dni otwarcia" v-model.lazy="work_days">
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Godziny otwarcia</label>
-                    <input type="text" class="form-control" name="work_hours" placeholder="Wpisz godziny otwarcia" v-model.lazy="work_hours">
-                </div>
-            </div>
-
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label>Godziny otwarcia cafe</label>
                     <input type="text" class="form-control" name="cafe_work_hours" placeholder="Wpisz godziny otwarcia cafe" v-model.lazy="cafe_work_hours">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Śniadanie</label>
+                    <input type="text" class="form-control" name="breakfast" placeholder="Wpisz godziny śniadania" v-model.lazy="breakfast">
                 </div>
             </div>
         </div>
 
         <div class="row">
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Śniadanie</label>
-                    <input type="text" class="form-control" name="breakfast" placeholder="Wpisz godziny śniadania" v-model.lazy="breakfast">
-                </div>
-            </div>
-
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label>Obiad</label>
                     <input type="text" class="form-control" name="lunch" placeholder="Wpisz godziny obiadu" v-model.lazy="lunch">
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label>Obiadokolacja</label>
                     <input type="text" class="form-control" name="dinner" placeholder="Wpisz godziny obiadokolacji" v-model.lazy="dinner">

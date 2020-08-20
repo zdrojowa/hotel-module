@@ -87,6 +87,10 @@ class KitchenController extends Controller
             return Kitchen::create($request->all());
         }
 
+        if ($request->has('work_days')) {
+            $request->merge(['work_days' => json_decode($request->get('work_days'))]);
+        }
+
         if ($request->has('video')) {
             $request->merge(['video' => json_decode($request->get('video'))]);
         }

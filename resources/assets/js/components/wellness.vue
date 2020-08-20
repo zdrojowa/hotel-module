@@ -85,23 +85,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Godziny otwarcia</label>
-                    <input type="text" class="form-control" name="work_hours" placeholder="Wpisz godziny otwarcia" v-model.lazy="work_hours">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Dni otwarcia</label>
-                    <input type="text" class="form-control" name="work_days" placeholder="Wpisz dni otwarcia" v-model.lazy="work_days">
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -122,8 +105,6 @@
                 mail: '',
                 address: '',
                 coordinates: {latitude: '', longitude: ''},
-                work_hours: '',
-                work_days: '',
                 errors: {
                     name: {}
                 }
@@ -204,8 +185,6 @@
                             self.mail        = res.data.mail;
                             self.address     = res.data.address;
                             self.coordinates = res.data.coordinates;
-                            self.work_hours  = res.data.work_hours;
-                            self.work_days   = res.data.work_days;
 
                             self.hotel = self.getItem(self.hotels, '_id', res.data.hotel);
 
@@ -239,8 +218,6 @@
                     formData.append('address', this.address);
                     formData.append('coordinates[latitude]', this.coordinates.latitude);
                     formData.append('coordinates[longitude]', this.coordinates.longitude);
-                    formData.append('work_hours', this.work_hours);
-                    formData.append('work_days', this.work_days);
 
                     axios.post(this.url, formData, {
                         headers: {

@@ -42,23 +42,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Dni otwarcia</label>
-                    <input type="text" class="form-control" name="work_days" placeholder="Wpisz dni otwarcia" v-model.lazy="work_days">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Godziny otwarcia</label>
-                    <input type="text" class="form-control" name="work_hours" placeholder="Wpisz godziny otwarcia" v-model.lazy="work_hours">
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -76,8 +59,6 @@
                 hotel: {},
                 phone: '',
                 mail: '',
-                work_hours: '',
-                work_days: '',
                 errors: {
                     name: {}
                 }
@@ -143,13 +124,10 @@
                 if (self._id) {
                     axios.get('/api/hotels/spa?id=' + self._id)
                     .then(res => {
-                        self.id         = res.data._id;
-                        self.name       = res.data.name;
-                        self.phone      = res.data.phone;
-                        self.mail       = res.data.mail;
-                        self.work_hours = res.data.work_hours;
-                        self.work_days  = res.data.work_days;
-                        self.breakfast  = res.data.breakfast;
+                        self.id    = res.data._id;
+                        self.name  = res.data.name;
+                        self.phone = res.data.phone;
+                        self.mail  = res.data.mail;
 
                         self.hotel = self.getItem(self.hotels, '_id', res.data.hotel);
                     }).catch(err => {
@@ -178,8 +156,6 @@
                     formData.append('hotel', this.hotel._id);
                     formData.append('phone', this.phone);
                     formData.append('mail', this.mail);
-                    formData.append('work_hours', this.work_hours);
-                    formData.append('work_days', this.work_days);
 
                     axios.post(this.url, formData, {
                         headers: {

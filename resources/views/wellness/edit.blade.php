@@ -33,6 +33,14 @@
                     @if(isset($wellness))
                         <b-tab>
                             <template v-slot:title>
+                                <b-icon-clock></b-icon-clock> Termin pracy
+                            </template>
+                            <work-time :_id=`{{ $wellness->_id }}` url_get="/api/hotels/wellness" url_post="/dashboard/hotels-wellness/">
+                                {{ csrf_field() }}
+                            </work-time>
+                        </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
                                 <b-icon-files></b-icon-files> Pliki
                             </template>
                             <files :_id=`{{ $wellness->_id }}` url_get="/api/hotels/wellness" url_post="/dashboard/hotels-wellness/">

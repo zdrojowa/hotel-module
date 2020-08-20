@@ -87,6 +87,10 @@ class SpaController extends Controller
             return Spa::create($request->all());
         }
 
+        if ($request->has('work_days')) {
+            $request->merge(['work_days' => json_decode($request->get('work_days'))]);
+        }
+
         if ($request->has('descriptions')) {
             $request->merge(['descriptions' => json_decode($request->get('descriptions'))]);
         }

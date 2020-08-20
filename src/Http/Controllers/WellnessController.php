@@ -94,6 +94,10 @@ class WellnessController extends Controller
             return Wellness::create($request->all());
         }
 
+        if ($request->has('work_days')) {
+            $request->merge(['work_days' => json_decode($request->get('work_days'))]);
+        }
+
         if ($request->has('files')) {
             $request->merge(['files' => json_decode($request->get('files'))]);
         }

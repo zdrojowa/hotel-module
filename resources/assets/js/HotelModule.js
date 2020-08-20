@@ -31,6 +31,7 @@ Vue.component('gallery', require('./components/gallery.vue').default);
 Vue.component('spa', require('./components/spa.vue').default);
 Vue.component('spa-gallery', require('./components/spa-gallery.vue').default);
 Vue.component('spa-highlights', require('./components/spa-highlights.vue').default);
+Vue.component('work-time', require('./components/work-time.vue').default);
 
 const app = new Vue({
     el: '#app'

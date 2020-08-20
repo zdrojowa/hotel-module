@@ -33,6 +33,14 @@
                     @if(isset($kitchen))
                         <b-tab>
                             <template v-slot:title>
+                                <b-icon-clock></b-icon-clock> Termin pracy
+                            </template>
+                            <work-time :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/">
+                                {{ csrf_field() }}
+                            </work-time>
+                        </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
                                 <b-icon-card-text></b-icon-card-text> Opis
                             </template>
                             <description :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/" field="descriptions">

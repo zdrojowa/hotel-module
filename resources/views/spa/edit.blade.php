@@ -33,6 +33,14 @@
                     @if(isset($spa))
                         <b-tab>
                             <template v-slot:title>
+                                <b-icon-clock></b-icon-clock> Termin pracy
+                            </template>
+                            <work-time :_id=`{{ $spa->_id }}` url_get="/api/hotels/spa" url_post="/dashboard/hotels-spa/">
+                                {{ csrf_field() }}
+                            </work-time>
+                        </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
                                 <b-icon-card-text></b-icon-card-text> Opis
                             </template>
                             <description :_id=`{{ $spa->_id }}` url_get="/api/hotels/spa" url_post="/dashboard/hotels-spa/" field="descriptions">

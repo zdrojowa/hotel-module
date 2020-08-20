@@ -69,3 +69,6 @@
 
 ## Version 9.0.0
 - add SPA
+
+## Version 9.0.1
+- fix work_days (translations)
