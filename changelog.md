@@ -72,3 +72,6 @@
 
 ## Version 9.0.1
 - fix work_days (translations)
+
+## Version 10.0.0
+- add Rental

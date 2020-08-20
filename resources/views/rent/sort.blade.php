@@ -16,13 +16,13 @@
             <div class="col-md-12">
                 <div class="card" id="app">
                     <div class="card-header clearfix">
-                        <h4 class="card-title float-left">Sortuj Wellness {{ $hotel->name }}</h4>
-                        <a href="{{route('HotelModule::wellness', ['hotel' => $hotel->id])}}" class="btn btn-primary float-right">
+                        <h4 class="card-title float-left">Sortuj przedmioty do wypożyczenia</h4>
+                        <a href="{{route('HotelModule::rent', ['hotel' => $hotel->id])}}" class="btn btn-primary float-right">
                             <i class="mdi mdi-keyboard-backspace"></i> Do listy
                         </a>
                     </div>
                     <div class="card-body">
-                        <list name="hotels-wellness" hotel="{{ $hotel->id }}">
+                        <list name="hotels-rent" hotel="{{ $hotel->id }}">
                             {{ csrf_field() }}
                         </list>
                     </div>

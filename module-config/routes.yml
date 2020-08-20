@@ -367,3 +367,67 @@ spa.saveOrder:
   methods:
     - POST
   permission: HotelModule.edit
+
+rent:
+  path: /dashboard/hotels-rent
+  controller: Selene\Modules\HotelModule\Http\Controllers\RentController@index
+  methods:
+    - GET
+  permission: HotelModule
+
+rent.sort:
+  path: /dashboard/hotels-rent/sort
+  controller: Selene\Modules\HotelModule\Http\Controllers\RentController@sort
+  methods:
+    - GET
+  permission: HotelModule
+
+rent.ajax:
+  path: /dashboard/hotels-rent/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\RentController@ajax
+  methods:
+    - POST
+  permission: HotelModule
+
+rent.create:
+  path: /dashboard/hotels-rent/create
+  controller: Selene\Modules\HotelModule\Http\Controllers\RentController@create
+  methods:
+    - GET
+  permission: HotelModule.add
+
+rent.store:
+  path: /dashboard/hotels-rent/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\RentController@store
+  methods:
+    - POST
+  permission: HotelModule.add
+
+rent.edit:
+  path: /dashboard/hotels-rent/{{rent}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\RentController@edit
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+rent.update:
+  path: /dashboard/hotels-rent/{{rent}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\RentController@update
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+rent.destroy:
+  path: /dashboard/hotels-rent/{{rent}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\RentController@destroy
+  methods:
+    - DELETE
+  permission: HotelModule.delete
+
+rent.saveOrder:
+  path: /dashboard/hotels-rent/saveOrder
+  controller: Selene\Modules\HotelModule\Http\Controllers\RentController@saveOrder
+  methods:
+    - POST
+  permission: HotelModule.edit

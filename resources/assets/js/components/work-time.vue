@@ -7,6 +7,7 @@
                 <b-button type="bytton" variant="primary" @click="save">Zapisz</b-button>
             </b-nav-item>
         </b-nav>
+
         <div v-for="lang in langs" class="row mt-3">
             <b-input-group :prepend="'Dni otwarcia (' + lang.name + ')'" class="col-md-12">
                 <b-form-input v-model.lazy="work_days[lang.key]"></b-form-input>

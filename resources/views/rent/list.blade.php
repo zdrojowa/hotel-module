@@ -6,11 +6,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header clearfix">
-                        <h4 class="card-title float-left">Lista wszystkich Wellness</h4>
-                        <a href="{{route('HotelModule::wellness.create', ['hotel' => $hotel->id])}}" class="btn btn-success float-right mr-2">
+                        <h4 class="card-title float-left">Lista wszystkich przedmiotów do wypożyczenia</h4>
+                        <a href="{{route('HotelModule::rent.create', ['hotel' => $hotel->id])}}" class="btn btn-success float-right mr-2">
                             <i class="mdi mdi-plus-circle"></i> Dodaj
                         </a>
-                        <a href="{{route('HotelModule::wellness.sort', ['hotel' => $hotel->id])}}" class="btn btn-primary float-right mr-2">
+                        <a href="{{route('HotelModule::rent.sort', ['hotel' => $hotel->id])}}" class="btn btn-primary float-right mr-2">
                             <i class="mdi mdi-sort"></i> Sortuj
                         </a>
                     </div>
@@ -25,16 +25,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($wellnesses as $wellness)
+                            @foreach($rents as $rent)
                                 <tr>
-                                    <td>{{ $wellness->order }}</td>
-                                    <td>{{ $wellness->name }}</td>
-                                    <td>{{ $wellness->created_at }}</td>
+                                    <td>{{ $rent->order }}</td>
+                                    <td>{{ $rent->name }}</td>
+                                    <td>{{ $rent->created_at }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('HotelModule::wellness.edit', ['wellness' => $wellness->id ]) }}">
+                                        <a class="btn btn-primary" href="{{ route('HotelModule::rent.edit', ['rent' => $rent->id ]) }}">
                                             <i class="mdi mdi-pencil"></i>
                                         </a>
-                                        <a class="btn btn-danger remove" href="{{ route('HotelModule::wellness.destroy', ['wellness' => $wellness->id ]) }}">
+                                        <a class="btn btn-danger remove" href="{{ route('HotelModule::rent.destroy', ['rent' => $rent->id ]) }}">
                                             <i class="mdi mdi-delete"></i>
                                         </a>
                                     </td>

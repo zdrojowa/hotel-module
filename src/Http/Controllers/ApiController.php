@@ -10,6 +10,7 @@ use Selene\Modules\HotelModule\Models\Apartment;
 use Selene\Modules\HotelModule\Models\Hotels;
 use Selene\Modules\HotelModule\Models\Kitchen;
 use Selene\Modules\HotelModule\Models\KitchenType;
+use Selene\Modules\HotelModule\Models\Rent;
 use Selene\Modules\HotelModule\Models\Spa;
 use Selene\Modules\HotelModule\Models\Wellness;
 
@@ -50,6 +51,10 @@ class ApiController extends Controller
         if ($request->has('id')) {
             $wellness->where('_id', '=', $request->get('id'));
             return response()->json($wellness->first());
+        }
+
+        if ($request->has('hotel')) {
+            $wellness->where('hotel', '=', $request->get('hotel'));
         }
 
         if ($request->has('per_page')) {
@@ -157,5 +162,32 @@ class ApiController extends Controller
         }
 
         return response()->json($spa->get());
+    }
+
+    public function rent(Request $request): JsonResponse
+    {
+        $rent = Rent::query()->orderBy('order');
+
+        if ($request->has('id')) {
+            $rent->where('_id', '=', $request->get('id'));
+            return response()->json($rent->first());
+        }
+
+        if ($request->has('hotel')) {
+            $rent->where('hotel', '=', $request->get('hotel'));
+        }
+
+        if ($request->has('per_page')) {
+            return response()->json(
+                $rent->paginate(
+                    $request->get('per_page') >> 0,
+                    ['*'],
+                    'page',
+                    $request->get('page', 1)
+                )
+            );
+        }
+
+        return response()->json($rent->get());
     }
 }

@@ -38,6 +38,7 @@ class Hotels extends Model
         'children',
         'animals',
         'parking',
+        'rental',
         'order'
     ];
 

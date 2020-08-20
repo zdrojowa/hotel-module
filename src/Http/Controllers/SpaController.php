@@ -123,7 +123,7 @@ class SpaController extends Controller
 
         $hotelId = '';
         foreach ($list as $i => $item) {
-            Spa::query()->where('_id', '=', $item['id'])->update(['order' => $i + 1]);
+            Spa::query()->where('_id', '=', $item['_id'])->update(['order' => $i + 1]);
             $hotelId = $item['hotel'];
         }
         return ['redirect' => route('HotelModule::spa', [

@@ -8,24 +8,31 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Selene\Modules\DashboardModule\ZdrojowaTable;
+use Selene\Modules\HotelModule\Models\Hotels;
 use Selene\Modules\HotelModule\Models\Wellness;
 
 class WellnessController extends Controller
 {
     public function index(Request $request)
     {
+        $hotelId  = $request->get('hotel');
         $wellness = Wellness::query()->orderBy('order');
 
-        if ($request->has('hotel')) {
-            $wellness->where('hotel', '=', $request->get('hotel'));
+        if ($hotelId) {
+            $wellness->where('hotel', '=', $hotelId);
         }
 
-        return view('HotelModule::wellness.list', ['wellnesses' => $wellness->get()]);
+        return view('HotelModule::wellness.list', [
+            'wellnesses' => $wellness->get(),
+            'hotel' => Hotels::query()->where('_id', '=', $hotelId)->first()
+        ]);
     }
 
-    public function sort()
+    public function sort(Request $request)
     {
-        return view('HotelModule::wellness.sort');
+        return view('HotelModule::wellness.sort', [
+            'hotel' => Hotels::query()->where('_id', '=', $request->get('hotel'))->first()
+        ]);
     }
 
     public function ajax(Request $request): JsonResponse
@@ -33,9 +40,11 @@ class WellnessController extends Controller
         return ZdrojowaTable::response(Wellness::query(), $request);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('HotelModule::wellness.edit');
+        return view('HotelModule::wellness.edit'. [
+            'hotel' => $request->get('hotel')
+        ]);
     }
 
     public function edit(Wellness $wellness = null)
@@ -90,7 +99,7 @@ class WellnessController extends Controller
         }
 
         if ($wellness === null) {
-            $request->merge(['order' => Wellness::query()->count() + 1]);
+            $request->merge(['order' => Wellness::query()->where('hotel', '=', $request->get('hotel'))->count() + 1]);
             return Wellness::create($request->all());
         }
 
@@ -119,9 +128,14 @@ class WellnessController extends Controller
     public function saveOrder(Request $request)
     {
         $list = json_decode($request->get('list'), true);
-        foreach ($list as $i => $wellness) {
-            Wellness::query()->where('_id', '=', $wellness['_id'])->update(['order' => $i + 1]);
+
+        $hotelId = '';
+        foreach ($list as $i => $item) {
+            Wellness::query()->where('_id', '=', $item['_id'])->update(['order' => $i + 1]);
+            $hotelId = $item['hotel'];
         }
-        return ['redirect' => route('HotelModule::wellness')];
+        return ['redirect' => route('HotelModule::wellness', [
+            'hotel' => Hotels::query()->where('_id', '=', $hotelId)->first()
+        ])];
     }
 }

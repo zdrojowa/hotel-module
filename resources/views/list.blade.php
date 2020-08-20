@@ -50,14 +50,17 @@
                                                     <a class="dropdown-item" href="{{ route('HotelModule::apartments', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Apartamenty
                                                     </a>
+                                                    <a class="dropdown-item" href="{{ route('HotelModule::kitchen', ['hotel' => $hotel->id ]) }}" target="_blank">
+                                                        Kuchnia
+                                                    </a>
                                                     <a class="dropdown-item" href="{{ route('HotelModule::spa', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         SPA
                                                     </a>
                                                     <a class="dropdown-item" href="{{ route('HotelModule::wellness', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Wellness
                                                     </a>
-                                                    <a class="dropdown-item" href="{{ route('HotelModule::kitchen', ['hotel' => $hotel->id ]) }}" target="_blank">
-                                                        Kuchnia
+                                                    <a class="dropdown-item" href="{{ route('HotelModule::rent', ['hotel' => $hotel->id ]) }}" target="_blank">
+                                                        Wypożyczalnia
                                                     </a>
                                                 </div>
                                             </div>

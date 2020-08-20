@@ -63,3 +63,15 @@ api.hotels-spa:
   controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@spa
   methods:
     - GET
+
+api.rent:
+  path: /hotels/rent
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@rent
+  methods:
+    - GET
+
+api.hotels-rent:
+  path: /hotels-rent
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@rent
+  methods:
+    - GET

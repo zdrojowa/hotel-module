@@ -63,6 +63,14 @@
                                 {{ csrf_field() }}
                             </description>
                         </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
+                                <b-icon-key></b-icon-key> Wypożyczalnia
+                            </template>
+                            <description :_id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/" field="rental">
+                                {{ csrf_field() }}
+                            </description>
+                        </b-tab>
                     @endif
                 </b-tabs>
             </b-card>

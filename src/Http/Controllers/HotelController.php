@@ -118,6 +118,10 @@ class HotelController extends Controller
             $request->merge(['parking' => json_decode($request->get('parking'))]);
         }
 
+        if ($request->has('rental')) {
+            $request->merge(['rental' => json_decode($request->get('rental'))]);
+        }
+
         return $hotel->update($request->all());
     }
 
