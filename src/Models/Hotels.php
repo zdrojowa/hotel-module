@@ -39,6 +39,16 @@ class Hotels extends Model
         'animals',
         'parking',
         'rental',
+        'spa_phone',
+        'spa_mail',
+        'spa_work_days',
+        'spa_work_hours',
+        'spa_descriptions',
+        'spa_gallery',
+        'conference_icons',
+        'conference_awards',
+        'conference_images',
+        'conference_link',
         'order'
     ];
 

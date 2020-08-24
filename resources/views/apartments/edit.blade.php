@@ -35,9 +35,9 @@
                             <template v-slot:title>
                                 <b-icon-plus></b-icon-plus> Udogodnienia
                             </template>
-                            <convenience :_id=`{{ $apartment->_id }}`>
+                            <icon :_id=`{{ $apartment->_id }}` url_get="/api/hotels/apartments" url_post="/dashboard/hotels-apartments/" field="conveniences">
                                 {{ csrf_field() }}
-                            </convenience>
+                            </icon>
                         </b-tab>
                     @endif
                 </b-tabs>

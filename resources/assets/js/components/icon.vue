@@ -12,8 +12,8 @@
         </b-nav>
 
         <div class="row item-container">
-            <draggable class="list-group" ghost-class="ghost" :list="awards">
-                <div class="list-group-item" v-for="(element, index) in awards" :key="element">
+            <draggable class="list-group" ghost-class="ghost" :list="icons">
+                <div class="list-group-item" v-for="(element, index) in icons" :key="element">
                     <div class="item file-item">
                         <span>{{ getName(element) }}</span>
                         <button type="button" aria-label="Close" class="close" @click="remove(index)">×</button>
@@ -32,8 +32,8 @@
 
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Nagrody</label>
-                        <multiselect :options="options" track-by="id" label="name" placeholder="Wybierz nagrodę" v-model.lazy="award"></multiselect>
+                        <label>Ikonki</label>
+                        <multiselect :options="options" track-by="id" label="name" placeholder="Wybierz ikonkę" v-model.lazy="icon"></multiselect>
                     </div>
                 </div>
             </div>
@@ -44,24 +44,24 @@
 <script>
 
     export default {
-        name: 'awards',
-        props : ['_id'],
+        name: 'icon',
+        props : ['_id', 'url_get', 'url_post', 'field'],
 
         data() {
             return {
-                awards: [],
+                icons: [],
                 options: [],
-                award: {}
+                icon: {}
             };
         },
 
         created() {
-            this.getAwards();
+            this.getIcons();
         },
 
         methods: {
 
-            getAwards: function() {
+            getIcons: function() {
                 let self = this;
 
                 axios.get('/api/icons')
@@ -76,10 +76,10 @@
             getItem: function() {
                 let self = this;
                 if (self._id) {
-                    axios.get('/api/hotels/kitchen?id=' + self._id)
+                    axios.get(self.url_get + '?id=' + self._id)
                     .then(res => {
-                        if (res.data.awards != null) {
-                            self.awards = res.data.awards;
+                        if (res.data[self.field] != null) {
+                            self.icons = res.data[self.field];
                         }
                     }).catch(err => {
                         console.log(err);
@@ -98,28 +98,29 @@
             },
 
             add: function() {
-                this.awards.push(this.award.id);
+                this.icons.push(this.icon.id);
             },
 
             remove: function(position) {
-                this.awards.splice(position, 1);
+                this.icons.splice(position, 1);
             },
 
             save: function(e) {
+                let self = this;
                 e.preventDefault();
 
                 let formData = new FormData();
                 formData.append('_method','PUT');
-                formData.append('awards', JSON.stringify(this.awards));
+                formData.append(self.field, JSON.stringify(self.icons));
 
-                axios.post('/dashboard/hotels-kitchen/' + this._id, formData, {
+                axios.post(self.url_post + this._id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
                     .then(res => {
-                        this.$bvToast.toast('Nagrody zaktualizowane', {
-                            title: `Nagrody`,
+                        this.$bvToast.toast('Ikonki zaktualizowane', {
+                            title: `Ikonki`,
                             variant: 'success',
                             solid: true
                         })

@@ -56,13 +56,8 @@
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     export default {
-        name: 'spa-gallery',
-        props: {
-            id: {
-                required: true,
-                type: String
-            }
-        },
+        name: 'gallery-with-labels',
+        props: ['_id', 'url_get', 'url_post', 'field'],
 
         data() {
             return {
@@ -82,13 +77,6 @@
             this.getLangs();
         },
 
-        computed: {
-
-            url: function () {
-                return '/dashboard/hotels-spa/' + this.id;
-            }
-        },
-
         methods: {
 
             getLangs: function() {
@@ -103,10 +91,10 @@
 
             getGallery() {
                 let self = this;
-                axios.get('/api/hotels/spa?id=' + self.id)
+                axios.get(self.url_get + '?id=' + self._id)
                     .then(res => {
-                        if (res.data.gallery != null) {
-                            self.gallery = res.data.gallery;
+                        if (res.data[self.field] != null) {
+                            self.gallery = res.data[self.field];
                             self.checkLangs(self.gallery.titles);
                             self.checkLangs(self.gallery.descriptions);
                             self.gallery.images.forEach(image => {
@@ -143,9 +131,9 @@
 
                 let formData = new FormData();
                 formData.append('_method', 'PUT');
-                formData.append('gallery', JSON.stringify(self.gallery));
+                formData.append(self.field, JSON.stringify(self.gallery));
 
-                axios.post(this.url, formData, {
+                axios.post(this.url_post + self._id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

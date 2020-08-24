@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Selene\Modules\CityModule\Models\City;
 use Selene\Modules\HotelModule\Models\Apartment;
+use Selene\Modules\HotelModule\Models\ConferenceHall;
+use Selene\Modules\HotelModule\Models\ConferenceHallConfiguration;
+use Selene\Modules\HotelModule\Models\HotelAttraction;
 use Selene\Modules\HotelModule\Models\Hotels;
 use Selene\Modules\HotelModule\Models\Kitchen;
 use Selene\Modules\HotelModule\Models\KitchenType;
@@ -137,22 +140,22 @@ class ApiController extends Controller
         return response()->json($kitchens->get());
     }
 
-    public function spa(Request $request): JsonResponse
+    public function attraction(Request $request): JsonResponse
     {
-        $spa = Spa::query()->orderBy('order');
+        $attractions = HotelAttraction::query()->orderBy('order');
 
         if ($request->has('id')) {
-            $spa->where('_id', '=', $request->get('id'));
-            return response()->json($spa->first());
+            $attractions->where('_id', '=', $request->get('id'));
+            return response()->json($attractions->first());
         }
 
         if ($request->has('hotel')) {
-            $spa->where('hotel', '=', $request->get('hotel'));
+            $attractions->where('hotel', '=', $request->get('hotel'));
         }
 
         if ($request->has('per_page')) {
             return response()->json(
-                $spa->paginate(
+                $attractions->paginate(
                     $request->get('per_page') >> 0,
                     ['*'],
                     'page',
@@ -161,7 +164,7 @@ class ApiController extends Controller
             );
         }
 
-        return response()->json($spa->get());
+        return response()->json($attractions->get());
     }
 
     public function rent(Request $request): JsonResponse
@@ -189,5 +192,59 @@ class ApiController extends Controller
         }
 
         return response()->json($rent->get());
+    }
+
+    public function conferenceHall(Request $request): JsonResponse
+    {
+        $halls = ConferenceHall::query()->orderBy('name');
+
+        if ($request->has('id')) {
+            $halls->where('_id', '=', $request->get('id'));
+            return response()->json($halls->first());
+        }
+
+        if ($request->has('hotel')) {
+            $halls->where('hotel', '=', $request->get('hotel'));
+        }
+
+        if ($request->has('per_page')) {
+            return response()->json(
+                $halls->paginate(
+                    $request->get('per_page') >> 0,
+                    ['*'],
+                    'page',
+                    $request->get('page', 1)
+                )
+            );
+        }
+
+        return response()->json($halls->get());
+    }
+
+    public function conferenceConfiguration(Request $request): JsonResponse
+    {
+        $configurations = ConferenceHallConfiguration::query()->orderBy('order');
+
+        if ($request->has('id')) {
+            $configurations->where('_id', '=', $request->get('id'));
+            return response()->json($configurations->first());
+        }
+
+        if ($request->has('hall')) {
+            $configurations->where('hall', '=', $request->get('hall'));
+        }
+
+        if ($request->has('per_page')) {
+            return response()->json(
+                $configurations->paginate(
+                    $request->get('per_page') >> 0,
+                    ['*'],
+                    'page',
+                    $request->get('page', 1)
+                )
+            );
+        }
+
+        return response()->json($configurations->get());
     }
 }

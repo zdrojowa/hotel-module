@@ -51,7 +51,7 @@
                             <template v-slot:title>
                                 <b-icon-images></b-icon-images> Galeria
                             </template>
-                            <gallery :id=`{{ $kitchen->_id }}`>
+                            <gallery :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/" field="images">
                                 {{ csrf_field() }}
                             </gallery>
                         </b-tab>
@@ -67,9 +67,9 @@
                             <template v-slot:title>
                                 <b-icon-trophy></b-icon-trophy> Nagrody
                             </template>
-                            <awards :_id=`{{ $kitchen->_id }}`>
+                            <icon :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/" field="awards">
                                 {{ csrf_field() }}
-                            </awards>
+                            </icon>
                         </b-tab>
                         <b-tab>
                             <template v-slot:title>

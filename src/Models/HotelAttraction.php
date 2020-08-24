@@ -4,7 +4,7 @@ namespace Selene\Modules\HotelModule\Models;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 
-class Spa extends Model
+class HotelAttraction extends Model
 {
     /**
      * @var array
@@ -12,13 +12,16 @@ class Spa extends Model
     protected $fillable = [
         'name',
         'hotel',
-        'phone',
-        'mail',
+        'image',
+        'titles',
+        'descriptions',
+        'info',
         'work_days',
         'work_hours',
-        'descriptions',
-        'gallery',
-        'highlights',
+        'time',
+        'price',
+        'weight',
+        'years',
         'order'
     ];
 

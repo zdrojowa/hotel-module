@@ -16,8 +16,8 @@
             <div class="col-md-12">
                 <div class="card" id="app">
                     <div class="card-header clearfix">
-                        <h4 class="card-title float-left">Sortuj atrakcje</h4>
-                        <a href="{{route('HotelModule::hotel.attraction', ['hotel' => $hotel->id])}}" class="btn btn-primary float-right">
+                        <h4 class="card-title float-left">Sortuj Atrakcje {{ $hotel->name }}</h4>
+                        <a href="{{ route('HotelModule::hotel.attraction', ['hotel' => $hotel->id]) }}" class="btn btn-primary float-right">
                             <i class="mdi mdi-keyboard-backspace"></i> Do listy
                         </a>
                     </div>

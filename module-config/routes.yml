@@ -305,65 +305,72 @@ kitchen.type.destroy:
   permission: HotelModule.delete
 
 spa:
-  path: /dashboard/hotels-spa
-  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@index
+  path: /dashboard/hotels-spa/{{hotel}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@spa
   methods:
     - GET
   permission: HotelModule
 
-spa.sort:
-  path: /dashboard/hotels-spa/sort
-  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@sort
+hotel.attraction:
+  path: /dashboard/hotels-attraction
+  controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@index
   methods:
     - GET
   permission: HotelModule
 
-spa.ajax:
-  path: /dashboard/hotels-spa/ajax
-  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@ajax
+hotel.attraction.sort:
+  path: /dashboard/hotels-attraction/sort
+  controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@sort
+  methods:
+    - GET
+  permission: HotelModule
+
+hotel.attraction.ajax:
+  path: /dashboard/hotels-attraction/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@ajax
   methods:
     - POST
   permission: HotelModule
 
-spa.create:
-  path: /dashboard/hotels-spa/create
-  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@create
+hotel.attraction.create:
+  path: /dashboard/hotels-attraction/create
+  controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@create
   methods:
     - GET
   permission: HotelModule.add
 
-spa.store:
-  path: /dashboard/hotels-spa/store
-  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@store
+hotel.attraction.store:
+  path: /dashboard/hotels-attraction/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@store
   methods:
     - POST
   permission: HotelModule.add
 
-spa.edit:
-  path: /dashboard/hotels-spa/{{spa}}/edit
-  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@edit
+hotel.attraction.edit:
+  path: /dashboard/hotels-attraction/{{attraction}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@edit
   methods:
     - GET
   permission: HotelModule.edit
 
-spa.update:
-  path: /dashboard/hotels-spa/{{spa}}
-  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@update
+hotel.attraction.update:
+  path: /dashboard/hotels-attraction/{{attraction}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@update
   methods:
     - PUT
     - PATCH
   permission: HotelModule.edit
 
-spa.destroy:
-  path: /dashboard/hotels-spa/{{spa}}
-  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@destroy
+hotel.attraction.destroy:
+  path: /dashboard/hotels-attraction/{{attraction}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@destroy
   methods:
     - DELETE
   permission: HotelModule.delete
 
-spa.saveOrder:
-  path: /dashboard/hotels-spa/saveOrder
-  controller: Selene\Modules\HotelModule\Http\Controllers\SpaController@saveOrder
+hotel.attraction.saveOrder:
+  path: /dashboard/hotels-attraction/saveOrder
+  controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@saveOrder
   methods:
     - POST
   permission: HotelModule.edit
@@ -428,6 +435,127 @@ rent.destroy:
 rent.saveOrder:
   path: /dashboard/hotels-rent/saveOrder
   controller: Selene\Modules\HotelModule\Http\Controllers\RentController@saveOrder
+  methods:
+    - POST
+  permission: HotelModule.edit
+
+conference:
+  path: /dashboard/hotels-conference/{{hotel}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@index
+  methods:
+    - GET
+  permission: HotelModule
+
+conference.hall:
+  path: /dashboard/hotels-conference-hall/{{hotel}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@list
+  methods:
+    - GET
+  permission: HotelModule
+
+conference.hall.ajax:
+  path: /dashboard/hotels-conference-hall/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@ajax
+  methods:
+    - POST
+  permission: HotelModule
+
+conference.hall.create:
+  path: /dashboard/hotels-conference-hall/create/{{hotel}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@create
+  methods:
+    - GET
+  permission: HotelModule.add
+
+conference.hall.store:
+  path: /dashboard/hotels-conference-hall/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@store
+  methods:
+    - POST
+  permission: HotelModule.add
+
+conference.hall.edit:
+  path: /dashboard/hotels-conference-hall/{{hall}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@edit
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+conference.hall.update:
+  path: /dashboard/hotels-conference-hall/{{hall}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@update
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+conference.hall.destroy:
+  path: /dashboard/hotels-conference-hall/{{hall}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@destroy
+  methods:
+    - DELETE
+  permission: HotelModule.delete
+
+conference.configuration:
+  path: /dashboard/hotels-conference-configuration/{{hall}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@listConfiguration
+  methods:
+    - GET
+  permission: HotelModule
+
+conference.configuration.ajax:
+  path: /dashboard/hotels-conference-configuration/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@ajaxConfiguration
+  methods:
+    - POST
+  permission: HotelModule
+
+conference.configuration.create:
+  path: /dashboard/hotels-conference-configuration/create/{{hall}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@createConfiguration
+  methods:
+    - GET
+  permission: HotelModule.add
+
+conference.configuration.store:
+  path: /dashboard/hotels-conference-configuration/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@storeConfiguration
+  methods:
+    - POST
+  permission: HotelModule.add
+
+conference.configuration.edit:
+  path: /dashboard/hotels-conference-configuration/{{configuration}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@editConfiguration
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+conference.configuration.update:
+  path: /dashboard/hotels-conference-configuration/{{configuration}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@updateConfiguration
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+conference.configuration.destroy:
+  path: /dashboard/hotels-conference-configuration/{{configuration}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@destroyConfiguration
+  methods:
+    - DELETE
+  permission: HotelModule.delete
+
+conference.configuration.sort:
+  path: /dashboard/hotels-conference-configuration/sort/{{hotel}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@sortConfiguration
+  methods:
+    - GET
+  permission: HotelModule
+
+conference.configuration.saveOrder:
+  path: /dashboard/hotels-conference-configuration/saveOrder
+  controller: Selene\Modules\HotelModule\Http\Controllers\ConferenceController@saveOrderConfiguration
   methods:
     - POST
   permission: HotelModule.edit

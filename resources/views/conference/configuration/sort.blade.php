@@ -16,13 +16,13 @@
             <div class="col-md-12">
                 <div class="card" id="app">
                     <div class="card-header clearfix">
-                        <h4 class="card-title float-left">Sortuj SPA {{ $hotel->name }}</h4>
-                        <a href="{{ route('HotelModule::spa', ['hotel' => $hotel->id]) }}" class="btn btn-primary float-right">
-                            <i class="mdi mdi-keyboard-backspace"></i> Do listy
+                        <h4 class="card-title float-left">Sortuj konfiguracje konferencyjne {{ $hotel->name }}</h4>
+                        <a href="{{route('HotelModule::conference.hall', ['hotel' => $hotel->id])}}" class="btn btn-primary float-right">
+                            <i class="mdi mdi-keyboard-backspace"></i> Do listy sal
                         </a>
                     </div>
                     <div class="card-body">
-                        <list name="hotels-spa" hotel="{{ $hotel->id }}">
+                        <list name="hotels-conference-configuration" hotel="{{ $hotel->id }}">
                             {{ csrf_field() }}
                         </list>
                     </div>

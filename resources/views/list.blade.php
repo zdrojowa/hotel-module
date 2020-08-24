@@ -1,5 +1,9 @@
 @extends('DashboardModule::dashboard.index')
 
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ mix('vendor/css/HotelModule.css','') }}">
+@endsection
+
 @section('content')
     <div class="content-wrapper">
         <div class="row">
@@ -43,18 +47,21 @@
                                         </td>
                                         <td>
                                             <div class="dropdown">
-                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="{{ $hotel->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button class="btn dropdown-toggle" type="button" id="{{ $hotel->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Objekty
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="{{ $hotel->id }}">
                                                     <a class="dropdown-item" href="{{ route('HotelModule::apartments', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Apartamenty
                                                     </a>
+                                                    <a class="dropdown-item" href="{{ route('HotelModule::hotel.attraction', ['hotel' => $hotel->id ]) }}" target="_blank">
+                                                        Atrakcje
+                                                    </a>
                                                     <a class="dropdown-item" href="{{ route('HotelModule::kitchen', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Kuchnia
                                                     </a>
-                                                    <a class="dropdown-item" href="{{ route('HotelModule::spa', ['hotel' => $hotel->id ]) }}" target="_blank">
-                                                        SPA
+                                                    <a class="dropdown-item" href="{{ route('HotelModule::conference.hall', ['hotel' => $hotel->id ]) }}" target="_blank">
+                                                        Sale konferencyjne
                                                     </a>
                                                     <a class="dropdown-item" href="{{ route('HotelModule::wellness', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Wellness

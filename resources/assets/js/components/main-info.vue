@@ -30,60 +30,25 @@
 
             <div class="col-md-12">
                 <div class="form-group">
-                    <b-form-group label="Logo">
-                        <media-selector extensions="svg" @media-selected="select"></media-selector>
+                    <b-form-group label="Obrazek">
+                        <media-selector extensions="jpg,jpeg,png" @media-selected="select"></media-selector>
                     </b-form-group>
 
-                    <b-img v-if="logo" thumbnail fluid :src="logo"></b-img>
+                    <b-img v-if="image" thumbnail fluid :src="image"></b-img>
 
-                    <b-button v-if="logo" type="button" variant="danger" @click="remove">Usuń</b-button>
+                    <b-button v-if="image" type="button" variant="danger" @click="remove">Usuń</b-button>
                 </div>
             </div>
 
         </div>
 
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Telefon</label>
-                    <input type="text" class="form-control" name="phone" placeholder="Wpisz telefon" v-model.lazy="phone">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Mail</label>
-                    <input type="text" class="form-control" name="mail" placeholder="Wpisz mail" v-model.lazy="mail">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Adres</label>
-                    <input type="text" class="form-control" name="address" placeholder="Wpisz adres" v-model.lazy="address">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Latitude</label>
-                    <input type="text" class="form-control" name="coordinates[latitude]" placeholder="Wpisz latitude" v-model.lazy="coordinates.latitude">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Longitude</label>
-                    <input type="text" class="form-control" name="coordinates[longitude]" placeholder="Wpisz longitude" v-model.lazy="coordinates.longitude">
-                </div>
-            </div>
+        <div v-for="lang in langs">
+            <b-input-group :prepend="'Tytuł (' + lang.name + ')'" class="row mt-3">
+                <b-form-input v-model.lazy="titles[lang.key]"></b-form-input>
+            </b-input-group>
+            <b-input-group :prepend="'Uwagi (' + lang.name + ')'" class="row mt-3">
+                <b-form-textarea v-model.lazy="info[lang.key]" rows="5"></b-form-textarea>
+            </b-input-group>
         </div>
     </div>
 </template>
@@ -91,20 +56,19 @@
 <script>
 
     export default {
-        name: 'wellness',
-        props : ['_id'],
+        name: 'main-info',
+        props : ['_id', '_name'],
 
         data() {
             return {
                 hotels: [],
+                langs: [],
                 id: 0,
                 name: '',
                 hotel: {},
-                logo: '',
-                phone: '',
-                mail: '',
-                address: '',
-                coordinates: {latitude: '', longitude: ''},
+                image: '',
+                titles: {},
+                info: {},
                 errors: {
                     name: {}
                 }
@@ -113,23 +77,26 @@
 
         created() {
             this.getHotels();
+            this.getLangs();
         },
 
         computed: {
 
             url() {
-                return this.id ? ('/dashboard/hotels-wellness/' + this.id) : '/dashboard/hotels-wellness/store';
+                return this.id
+                    ? ('/dashboard/hotels-' + this._name + '/' + this.id)
+                    : '/dashboard/hotels-' + this._name + '/store';
             }
         },
 
         methods: {
 
             select: function(url) {
-                this.logo = url;
+                this.image = url;
             },
 
             remove: function() {
-                this.logo = '';
+                this.image = '';
             },
 
             hasError: function(key) {
@@ -154,7 +121,17 @@
                 axios.get('/api/hotels')
                     .then(res => {
                         self.hotels = res.data;
-                        self.getWellness();
+                        self.getRent();
+                    }).catch(err => {
+                    console.log(err)
+                })
+            },
+
+            getLangs: function() {
+                axios.get('/dashboard/languages/get')
+                    .then(res => {
+                        this.langs = res.data;
+                        this.get();
                     }).catch(err => {
                     console.log(err)
                 })
@@ -173,25 +150,38 @@
                 return item;
             },
 
-            getWellness: function() {
+            get: function() {
                 let self = this;
                 if (self._id) {
-                    axios.get('/api/hotels/wellness?id=' + self._id)
+                    axios.get('/api/hotels-' + self._name + '?id=' + self._id)
                         .then(res => {
-                            self.id          = res.data._id;
-                            self.name        = res.data.name;
-                            self.logo        = res.data.logo;
-                            self.phone       = res.data.phone;
-                            self.mail        = res.data.mail;
-                            self.address     = res.data.address;
-                            self.coordinates = res.data.coordinates;
+                            self.id     = res.data._id;
+                            self.name   = res.data.name;
+                            self.image  = res.data.image;
+                            self.titles = res.data.titles;
+                            self.info   = res.data.info;
 
                             self.hotel = self.getItem(self.hotels, '_id', res.data.hotel);
 
-                        }).catch(err => {
+                            self.checkLangs(self.titles);
+                            self.checkLangs(self.info);
+
+                    }).catch(err => {
                         console.log(err)
                     })
                 }
+
+                self.checkLangs(self.titles);
+                self.checkLangs(self.info);
+            },
+
+            checkLangs: function(field) {
+                let self = this;
+                self.langs.forEach(lang => {
+                    if (!(lang.key in field)) {
+                        field[lang.key] = '';
+                    }
+                });
             },
 
             validate: function(e) {
@@ -205,28 +195,27 @@
             },
 
             save: function(e) {
+                let self = this;
+
                 e.preventDefault();
 
                 if (this.validate) {
                     let formData = new FormData();
-                    formData.append('_method', this.id ? 'PUT' : 'POST');
-                    formData.append('name', this.name);
-                    formData.append('hotel', this.hotel._id);
-                    formData.append('logo', this.logo);
-                    formData.append('phone', this.phone);
-                    formData.append('mail', this.mail);
-                    formData.append('address', this.address);
-                    formData.append('coordinates[latitude]', this.coordinates.latitude);
-                    formData.append('coordinates[longitude]', this.coordinates.longitude);
+                    formData.append('_method', self.id ? 'PUT' : 'POST');
+                    formData.append('name', self.name);
+                    formData.append('hotel', self.hotel._id);
+                    formData.append('image', self.image);
+                    formData.append('titles', JSON.stringify(self.titles));
+                    formData.append('info', JSON.stringify(self.info));
 
                     axios.post(this.url, formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
                     })
-                    .then(res => {
-                        window.location = res.data.redirect;
-                    }).catch(err => {
+                        .then(res => {
+                            window.location = res.data.redirect;
+                        }).catch(err => {
                         console.log(err);
                     });
                 } else {

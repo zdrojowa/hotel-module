@@ -75,3 +75,6 @@
 
 ## Version 10.0.0
 - add Rental
+
+## Version 11.0.0
+- add Conferences

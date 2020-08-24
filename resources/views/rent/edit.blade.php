@@ -21,13 +21,13 @@
                             <b-icon-key></b-icon-key> Wypożyczalnia
                         </template>
                         @if (isset($rent))
-                            <rent :_id=`{{ $rent->_id }}`>
+                            <main-info :_id=`{{ $rent->_id }}` _name="rent">
                                 {{ csrf_field() }}
-                            </rent>
+                            </main-info>
                         @else
-                            <rent :_id="0">
+                            <main-info :_id="0" _name="rent">
                                 {{ csrf_field() }}
-                            </rent>
+                            </main-info>
                         @endif
                     </b-tab>
                     @if(isset($rent))

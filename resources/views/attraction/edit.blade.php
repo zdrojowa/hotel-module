@@ -18,24 +18,24 @@
                 <b-tabs card>
                     <b-tab active>
                         <template v-slot:title>
-                            <b-icon-flower1></b-icon-flower1> SPA
+                            <b-icon-controller></b-icon-controller> Atrakcje
                         </template>
-                        @if (isset($spa))
-                            <spa :_id=`{{ $spa->_id }}`>
+                        @if (isset($attraction))
+                            <main-info :_id=`{{ $attraction->_id }}` _name="attraction">
                                 {{ csrf_field() }}
-                            </spa>
+                            </main-info>
                         @else
-                            <spa :_hotel=`{{ $hotel }}`>
+                            <main-info id="0" _name="attraction">
                                 {{ csrf_field() }}
-                            </spa>
+                            </main-info>
                         @endif
                     </b-tab>
-                    @if(isset($spa))
+                    @if(isset($attraction))
                         <b-tab>
                             <template v-slot:title>
                                 <b-icon-clock></b-icon-clock> Termin pracy
                             </template>
-                            <work-time :_id=`{{ $spa->_id }}` url_get="/api/hotels/spa" url_post="/dashboard/hotels-spa/">
+                            <work-time :_id=`{{ $attraction->_id }}` url_get="/api/hotels-attraction" url_post="/dashboard/hotels-attraction/">
                                 {{ csrf_field() }}
                             </work-time>
                         </b-tab>
@@ -43,25 +43,17 @@
                             <template v-slot:title>
                                 <b-icon-card-text></b-icon-card-text> Opis
                             </template>
-                            <description :_id=`{{ $spa->_id }}` url_get="/api/hotels/spa" url_post="/dashboard/hotels-spa/" field="descriptions">
+                            <description :_id=`{{ $attraction->_id }}` url_get="/api/hotels-attraction" url_post="/dashboard/hotels-attraction/" field="descriptions">
                                 {{ csrf_field() }}
                             </description>
                         </b-tab>
                         <b-tab>
                             <template v-slot:title>
-                                <b-icon-images></b-icon-images> Galeria
+                                <b-icon-ui-checks></b-icon-ui-checks> Warunki
                             </template>
-                            <spa-gallery :id=`{{ $spa->_id }}`>
+                            <attraction :_id=`{{ $attraction->_id }}`>
                                 {{ csrf_field() }}
-                            </spa-gallery>
-                        </b-tab>
-                        <b-tab>
-                            <template v-slot:title>
-                                <b-icon-lightning></b-icon-lightning> Highlights
-                            </template>
-                            <spa-highlights :id=`{{ $spa->_id }}`>
-                                {{ csrf_field() }}
-                            </spa-highlights>
+                            </attraction>
                         </b-tab>
                     @endif
                 </b-tabs>

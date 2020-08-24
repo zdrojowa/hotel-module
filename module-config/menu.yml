@@ -8,6 +8,6 @@ hotels:
       permission: HotelModule
       route: HotelModule::hotels
     kitchen:
-      name: Kuchnia
+      name: Typy kuchni
       permission: HotelModule
       route: HotelModule::kitchen.type

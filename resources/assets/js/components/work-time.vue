@@ -36,7 +36,12 @@
             url_post: {
                 required: true,
                 type: String
-            }
+            },
+            prefix: {
+                required: false,
+                type: String,
+                default: ''
+            },
         },
 
         data() {
@@ -97,8 +102,8 @@
 
                 let formData = new FormData();
                 formData.append('_method','PUT');
-                formData.append('work_days', JSON.stringify(this.work_days));
-                formData.append('work_hours', this.work_hours);
+                formData.append(self.prefix + 'work_days', JSON.stringify(this.work_days));
+                formData.append(self.prefix + 'work_hours', this.work_hours);
 
                 axios.post(self.url_post + this._id, formData, {
                     headers: {

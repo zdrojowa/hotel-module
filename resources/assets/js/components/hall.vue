@@ -4,7 +4,7 @@
 
         <b-nav align="right">
             <b-nav-item>
-                <b-button type="button" variant="primary" @click="save">Zapisz</b-button>
+                <b-button type="bytton" variant="primary" @click="save">Zapisz</b-button>
             </b-nav-item>
         </b-nav>
 
@@ -26,49 +26,32 @@
             </div>
         </div>
 
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <b-form-group label="Obrazek">
-                        <media-selector extensions="jpg,jpeg,png" @media-selected="select"></media-selector>
-                    </b-form-group>
-
-                    <b-img v-if="image" thumbnail fluid :src="image"></b-img>
-
-                    <b-button v-if="image" type="button" variant="danger" @click="remove">Usuń</b-button>
-                </div>
-            </div>
-
-        </div>
-
-        <div v-for="lang in langs">
-            <b-input-group :prepend="'Tytuł (' + lang.name + ')'" class="row mt-3">
+        <div v-for="lang in langs" class="row">
+            <b-input-group :prepend="'Tytuł (' + lang.name + ')'" class="mt-3" :key="lang.key">
                 <b-form-input v-model.lazy="titles[lang.key]"></b-form-input>
-            </b-input-group>
-            <b-input-group :prepend="'Uwagi (' + lang.name + ')'" class="row mt-3">
-                <b-form-textarea v-model.lazy="info[lang.key]" rows="5"></b-form-textarea>
             </b-input-group>
         </div>
     </div>
 </template>
 
 <script>
-
     export default {
-        name: 'rent',
-        props : ['_id'],
+        name: 'hall',
+        props: {
+            _id: {
+                required: true,
+                type: String
+            }
+        },
 
         data() {
             return {
-                hotels: [],
                 langs: [],
+                hotels: [],
                 id: 0,
                 name: '',
                 hotel: {},
-                image: '',
                 titles: {},
-                info: {},
                 errors: {
                     name: {}
                 }
@@ -76,25 +59,38 @@
         },
 
         created() {
-            this.getHotels();
             this.getLangs();
         },
 
         computed: {
 
             url() {
-                return this.id ? ('/dashboard/hotels-rent/' + this.id) : '/dashboard/hotels-rent/store';
+                return this.id ? ('/dashboard/hotels-conference-hall/' + this.id) : '/dashboard/hotels-conference-hall/store';
             }
         },
 
         methods: {
 
-            select: function(url) {
-                this.image = url;
+            getLangs: function() {
+                axios.get('/dashboard/languages/get')
+                    .then(res => {
+                        this.langs = res.data;
+                        this.getHotels();
+                    }).catch(err => {
+                    console.log(err)
+                })
             },
 
-            remove: function() {
-                this.image = '';
+            getHotels: function() {
+                let self = this;
+
+                axios.get('/api/hotels')
+                    .then(res => {
+                        self.hotels = res.data;
+                        self.getHall();
+                    }).catch(err => {
+                    console.log(err)
+                })
             },
 
             hasError: function(key) {
@@ -113,28 +109,6 @@
                 return className;
             },
 
-            getHotels: function() {
-                let self = this;
-
-                axios.get('/api/hotels')
-                    .then(res => {
-                        self.hotels = res.data;
-                        self.getRent();
-                    }).catch(err => {
-                    console.log(err)
-                })
-            },
-
-            getLangs: function() {
-                axios.get('/dashboard/languages/get')
-                    .then(res => {
-                        this.langs = res.data;
-                        this.getRent();
-                    }).catch(err => {
-                    console.log(err)
-                })
-            },
-
             getItem: function(arr, key, val) {
 
                 let item = val;
@@ -148,29 +122,26 @@
                 return item;
             },
 
-            getRent: function() {
+            getHall: function() {
                 let self = this;
                 if (self._id) {
-                    axios.get('/api/hotels/rent?id=' + self._id)
-                        .then(res => {
-                            self.id     = res.data._id;
-                            self.name   = res.data.name;
-                            self.image  = res.data.image;
+                    axios.get('/api/hotels/conference/hall?id=' + self._id)
+                    .then(res => {
+                        self.id   = res.data._id;
+                        self.name = res.data.name;
+
+                        self.hotel = self.getItem(self.hotels, '_id', res.data.hotel);
+
+                        if (res.data.titles != null) {
                             self.titles = res.data.titles;
-                            self.info   = res.data.info;
-
-                            self.hotel = self.getItem(self.hotels, '_id', res.data.hotel);
-
                             self.checkLangs(self.titles);
-                            self.checkLangs(self.info);
+                        }
 
                     }).catch(err => {
                         console.log(err)
                     })
                 }
-
                 self.checkLangs(self.titles);
-                self.checkLangs(self.info);
             },
 
             checkLangs: function(field) {
@@ -192,32 +163,26 @@
                 return false;
             },
 
-            save: function(e) {
+            save: function() {
                 let self = this;
 
-                e.preventDefault();
+                if (self.validate) {
 
-                if (this.validate) {
                     let formData = new FormData();
                     formData.append('_method', self.id ? 'PUT' : 'POST');
                     formData.append('name', self.name);
                     formData.append('hotel', self.hotel._id);
-                    formData.append('image', self.image);
                     formData.append('titles', JSON.stringify(self.titles));
-                    formData.append('info', JSON.stringify(self.info));
 
-                    axios.post(this.url, formData, {
+                    axios.post(self.url, formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
-                    })
-                        .then(res => {
-                            window.location = res.data.redirect;
-                        }).catch(err => {
+                    }).then(res => {
+                        window.location = res.data.redirect;
+                    }).catch(err => {
                         console.log(err);
                     });
-                } else {
-                    return false;
                 }
             }
         },

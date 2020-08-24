@@ -52,15 +52,9 @@ api.hotels-kitchen:
   methods:
     - GET
 
-api.spa:
-  path: /hotels/spa
-  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@spa
-  methods:
-    - GET
-
-api.hotels-spa:
-  path: /hotels-spa
-  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@spa
+api.hotels-attraction:
+  path: /hotels-attraction
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@attraction
   methods:
     - GET
 
@@ -73,5 +67,29 @@ api.rent:
 api.hotels-rent:
   path: /hotels-rent
   controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@rent
+  methods:
+    - GET
+
+api.conference.hall:
+  path: /hotels/conference/hall
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@conferenceHall
+  methods:
+    - GET
+
+api.hotels-conference-hall:
+  path: /hotels-conference-hall
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@conferenceHall
+  methods:
+    - GET
+
+api.conference.configuration:
+  path: /hotels/conference/configuration
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@conferenceConfiguration
+  methods:
+    - GET
+
+api.hotels-conference-configuration:
+  path: /hotels-conference-configuration
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@conferenceConfiguration
   methods:
     - GET

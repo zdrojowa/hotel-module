@@ -102,25 +102,20 @@ class HotelController extends Controller
             return Hotels::create($request->all());
         }
 
-        if ($request->has('video')) {
-            $request->merge(['video' => json_decode($request->get('video'))]);
-        }
-
-        if ($request->has('animals')) {
-            $request->merge(['animals' => $request->get('animals', false) === 'true']);
-        }
-
-        if ($request->has('children')) {
-            $request->merge(['children' => json_decode($request->get('children'))]);
-        }
-
-        if ($request->has('parking')) {
-            $request->merge(['parking' => json_decode($request->get('parking'))]);
-        }
-
-        if ($request->has('rental')) {
-            $request->merge(['rental' => json_decode($request->get('rental'))]);
-        }
+        $fields = [
+            'video',
+            'animals',
+            'children',
+            'parking',
+            'rental',
+            'spa_work_days',
+            'spa_descriptions',
+            'spa_gallery',
+            'conference_link',
+            'conference_images',
+            'conference_awards',
+            'conference_icons',
+        ];
 
         return $hotel->update($request->all());
     }
@@ -142,5 +137,12 @@ class HotelController extends Controller
             Hotels::query()->where('_id', '=', $hotel['_id'])->update(['order' => $i + 1]);
         }
         return ['redirect' => route('HotelModule::hotels')];
+    }
+
+    public function spa(Hotels $hotel, Request $request)
+    {
+        return view('HotelModule::spa.index', [
+            'hotel' => $hotel
+        ]);
     }
 }
