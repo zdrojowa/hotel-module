@@ -18,6 +18,7 @@ class ConferenceHallConfiguration extends Model
         'plans',
         'square',
         'guests_count',
+        'files',
         'order'
     ];
 

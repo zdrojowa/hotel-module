@@ -171,6 +171,10 @@ class ConferenceController extends Controller
             $request->merge(['descriptions' => json_decode($request->get('descriptions'))]);
         }
 
+        if ($request->has('files')) {
+            $request->merge(['files' => json_decode($request->get('files'))]);
+        }
+
         $configuration->update($request->all());
         return $configuration;
     }

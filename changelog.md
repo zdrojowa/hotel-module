@@ -81,3 +81,6 @@
 
 ## Version 11.0.1
 - add Conference files
+
+## Version 11.0.2
+- fix Conference files to Configuration files

@@ -115,7 +115,6 @@ class HotelController extends Controller
             'conference_images',
             'conference_awards',
             'conference_icons',
-            'conference_files',
         ];
 
         foreach($fields as $field) {
