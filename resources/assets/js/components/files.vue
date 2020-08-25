@@ -38,7 +38,26 @@
 
     export default {
         name: 'files',
-        props : ['_id', 'url_get', 'url_post'],
+        props: {
+            _id: {
+                required: true,
+                type: String
+            },
+            url_get: {
+                required: true,
+                type: String
+            },
+            url_post: {
+                required: true,
+                type: String
+            },
+            prefix: {
+                required: false,
+                type: String,
+                default: ''
+            },
+        },
+
 
         data() {
             return {
@@ -76,8 +95,8 @@
                 if (self._id) {
                     axios.get(self.url_get + '?id=' + self._id)
                         .then(res => {
-                            if (res.data.files != null) {
-                                self.files = res.data.files;
+                            if (res.data[self.prefix + 'files'] != null) {
+                                self.files = res.data[self.prefix + 'files'];
                                 self.checkLangs();
                             }
                             self.checkLangs();
@@ -104,7 +123,7 @@
 
                 let formData = new FormData();
                 formData.append('_method','PUT');
-                formData.append('files', JSON.stringify(self.files));
+                formData.append(self.prefix + 'files', JSON.stringify(self.files));
 
                 axios.post(self.url_post + self._id, formData, {
                     headers: {

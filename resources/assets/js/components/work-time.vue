@@ -73,9 +73,9 @@
                 if (self._id) {
                     axios.get(self.url_get + '?id=' + self._id)
                         .then(res => {
-                            self.work_hours = res.data.work_hours;
-                            if (res.data.work_days != null) {
-                                self.work_days = res.data.work_days;
+                            self.work_hours = res.data[self.prefix + 'work_hours'];
+                            if (res.data[self.prefix + 'work_days'] != null) {
+                                self.work_days = res.data[self.prefix + 'work_days'];
                                 self.checkLangs();
                             }
                             self.checkLangs();

@@ -78,3 +78,6 @@
 
 ## Version 11.0.0
 - add Conferences
+
+## Version 11.0.1
+- add Conference files

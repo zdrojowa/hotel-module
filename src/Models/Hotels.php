@@ -49,6 +49,7 @@ class Hotels extends Model
         'conference_awards',
         'conference_images',
         'conference_link',
+        'conference_files',
         'order'
     ];
 

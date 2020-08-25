@@ -115,7 +115,14 @@ class HotelController extends Controller
             'conference_images',
             'conference_awards',
             'conference_icons',
+            'conference_files',
         ];
+
+        foreach($fields as $field) {
+            if ($request->has($field)) {
+                $request->merge([$field => json_decode($request->get($field))]);
+            }
+        }
 
         return $hotel->update($request->all());
     }
