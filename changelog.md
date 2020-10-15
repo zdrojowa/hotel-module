@@ -87,3 +87,6 @@
 
 ## Version 11.0.3
 - fix Get kitchen type
+
+## Version 11.0.4
+- add booking to hotel

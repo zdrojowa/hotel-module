@@ -28,6 +28,12 @@
                     Zwierzeta
                 </b-form-checkbox>
             </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Booking</label>
+                <multiselect v-model.lazy="booking" :options="bookings" track-by="_id" label="name" placeholder="Wybierz booking"></multiselect>
+              </div>
+            </div>
         </div>
     </div>
 </template>
@@ -42,24 +48,52 @@
             return {
                 check_in: '',
                 check_out: '',
+                booking: null,
+                bookings: [],
                 animals: false
             };
         },
 
         created() {
-            this.getHotel();
+            this.getBookings()
         },
 
         methods: {
+
+            getBookings: function() {
+              let self = this;
+
+              axios.get('/api/booking/tabs')
+                  .then(res => {
+                    res.data.forEach(tab => {
+                      axios.get('/api/booking/' + tab._id).then(res => {
+                        res.data.forEach(booking => {
+                          self.bookings.push(booking)
+                        })
+                      }).catch(err => {
+                        console.log(err)
+                      })
+                    })
+                    self.getHotel()
+                  }).catch(err => {
+                console.log(err)
+              })
+            },
 
             getHotel: function() {
                 let self = this;
 
                 axios.get('/api/hotels?id=' + self._id)
                 .then(res => {
-                    self.check_in  = res.data.check_in;
-                    self.check_out = res.data.check_out;
-                    self.animals   = res.data.animals;
+                    self.check_in  = res.data.check_in
+                    self.check_out = res.data.check_out
+                    self.animals   = res.data.animals
+
+                    self.bookings.forEach(booking => {
+                      if (res.data.booking === booking._id) {
+                        self.booking = booking
+                      }
+                    })
                 }).catch(err => {
                     console.log(err)
                 })
@@ -69,10 +103,11 @@
                 e.preventDefault();
 
                 let formData = new FormData();
-                formData.append('_method', 'PUT');
-                formData.append('check_in', this.check_in);
-                formData.append('check_out', this.check_out);
-                formData.append('animals', this.animals);
+                formData.append('_method', 'PUT')
+                formData.append('check_in', this.check_in)
+                formData.append('check_out', this.check_out)
+                formData.append('animals', this.animals)
+                formData.append('booking', this.booking._id)
 
                 axios.post('/dashboard/hotels/' + this._id, formData, {
                     headers: {

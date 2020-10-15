@@ -3,6 +3,7 @@
 namespace Selene\Modules\HotelModule\Models;
 
 use Jenssegers\Mongodb\Eloquent\Model;
+use Selene\Modules\BookingModule\Models\Booking;
 use Selene\Modules\CityModule\Models\City;
 
 class Hotels extends Model
@@ -49,6 +50,7 @@ class Hotels extends Model
         'conference_awards',
         'conference_images',
         'conference_link',
+        'booking',
         'order'
     ];
 
@@ -60,5 +62,10 @@ class Hotels extends Model
     public function getCity()
     {
         return City::find($this->city);
+    }
+
+    public function getBooking()
+    {
+        return Booking::find($this->booking);
     }
 }
