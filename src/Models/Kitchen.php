@@ -44,4 +44,9 @@ class Kitchen extends Model
     {
         return Hotels::find($this->hotel);
     }
+
+    public function getType()
+    {
+        return KitchenType::find($this->type);
+    }
 }

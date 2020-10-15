@@ -84,3 +84,6 @@
 
 ## Version 11.0.2
 - fix Conference files to Configuration files
+
+## Version 11.0.3
+- fix Get kitchen type
