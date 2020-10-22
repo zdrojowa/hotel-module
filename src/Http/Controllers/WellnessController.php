@@ -42,7 +42,7 @@ class WellnessController extends Controller
 
     public function create(Request $request)
     {
-        return view('HotelModule::wellness.edit'. [
+        return view('HotelModule::wellness.edit', [
             'hotel' => $request->get('hotel')
         ]);
     }

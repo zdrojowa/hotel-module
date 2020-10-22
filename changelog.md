@@ -90,3 +90,6 @@
 
 ## Version 11.0.4
 - add booking to hotel
+
+## Version 11.0.5
+- fix creating wellness
