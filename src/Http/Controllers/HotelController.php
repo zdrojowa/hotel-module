@@ -151,4 +151,11 @@ class HotelController extends Controller
             'hotel' => $hotel
         ]);
     }
+
+    public function suggestion(Hotels $hotel, Request $request)
+    {
+        return view('HotelModule::suggestion.index', [
+            'hotel' => $hotel
+        ]);
+    }
 }

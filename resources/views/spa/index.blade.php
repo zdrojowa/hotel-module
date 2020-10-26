@@ -28,6 +28,7 @@
                         <b-navbar-nav class="ml-auto">
                             <b-nav-item active>SPA</b-nav-item>
                             <b-nav-item href="/dashboard/hotels-conference/{{ $hotel->_id }}">Konferencje</b-nav-item>
+                            <b-nav-item href="/dashboard/hotels-suggestions/{{ $hotel->_id }}">Propozycje</b-nav-item>
                         </b-navbar-nav>
                     @endisset
                 </b-collapse>

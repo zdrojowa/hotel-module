@@ -51,6 +51,7 @@ class Hotels extends Model
         'conference_images',
         'conference_link',
         'booking',
+        'suggest_kitchen',
         'order'
     ];
 

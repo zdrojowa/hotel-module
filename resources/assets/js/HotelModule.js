@@ -36,6 +36,7 @@ Vue.component('conference', require('./components/conference.vue').default);
 Vue.component('hall', require('./components/hall.vue').default);
 Vue.component('configuration', require('./components/configuration.vue').default);
 Vue.component('attraction', require('./components/attraction.vue').default);
+Vue.component('suggestion', require('./components/suggestion.vue').default);
 
 const app = new Vue({
     el: '#app'

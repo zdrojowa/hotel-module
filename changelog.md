@@ -93,3 +93,6 @@
 
 ## Version 11.0.5
 - fix creating wellness
+
+## Version 11.0.6
+- add Suggestions

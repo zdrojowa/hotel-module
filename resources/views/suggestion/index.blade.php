@@ -3,7 +3,6 @@
 @section('title','Dashboard')
 
 @section('stylesheets')
-    <link rel="stylesheet" href="{{ mix('vendor/css/MediaManager.css','') }}">
     <link rel="stylesheet" href="{{ mix('vendor/css/HotelModule.css','') }}">
 @endsection
 
@@ -27,8 +26,8 @@
                     <!-- Right aligned nav items -->
                         <b-navbar-nav class="ml-auto">
                             <b-nav-item href="/dashboard/hotels-spa/{{ $hotel->_id }}">SPA</b-nav-item>
-                            <b-nav-item active>Konferencje</b-nav-item>
-                            <b-nav-item href="/dashboard/hotels-suggestions/{{ $hotel->_id }}">Propozycje</b-nav-item>
+                            <b-nav-item href="/dashboard/hotels-conference/{{ $hotel->_id }}">Konferencje</b-nav-item>
+                            <b-nav-item active>Propozycje</b-nav-item>
                         </b-navbar-nav>
                     @endisset
                 </b-collapse>
@@ -38,25 +37,11 @@
                 <b-tabs card>
                     <b-tab active>
                         <template v-slot:title>
-                            <b-icon-people></b-icon-people> Konference
+                            <b-icon-brightness-high></b-icon-brightness-high> Propozycje
                         </template>
-                        <conference :id=`{{ $hotel->_id }}`>
+                        <suggestion _id="{{ $hotel->_id }}">
                             {{ csrf_field() }}
-                        </conference>
-                    </b-tab>
-                    <b-tab>
-                        <template v-slot:title>
-                            <b-icon-images></b-icon-images> Gallery
-                        </template>
-                        <gallery-with-labels :_id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/" field="conference_images"></gallery-with-labels>
-                    </b-tab>
-                    <b-tab>
-                        <template v-slot:title>
-                            <b-icon-trophy></b-icon-trophy> Nagrody
-                        </template>
-                        <gallery :_id=`{{ $hotel->_id }}` url_get="/api/hotels/" url_post="/dashboard/hotels/" field="conference_awards">
-                            {{ csrf_field() }}
-                        </gallery>
+                        </suggestion>
                     </b-tab>
                 </b-tabs>
             </b-card>
@@ -67,9 +52,5 @@
 @section('javascripts')
     @parent
     @javascript('csrf', csrf_token())
-    @javascript('ajaxUpload', route('MediaManager::media.upload.ajax'))
-    @javascript('infoUrl', route('MediaManager::media.image.info', ['media' => '%%id%%']))
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@13.0.1/dist/lazyload.min.js"></script>
-    <script src="{{ mix('vendor/js/MediaManager.js') }}"></script>
     <script src="{{ mix('vendor/js/HotelModule.js') }}"></script>
 @endsection

@@ -311,6 +311,13 @@ spa:
     - GET
   permission: HotelModule
 
+suggestions:
+  path: /dashboard/hotels-suggestions/{{hotel}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@suggestion
+  methods:
+    - GET
+  permission: HotelModule
+
 hotel.attraction:
   path: /dashboard/hotels-attraction
   controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@index
