@@ -93,3 +93,15 @@ api.hotels-conference-configuration:
   controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@conferenceConfiguration
   methods:
     - GET
+
+api.offers:
+  path: /offers
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@getOffers
+  methods:
+    - GET
+
+api.activeOffers:
+  path: /offers/active
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@getActiveOffers
+  methods:
+    - GET

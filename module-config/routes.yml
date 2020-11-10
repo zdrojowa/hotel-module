@@ -566,3 +566,67 @@ conference.configuration.saveOrder:
   methods:
     - POST
   permission: HotelModule.edit
+
+offers:
+  path: /dashboard/offers
+  controller: Selene\Modules\HotelModule\Http\Controllers\OfferController@index
+  methods:
+    - GET
+  permission: HotelModule
+
+offers.sort:
+  path: /dashboard/offers/sort
+  controller: Selene\Modules\HotelModule\Http\Controllers\OfferController@sort
+  methods:
+    - GET
+  permission: HotelModule
+
+offers.ajax:
+  path: /dashboard/offers/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\OfferController@ajax
+  methods:
+    - POST
+  permission: HotelModule
+
+offers.create:
+  path: /dashboard/offers/create
+  controller: Selene\Modules\HotelModule\Http\Controllers\OfferController@create
+  methods:
+    - GET
+  permission: HotelModule.add
+
+offers.store:
+  path: /dashboard/offers/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\OfferController@store
+  methods:
+    - POST
+  permission: HotelModule.add
+
+offers.edit:
+  path: /dashboard/offers/{{offer}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\OfferController@edit
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+offers.update:
+  path: /dashboard/offers/{{offer}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\OfferController@update
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+offers.destroy:
+  path: /dashboard/offers/{{offer}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\OfferController@destroy
+  methods:
+    - DELETE
+  permission: HotelModule.delete
+
+offers.saveOrder:
+  path: /dashboard/offers/saveOrder
+  controller: Selene\Modules\HotelModule\Http\Controllers\OfferController@saveOrder
+  methods:
+    - POST
+  permission: HotelModule.edit

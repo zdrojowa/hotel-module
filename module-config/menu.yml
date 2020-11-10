@@ -7,6 +7,10 @@ hotels:
       name: Hotele
       permission: HotelModule
       route: HotelModule::hotels
+    offers:
+      name: Oferty
+      permission: HotelModule
+      route: HotelModule::offers
     kitchen:
       name: Typy kuchni
       permission: HotelModule

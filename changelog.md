@@ -99,3 +99,6 @@
 
 ## Version 11.0.7
 - bugfix firefox draggable
+
+## Version 11.1.0
+- add offers
