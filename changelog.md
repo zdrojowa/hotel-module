@@ -96,3 +96,6 @@
 
 ## Version 11.0.6
 - add Suggestions
+
+## Version 11.0.7
+- bugfix firefox draggable

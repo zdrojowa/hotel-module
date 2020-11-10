@@ -12,12 +12,13 @@
         </b-nav>
 
         <div class="row item-conteiner">
-            <draggable class="list-group" ghost-class="ghost" :list="prices">
+            <draggable class="list-group" ghost-class="ghost" :list="prices" handle=".handle">
                 <div class="list-group-item" v-for="(price, index) in prices" :key="index">
                     <div class="item gallery-item">
                         <div>
                             <button type="button" aria-label="Close" class="close" @click="remove(index)">×</button>
                         </div>
+                        <b-icon-arrows-move class="handle"></b-icon-arrows-move>
                         <b-form-group
                             label-cols-lg="3"
                             :label="'Wariant ' + (index + 1)"
@@ -72,38 +73,38 @@
         methods: {
 
             add: function() {
-                let item = {price: 0};
+                let item = {price: 0}
                 this.langs.forEach(lang => {
-                    item[lang.key] = '';
+                    item[lang.key] = ''
                 });
-                this.prices.push(item);
+                this.prices.push(item)
             },
 
             remove: function(index) {
-                this.prices.splice(index, 1);
+                this.prices.splice(index, 1)
             },
 
             getLangs: function() {
                 axios.get('/dashboard/languages/get')
-                    .then(res => {
-                        this.langs = res.data;
-                        this.getItem();
-                    }).catch(err => {
+                .then(res => {
+                    this.langs = res.data
+                    this.getItem()
+                }).catch(err => {
                     console.log(err)
                 })
             },
 
             getItem: function() {
-                let self = this;
+                let self = this
                 if (self._id) {
                     axios.get('/api/hotels/rent?id=' + self._id)
-                        .then(res => {
-                            if (res.data.prices != null) {
-                                self.prices = res.data.prices;
-                                self.checkLangs();
-                            }
+                    .then(res => {
+                        if (res.data.prices != null) {
+                            self.prices = res.data.prices
+                            self.checkLangs()
+                        }
                     }).catch(err => {
-                        console.log(err);
+                        console.log(err)
                     })
                 }
             },
@@ -113,19 +114,18 @@
                 self.langs.forEach(lang => {
                     self.prices.forEach(item => {
                         if (!(lang.key in item)) {
-                            item[lang.key] = '';
+                            item[lang.key] = ''
                         }
                     });
                 });
             },
 
             save: function(e) {
-                let self = this;
-                e.preventDefault();
+                e.preventDefault()
 
                 let formData = new FormData();
                 formData.append('_method','PUT');
-                formData.append('prices', JSON.stringify(this.prices));
+                formData.append('prices', JSON.stringify(this.prices))
 
                 axios.post('/dashboard/hotels-rent/' + this._id, formData, {
                     headers: {

@@ -39,9 +39,13 @@
             </b-navbar>
 
             <div class="row item-container">
-                <draggable class="list-group" ghost-class="ghost" :list="conference_icons">
-                    <div class="list-group-item" v-for="(element, index) in conference_icons" :key="element">
-                        <div class="item file-item">
+                <draggable class="list-group" ghost-class="ghost" :list="conference_icons" handle=".handle">
+                    <div class="list-group-item" v-for="(element, index) in conference_icons" :key="index + element.id">
+                        <div class="item gallery-item">
+                            <div>
+                                <button type="button" aria-label="Close" class="close" @click="remove(index)">×</button>
+                            </div>
+                            <b-icon-arrows-move class="handle"></b-icon-arrows-move>
                             <span>{{ getName(element.id) }}</span>
                             <div class="gallery-form px-3">
                                 <div v-for="lang in langs" class="row mt-3">
@@ -53,7 +57,6 @@
                                     </b-input-group>
                                 </div>
                             </div>
-                            <button type="button" aria-label="Close" class="close" @click="remove(index)">×</button>
                         </div>
                     </div>
                 </draggable>
@@ -100,39 +103,39 @@
         },
 
         created() {
-            this.getLangs();
-            this.getIcons();
+            this.getLangs()
+            this.getIcons()
         },
 
         methods: {
 
             getIcons: function() {
-                let self = this;
+                let self = this
 
                 axios.get('/api/icons')
-                    .then(res => {
-                        self.options = res.data;
-                    }).catch(err => {
+                .then(res => {
+                    self.options = res.data
+                }).catch(err => {
                     console.log(err)
                 })
             },
 
             getName: function(id) {
-                let name = '';
+                let name = ''
                 this.options.forEach(item => {
                     if (item.id === id) {
-                        name = item.name;
+                        name = item.name
                     }
                 });
-                return name;
+                return name
             },
 
             getLangs: function() {
                 axios.get('/dashboard/languages/get')
-                    .then(res => {
-                        this.langs = res.data;
-                        this.getItem();
-                    }).catch(err => {
+                .then(res => {
+                    this.langs = res.data
+                    this.getItem()
+                }).catch(err => {
                     console.log(err)
                 })
             },
@@ -140,48 +143,48 @@
             getItem() {
                 let self = this;
                 axios.get('/api/hotels?id=' + self.id)
-                    .then(res => {
-                        if (res.data.conference_link != null) {
-                            self.conference_link = res.data.conference_link;
-                            self.checkLangs(self.conference_link);
-                        }
-                        if (res.data.conference_icons != null) {
-                            self.conference_icons = res.data.conference_icons;
-                            self.conference_icons.forEach(icon => {
-                                self.checkLangs(icon.titles);
-                                self.checkLangs(icon.descriptions);
-                            });
-                        }
-                    }).catch(err => {
-                        console.log(err)
+                .then(res => {
+                    if (res.data.conference_link != null) {
+                        self.conference_link = res.data.conference_link
+                        self.checkLangs(self.conference_link)
+                    }
+                    if (res.data.conference_icons != null) {
+                        self.conference_icons = res.data.conference_icons
+                        self.conference_icons.forEach(icon => {
+                            self.checkLangs(icon.titles)
+                            self.checkLangs(icon.descriptions)
+                        })
+                    }
+                }).catch(err => {
+                    console.log(err)
                 })
-                self.checkLangs(self.conference_link);
+                self.checkLangs(self.conference_link)
             },
 
             checkLangs: function(field) {
-                let self = this;
+                let self = this
                 self.langs.forEach(lang => {
                     if (!(lang.key in field)) {
-                        field[lang.key] = '';
+                        field[lang.key] = ''
                     }
-                });
+                })
             },
 
             remove(index) {
-                this.conference_icons.splice(index, 1);
+                this.conference_icons.splice(index, 1)
             },
 
             add() {
-                this.conference_icons.push({id: this.icon.id, titles: {}, descriptions: {}});
+                this.conference_icons.push({id: this.icon.id, titles: {}, descriptions: {}})
             },
 
             save: function() {
-                let self = this;
+                let self = this
 
-                let formData = new FormData();
-                formData.append('_method', 'PUT');
-                formData.append('conference_link', JSON.stringify(self.conference_link));
-                formData.append('conference_icons', JSON.stringify(self.conference_icons));
+                let formData = new FormData()
+                formData.append('_method', 'PUT')
+                formData.append('conference_link', JSON.stringify(self.conference_link))
+                formData.append('conference_icons', JSON.stringify(self.conference_icons))
 
                 axios.post('/dashboard/hotels/' + self.id, formData, {
                     headers: {

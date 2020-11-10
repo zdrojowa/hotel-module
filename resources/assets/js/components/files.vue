@@ -16,9 +16,10 @@
             </div>
 
             <div class="row item-container">
-                <draggable class="list-group" ghost-class="ghost" :list="files[lang.key]">
+                <draggable class="list-group" ghost-class="ghost" :list="files[lang.key]" handle=".handle">
                     <div class="list-group-item" v-for="(element, index) in files[lang.key]" :key="lang.key + element.url">
                         <div class="item file-item">
+                            <b-icon-arrows-move class="handle"></b-icon-arrows-move>
                             <a :href="element.url" target="_blank">
                                 <i class="mdi mdi-file-outline"></i>
                             </a>
@@ -73,75 +74,75 @@
         methods: {
 
             select: function(lang, $event) {
-                this.files[lang].push({url: $event, name: ''});
+                this.files[lang].push({url: $event, name: ''})
             },
 
             remove: function(lang, position) {
-                this.files[lang].splice(position, 1);
+                this.files[lang].splice(position, 1)
             },
 
             getLangs: function() {
                 axios.get('/dashboard/languages/get')
-                    .then(res => {
-                        this.langs = res.data;
-                        this.getItem();
-                    }).catch(err => {
+                .then(res => {
+                    this.langs = res.data
+                    this.getItem()
+                }).catch(err => {
                     console.log(err)
                 })
             },
 
             getItem: function() {
-                let self = this;
+                let self = this
                 if (self._id) {
                     axios.get(self.url_get + '?id=' + self._id)
-                        .then(res => {
-                            if (res.data[self.prefix + 'files'] != null) {
-                                self.files = res.data[self.prefix + 'files'];
-                                self.checkLangs();
-                            }
-                            self.checkLangs();
-                        }).catch(err => {
-                        console.log(err);
-                        self.checkLangs();
+                    .then(res => {
+                        if (res.data[self.prefix + 'files'] != null) {
+                            self.files = res.data[self.prefix + 'files']
+                            self.checkLangs()
+                        }
+                        self.checkLangs()
+                    }).catch(err => {
+                        console.log(err)
+                        self.checkLangs()
                     })
                 }
-                self.checkLangs();
+                self.checkLangs()
             },
 
             checkLangs: function() {
-                let self = this;
+                let self = this
                 self.langs.forEach(lang => {
                     if (!(lang.key in self.files)) {
-                        self.files[lang.key] = [];
+                        self.files[lang.key] = []
                     }
                 });
             },
 
             save: function(e) {
-                let self = this;
-                e.preventDefault();
+                let self = this
+                e.preventDefault()
 
-                let formData = new FormData();
-                formData.append('_method','PUT');
-                formData.append(self.prefix + 'files', JSON.stringify(self.files));
+                let formData = new FormData()
+                formData.append('_method','PUT')
+                formData.append(self.prefix + 'files', JSON.stringify(self.files))
 
                 axios.post(self.url_post + self._id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
-                    .then(res => {
-                        this.$bvToast.toast('Pliki zaktualizowane', {
-                            title: `Pliki`,
-                            variant: 'success',
-                            solid: true
-                        })
-                    }).catch(err => {
-                        this.$bvToast.toast(err, {
-                            title: `Błąd`,
-                            variant: 'danger',
-                            solid: true
-                        })
+                .then(res => {
+                    this.$bvToast.toast('Pliki zaktualizowane', {
+                        title: `Pliki`,
+                        variant: 'success',
+                        solid: true
+                    })
+                }).catch(err => {
+                    this.$bvToast.toast(err, {
+                        title: `Błąd`,
+                        variant: 'danger',
+                        solid: true
+                    })
                 });
             }
         }

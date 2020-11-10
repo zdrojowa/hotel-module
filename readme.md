@@ -22,7 +22,7 @@ $ composer require zdrojowa/hotel-module
 "bootstrap-vue": "2.16.0"
 "vue": "^2.6.10",
 "vue-multiselect": "2.1.6",
-"vuedraggable": "2.23.2",
+"vuedraggable": "2.24.3",
 ```
 
 ## Usage

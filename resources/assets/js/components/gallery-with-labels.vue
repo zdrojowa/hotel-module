@@ -26,12 +26,13 @@
         </div>
 
         <div class="row item-conteiner">
-            <draggable class="list-group" ghost-class="ghost" :list="gallery.images">
-                <div class="list-group-item" v-for="(element, index) in gallery.images" :key="element.url">
+            <draggable class="list-group" ghost-class="ghost" :list="gallery.images" handle=".handle">
+                <div class="list-group-item" v-for="(element, index) in gallery.images" :key="index + element.url">
                     <div class="item gallery-item">
                         <div>
                             <button type="button" aria-label="Close" class="close" @click="remove(index)">×</button>
                         </div>
+                        <b-icon-arrows-move class="handle"></b-icon-arrows-move>
                         <div class="thumbnail-img">
                             <img :src="element.url" class="img-thumbnail">
                         </div>
@@ -74,64 +75,64 @@
         },
 
         created() {
-            this.getLangs();
+            this.getLangs()
         },
 
         methods: {
 
             getLangs: function() {
                 axios.get('/dashboard/languages/get')
-                    .then(res => {
-                        this.langs = res.data;
-                        this.getGallery();
-                    }).catch(err => {
+                .then(res => {
+                    this.langs = res.data
+                    this.getGallery()
+                }).catch(err => {
                     console.log(err)
                 })
             },
 
             getGallery() {
-                let self = this;
+                let self = this
                 axios.get(self.url_get + '?id=' + self._id)
-                    .then(res => {
-                        if (res.data[self.field] != null) {
-                            self.gallery = res.data[self.field];
-                            self.checkLangs(self.gallery.titles);
-                            self.checkLangs(self.gallery.descriptions);
-                            self.gallery.images.forEach(image => {
-                                self.checkLangs(image.titles);
-                                self.checkLangs(image.descriptions);
-                            });
-                        }
-                    }).catch(err => {
-                        console.log(err)
+                .then(res => {
+                    if (res.data[self.field] != null) {
+                        self.gallery = res.data[self.field]
+                        self.checkLangs(self.gallery.titles)
+                        self.checkLangs(self.gallery.descriptions)
+                        self.gallery.images.forEach(image => {
+                            self.checkLangs(image.titles)
+                            self.checkLangs(image.descriptions)
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err)
                 })
-                self.checkLangs(self.gallery.titles);
-                self.checkLangs(self.gallery.descriptions);
+                self.checkLangs(self.gallery.titles)
+                self.checkLangs(self.gallery.descriptions)
             },
 
             checkLangs: function(field) {
-                let self = this;
+                let self = this
                 self.langs.forEach(lang => {
                     if (!(lang.key in field)) {
-                        field[lang.key] = '';
+                        field[lang.key] = ''
                     }
                 });
             },
 
             remove(index) {
-                this.gallery.images.splice(index, 1);
+                this.gallery.images.splice(index, 1)
             },
 
             add(url) {
-                this.gallery.images.push({url: url, titles: {}, descriptions: {}});
+                this.gallery.images.push({url: url, titles: {}, descriptions: {}})
             },
 
             save: function() {
-                let self = this;
+                let self = this
 
-                let formData = new FormData();
-                formData.append('_method', 'PUT');
-                formData.append(self.field, JSON.stringify(self.gallery));
+                let formData = new FormData()
+                formData.append('_method', 'PUT')
+                formData.append(self.field, JSON.stringify(self.gallery))
 
                 axios.post(this.url_post + self._id, formData, {
                     headers: {
