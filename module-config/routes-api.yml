@@ -22,18 +22,6 @@ api.hotels-apartments:
   methods:
     - GET
 
-api.wellness:
-  path: /hotels/wellness
-  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@wellness
-  methods:
-    - GET
-
-api.hotels-wellness:
-  path: /hotels-wellness
-  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@wellness
-  methods:
-    - GET
-
 api.kitchen-type:
   path: /hotels/kitchen-types
   controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@kitchenTypes

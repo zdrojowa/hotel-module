@@ -75,22 +75,6 @@ class HotelController extends Controller
     }
 
     private function save(Request $request, Hotels $hotel = null) {
-
-        $images = ['photo', 'logo', 'marker'];
-        foreach ($images as $image) {
-            if ($request->has($image . '_file')) {
-
-                $photo    = $request->file($image . '_file');
-                $filename = md5(uniqid($photo->getClientOriginalName(), true));
-                $path     = $photo->move(
-                    'storage/hotels/',
-                    $filename . '.' . $photo->getClientOriginalExtension()
-                )->getPathName();
-
-                $request->merge([$image => $path]);
-            }
-        }
-
         foreach ($request->all() as $key => $val) {
             if ($val === 'null' || $val == '') {
                 $request->merge([$key => null]);
@@ -109,12 +93,14 @@ class HotelController extends Controller
             'parking',
             'rental',
             'spa_work_days',
+            'wellness_work_days',
             'spa_descriptions',
             'spa_gallery',
             'conference_link',
             'conference_images',
             'conference_awards',
             'conference_icons',
+            'wellness_files',
         ];
 
         foreach($fields as $field) {
@@ -148,6 +134,13 @@ class HotelController extends Controller
     public function spa(Hotels $hotel, Request $request)
     {
         return view('HotelModule::spa.index', [
+            'hotel' => $hotel
+        ]);
+    }
+
+    public function wellness(Hotels $hotel, Request $request)
+    {
+        return view('HotelModule::wellness.index', [
             'hotel' => $hotel
         ]);
     }

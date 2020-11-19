@@ -15,8 +15,6 @@ use Selene\Modules\HotelModule\Models\Hotels;
 use Selene\Modules\HotelModule\Models\Kitchen;
 use Selene\Modules\HotelModule\Models\KitchenType;
 use Selene\Modules\HotelModule\Models\Rent;
-use Selene\Modules\HotelModule\Models\Spa;
-use Selene\Modules\HotelModule\Models\Wellness;
 use Selene\Modules\HotelModule\Models\Offer;
 
 class ApiController extends Controller
@@ -47,33 +45,6 @@ class ApiController extends Controller
     {
         $cities = Hotels::query()->pluck('city');
         return response()->json(City::query()->whereIn('_id', $cities)->orderBy('order')->get());
-    }
-
-    public function wellness(Request $request): JsonResponse
-    {
-        $wellness = Wellness::query()->orderBy('order');
-
-        if ($request->has('id')) {
-            $wellness->where('_id', '=', $request->get('id'));
-            return response()->json($wellness->first());
-        }
-
-        if ($request->has('hotel')) {
-            $wellness->where('hotel', '=', $request->get('hotel'));
-        }
-
-        if ($request->has('per_page')) {
-            return response()->json(
-                $wellness->paginate(
-                    $request->get('per_page') >> 0,
-                    ['*'],
-                    'page',
-                    $request->get('page', 1)
-                )
-            );
-        }
-
-        return response()->json($wellness->get());
     }
 
     public function apartments(Request $request): JsonResponse

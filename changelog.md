@@ -105,3 +105,6 @@
 
 ## Version 11.2.0
 - add AvailPro Id to Appartments
+
+## Version 12.0.0
+- change Wellness

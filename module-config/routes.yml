@@ -126,70 +126,6 @@ apartments.saveOrder:
     - POST
   permission: HotelModule.edit
 
-wellness:
-  path: /dashboard/hotels-wellness
-  controller: Selene\Modules\HotelModule\Http\Controllers\WellnessController@index
-  methods:
-    - GET
-  permission: HotelModule
-
-wellness.sort:
-  path: /dashboard/hotels-wellness/sort
-  controller: Selene\Modules\HotelModule\Http\Controllers\WellnessController@sort
-  methods:
-    - GET
-  permission: HotelModule
-
-wellness.ajax:
-  path: /dashboard/hotels-wellness/ajax
-  controller: Selene\Modules\HotelModule\Http\Controllers\WellnessController@ajax
-  methods:
-    - POST
-  permission: HotelModule
-
-wellness.create:
-  path: /dashboard/hotels-wellness/create
-  controller: Selene\Modules\HotelModule\Http\Controllers\WellnessController@create
-  methods:
-    - GET
-  permission: HotelModule.add
-
-wellness.store:
-  path: /dashboard/hotels-wellness/store
-  controller: Selene\Modules\HotelModule\Http\Controllers\WellnessController@store
-  methods:
-    - POST
-  permission: HotelModule.add
-
-wellness.edit:
-  path: /dashboard/hotels-wellness/{{wellness}}/edit
-  controller: Selene\Modules\HotelModule\Http\Controllers\WellnessController@edit
-  methods:
-    - GET
-  permission: HotelModule.edit
-
-wellness.update:
-  path: /dashboard/hotels-wellness/{{wellness}}
-  controller: Selene\Modules\HotelModule\Http\Controllers\WellnessController@update
-  methods:
-    - PUT
-    - PATCH
-  permission: HotelModule.edit
-
-wellness.destroy:
-  path: /dashboard/hotels-wellness/{{wellness}}
-  controller: Selene\Modules\HotelModule\Http\Controllers\WellnessController@destroy
-  methods:
-    - DELETE
-  permission: HotelModule.delete
-
-wellness.saveOrder:
-  path: /dashboard/hotels-wellness/saveOrder
-  controller: Selene\Modules\HotelModule\Http\Controllers\WellnessController@saveOrder
-  methods:
-    - POST
-  permission: HotelModule.edit
-
 kitchen:
   path: /dashboard/hotels-kitchen
   controller: Selene\Modules\HotelModule\Http\Controllers\KitchenController@index
@@ -307,6 +243,13 @@ kitchen.type.destroy:
 spa:
   path: /dashboard/hotels-spa/{{hotel}}
   controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@spa
+  methods:
+    - GET
+  permission: HotelModule
+
+wellness:
+  path: /dashboard/hotels-wellness/{{hotel}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@wellness
   methods:
     - GET
   permission: HotelModule

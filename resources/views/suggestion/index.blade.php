@@ -26,6 +26,7 @@
                     <!-- Right aligned nav items -->
                         <b-navbar-nav class="ml-auto">
                             <b-nav-item href="/dashboard/hotels-spa/{{ $hotel->_id }}">SPA</b-nav-item>
+                            <b-nav-item href="/dashboard/hotels-wellness/{{ $hotel->_id }}">Wellness</b-nav-item>
                             <b-nav-item href="/dashboard/hotels-conference/{{ $hotel->_id }}">Konferencje</b-nav-item>
                             <b-nav-item active>Propozycje</b-nav-item>
                         </b-navbar-nav>

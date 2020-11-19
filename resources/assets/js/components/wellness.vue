@@ -10,80 +10,18 @@
 
         <div class="row">
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Nazwa</label>
-                    <input type="text" :class="getInputClass('name')" name="name" placeholder="Wpisz nazwe" v-model.lazy="name">
-                    <small v-if="hasError('name')" class="error mt-2 text-danger">{{ errors.name[0] }}</small>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Hotel</label>
-                    <multiselect v-model.lazy="hotel" :options="hotels" track-by="_id" label="name" placeholder="Wybierz hotel"></multiselect>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
             <div class="col-md-12">
                 <div class="form-group">
                     <b-form-group label="Logo">
                         <media-selector extensions="svg" @media-selected="select"></media-selector>
                     </b-form-group>
 
-                    <b-img v-if="logo" thumbnail fluid :src="logo"></b-img>
+                    <b-img v-if="wellness_logo" thumbnail fluid :src="wellness_logo"></b-img>
 
-                    <b-button v-if="logo" type="button" variant="danger" @click="remove">Usuń</b-button>
+                    <b-button v-if="wellness_logo" type="button" variant="danger" @click="remove">Usuń</b-button>
                 </div>
             </div>
 
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Telefon</label>
-                    <input type="text" class="form-control" name="phone" placeholder="Wpisz telefon" v-model.lazy="phone">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Mail</label>
-                    <input type="text" class="form-control" name="mail" placeholder="Wpisz mail" v-model.lazy="mail">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Adres</label>
-                    <input type="text" class="form-control" name="address" placeholder="Wpisz adres" v-model.lazy="address">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Latitude</label>
-                    <input type="text" class="form-control" name="coordinates[latitude]" placeholder="Wpisz latitude" v-model.lazy="coordinates.latitude">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Longitude</label>
-                    <input type="text" class="form-control" name="coordinates[longitude]" placeholder="Wpisz longitude" v-model.lazy="coordinates.longitude">
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -96,148 +34,58 @@
 
         data() {
             return {
-                hotels: [],
-                id: 0,
-                name: '',
-                hotel: {},
-                logo: '',
-                phone: '',
-                mail: '',
-                address: '',
-                coordinates: {latitude: '', longitude: ''},
-                errors: {
-                    name: {}
-                }
-            };
+                wellness_logo: '',
+            }
         },
 
         created() {
-            this.getHotels();
-        },
-
-        computed: {
-
-            url() {
-                return this.id ? ('/dashboard/hotels-wellness/' + this.id) : '/dashboard/hotels-wellness/store';
-            }
+            this.getItem()
         },
 
         methods: {
 
             select: function(url) {
-                this.logo = url;
+                this.wellness_logo = url
             },
 
             remove: function() {
-                this.logo = '';
+                this.wellness_logo = ''
             },
 
-            hasError: function(key) {
-                return this.errors[key].length > 0;
-            },
-
-            getInputClass: function(key) {
-                let className = 'form-control ';
-                if (this.hasError(key)) {
-                    className += 'is-invalid';
-                } else {
-                    if (this[key]) {
-                        className += 'is-valid';
-                    }
-                }
-                return className;
-            },
-
-            getHotels: function() {
-                let self = this;
-
-                axios.get('/api/hotels')
+            getItem: function() {
+                if (this._id) {
+                    axios.get('/api/hotels?id=' + this._id)
                     .then(res => {
-                        self.hotels = res.data;
-                        self.getWellness();
+                        this.wellness_logo = res.data.wellness_logo
                     }).catch(err => {
-                    console.log(err)
-                })
-            },
-
-            getItem: function(arr, key, val) {
-
-                let item = val;
-
-                arr.forEach(it => {
-                    if (it[key] === val) {
-                        item = it;
-                    }
-                });
-
-                return item;
-            },
-
-            getWellness: function() {
-                let self = this;
-                if (self._id) {
-                    axios.get('/api/hotels/wellness?id=' + self._id)
-                        .then(res => {
-                            self.id          = res.data._id;
-                            self.name        = res.data.name;
-                            self.logo        = res.data.logo;
-                            self.phone       = res.data.phone;
-                            self.mail        = res.data.mail;
-                            self.address     = res.data.address;
-                            self.coordinates = res.data.coordinates;
-
-                            self.hotel = self.getItem(self.hotels, '_id', res.data.hotel);
-
-                        }).catch(err => {
                         console.log(err)
                     })
                 }
             },
 
-            validate: function(e) {
-                if (this.name) {
-                    this.errors.name = {};
-                    return true;
-                } else {
-                    this.errors.name = ['To pole jest wymagane'];
-                }
-                return false;
-            },
-
             save: function(e) {
-                e.preventDefault();
+                let formData = new FormData();
+                formData.append('_method', 'PUT');
+                formData.append('wellness_logo', this.wellness_logo)
 
-                if (this.validate) {
-                    let formData = new FormData();
-                    formData.append('_method', this.id ? 'PUT' : 'POST');
-                    formData.append('name', this.name);
-                    formData.append('hotel', this.hotel._id);
-                    formData.append('logo', this.logo);
-                    formData.append('phone', this.phone);
-                    formData.append('mail', this.mail);
-                    formData.append('address', this.address);
-                    formData.append('coordinates[latitude]', this.coordinates.latitude);
-                    formData.append('coordinates[longitude]', this.coordinates.longitude);
-
-                    axios.post(this.url, formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
+                axios.post('/dashboard/hotels/' + this._id, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(res => {
+                    this.$bvToast.toast('Wellness zaktualizowany', {
+                        title: `Wellness`,
+                        variant: 'success',
+                        solid: true
                     })
-                    .then(res => {
-                        window.location = res.data.redirect;
-                    }).catch(err => {
-                        console.log(err);
-                    });
-                } else {
-                    return false;
-                }
-            }
-        },
-
-        watch: {
-            name() {
-                this.validate();
+                }).catch(err => {
+                    this.$bvToast.toast(err, {
+                        title: `Błąd`,
+                        variant: 'danger',
+                        solid: true
+                    })
+                })
             }
         }
     }

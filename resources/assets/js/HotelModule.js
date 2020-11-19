@@ -29,7 +29,7 @@ Vue.component('kitchen-type', require('./components/kitchen-type.vue').default);
 Vue.component('kitchen', require('./components/kitchen.vue').default);
 Vue.component('description', require('./components/description.vue').default);
 Vue.component('gallery', require('./components/gallery.vue').default);
-Vue.component('spa', require('./components/spa.vue').default);
+Vue.component('contact', require('./components/contact.vue').default);
 Vue.component('gallery-with-labels', require('./components/gallery-with-labels.vue').default);
 Vue.component('work-time', require('./components/work-time.vue').default);
 Vue.component('main-info', require('./components/main-info.vue').default);

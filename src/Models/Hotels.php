@@ -52,6 +52,12 @@ class Hotels extends Model
         'conference_link',
         'booking',
         'suggest_kitchen',
+        'wellness_logo',
+        'wellness_phone',
+        'wellness_mail',
+        'wellness_work_days',
+        'wellness_work_hours',
+        'wellness_files',
         'order'
     ];
 

@@ -65,26 +65,15 @@
                 axios.get('/api/hotels')
                     .then(res => {
                         self.hotelsOptions.push({id: 0, name: 'Wszystkie'});
+                        self.wellnessOptions.push({id: 0, name: 'Wszystkie'});
                         res.data.forEach(item => {
                             self.hotelsOptions.push({id: item._id, name: item.name});
+                            if (item.wellness_phone || item.wellness_mail) {
+                                self.wellnessOptions.push({id: item._id, name: item.name});
+                            }
                         });
-                        this.getWellness();
+                        this.getKitchens();
                     }).catch(err => {
-                    console.log(err)
-                })
-            },
-
-            getWellness: function() {
-                let self = this;
-
-                axios.get('/api/hotels/wellness')
-                .then(res => {
-                    self.wellnessOptions.push({id: 0, name: 'Wszystkie'});
-                    res.data.forEach(item => {
-                        self.wellnessOptions.push({id: item._id, name: item.name});
-                    });
-                    this.getKitchens();
-                }).catch(err => {
                     console.log(err)
                 })
             },

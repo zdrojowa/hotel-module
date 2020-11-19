@@ -27,8 +27,8 @@
                     <!-- Right aligned nav items -->
                         <b-navbar-nav class="ml-auto">
                             <b-nav-item href="/dashboard/hotels-spa/{{ $hotel->_id }}">SPA</b-nav-item>
-                            <b-nav-item href="/dashboard/hotels-wellness/{{ $hotel->_id }}">Wellness</b-nav-item>
-                            <b-nav-item active>Konferencje</b-nav-item>
+                            <b-nav-item active>Wellness</b-nav-item>
+                            <b-nav-item href="/dashboard/hotels-conference/{{ $hotel->_id }}">Konferencje</b-nav-item>
                             <b-nav-item href="/dashboard/hotels-suggestions/{{ $hotel->_id }}">Propozycje</b-nav-item>
                         </b-navbar-nav>
                     @endisset
@@ -39,25 +39,35 @@
                 <b-tabs card>
                     <b-tab active>
                         <template v-slot:title>
-                            <b-icon-people></b-icon-people> Konference
+                            <b-icon-heart></b-icon-heart> Wellness
                         </template>
-                        <conference :id=`{{ $hotel->_id }}`>
+                        <wellness _id="{{ $hotel->_id }}">
                             {{ csrf_field() }}
-                        </conference>
+                        </wellness>
                     </b-tab>
                     <b-tab>
                         <template v-slot:title>
-                            <b-icon-images></b-icon-images> Gallery
+                            <b-icon-info></b-icon-info> Informacja
                         </template>
-                        <gallery-with-labels :_id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/" field="conference_images"></gallery-with-labels>
+                        <contact _id="{{ $hotel->_id }}" url_get="/api/hotels" url_post="/dashboard/hotels/" prefix="wellness_">
+                            {{ csrf_field() }}
+                        </contact>
                     </b-tab>
                     <b-tab>
                         <template v-slot:title>
-                            <b-icon-trophy></b-icon-trophy> Nagrody
+                            <b-icon-clock></b-icon-clock> Termin pracy
                         </template>
-                        <gallery :_id=`{{ $hotel->_id }}` url_get="/api/hotels/" url_post="/dashboard/hotels/" field="conference_awards">
+                        <work-time :_id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/" prefix="wellness_">
                             {{ csrf_field() }}
-                        </gallery>
+                        </work-time>
+                    </b-tab>
+                    <b-tab>
+                        <template v-slot:title>
+                            <b-icon-files></b-icon-files> Pliki
+                        </template>
+                        <files :_id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/" prefix="wellness_">
+                            {{ csrf_field() }}
+                        </files>
                     </b-tab>
                 </b-tabs>
             </b-card>

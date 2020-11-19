@@ -27,6 +27,7 @@
                     <!-- Right aligned nav items -->
                         <b-navbar-nav class="ml-auto">
                             <b-nav-item active>SPA</b-nav-item>
+                            <b-nav-item href="/dashboard/hotels-wellness/{{ $hotel->_id }}">Wellness</b-nav-item>
                             <b-nav-item href="/dashboard/hotels-conference/{{ $hotel->_id }}">Konferencje</b-nav-item>
                             <b-nav-item href="/dashboard/hotels-suggestions/{{ $hotel->_id }}">Propozycje</b-nav-item>
                         </b-navbar-nav>
@@ -40,9 +41,9 @@
                         <template v-slot:title>
                             <b-icon-flower1></b-icon-flower1> SPA
                         </template>
-                        <spa _id="{{ $hotel->_id }}">
+                        <contact _id="{{ $hotel->_id }}" url_get="/api/hotels" url_post="/dashboard/hotels/" prefix="spa_">
                             {{ csrf_field() }}
-                        </spa>
+                        </contact>
                     </b-tab>
                     <b-tab>
                         <template v-slot:title>

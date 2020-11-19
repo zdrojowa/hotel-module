@@ -63,9 +63,6 @@
                                                     <a class="dropdown-item" href="{{ route('HotelModule::conference.hall', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Sale konferencyjne
                                                     </a>
-                                                    <a class="dropdown-item" href="{{ route('HotelModule::wellness', ['hotel' => $hotel->id ]) }}" target="_blank">
-                                                        Wellness
-                                                    </a>
                                                     <a class="dropdown-item" href="{{ route('HotelModule::rent', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Wypożyczalnia
                                                     </a>
