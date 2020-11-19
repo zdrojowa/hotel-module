@@ -102,3 +102,6 @@
 
 ## Version 11.1.0
 - add offers
+
+## Version 11.2.0
+- add AvailPro Id to Appartments

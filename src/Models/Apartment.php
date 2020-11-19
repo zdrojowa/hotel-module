@@ -25,6 +25,7 @@ class Apartment extends Model
         'square_to',
         'price',
         'conveniences',
+        'avail_pro_id',
         'order'
     ];
 

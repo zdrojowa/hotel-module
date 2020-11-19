@@ -28,17 +28,24 @@
 
         <div class="row">
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Iłość osób</label>
                     <input type="number" class="form-control" placeholder="Wpisz iłość gości" v-model.lazy="guests">
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Cena</label>
                     <input type="number" class="form-control" placeholder="Wpisz cenę" v-model.lazy="price" step="0.01">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>AvailPro id</label>
+                    <input type="number" class="form-control" placeholder="Wpisz AvailPro id" v-model.lazy="avail_pro_id" step="1">
                 </div>
             </div>
         </div>
@@ -85,6 +92,7 @@
                 hotel: {},
                 guests: 0,
                 price: 0,
+                avail_pro_id: 0,
                 square: 0,
                 square_to: 0,
                 errors: {
@@ -94,77 +102,78 @@
         },
 
         created() {
-            this.getHotels();
+            this.getHotels()
         },
 
         computed: {
 
             url() {
-                return this.id ? ('/dashboard/hotels-apartments/' + this.id) : '/dashboard/hotels-apartments/store';
+                return this.id ? ('/dashboard/hotels-apartments/' + this.id) : '/dashboard/hotels-apartments/store'
             }
         },
 
         methods: {
 
             hasError: function(key) {
-                return this.errors[key].length > 0;
+                return this.errors[key].length > 0
             },
 
             getInputClass: function(key) {
-                let className = 'form-control ';
+                let className = 'form-control '
                 if (this.hasError(key)) {
-                    className += 'is-invalid';
+                    className += 'is-invalid'
                 } else {
                     if (this[key]) {
-                        className += 'is-valid';
+                        className += 'is-valid'
                     }
                 }
-                return className;
+                return className
             },
 
             getHotels: function() {
                 let self = this;
 
                 axios.get('/api/hotels')
-                    .then(res => {
-                        self.hotels = res.data;
+                .then(res => {
+                    self.hotels = res.data
 
-                        self.hotel = self.getItem(self.hotels, '_id', self._hotel);
+                    self.hotel = self.getItem(self.hotels, '_id', self._hotel)
 
-                        self.getApartment();
-                    }).catch(err => {
+                    self.getApartment()
+                }).catch(err => {
                     console.log(err)
                 })
             },
 
             getItem: function(arr, key, val) {
 
-                let item = val;
+                let item = val
 
                 arr.forEach(it => {
                     if (it[key] === val) {
-                        item = it;
+                        item = it
                     }
-                });
+                })
 
-                return item;
+                return item
             },
 
             getApartment: function() {
                 let self = this;
                 if (self._id) {
                     axios.get('/api/hotels/apartments?id=' + self._id)
-                        .then(res => {
-                            self.id        = res.data.id;
-                            self.name      = res.data.name;
-                            self.guests    = res.data.guests;
-                            self.price     = res.data.price;
-                            self.square    = res.data.square;
-                            self.square_to = res.data.square_to;
+                    .then(res => {
+                        self.id           = res.data.id;
+                        self.name         = res.data.name;
+                        self.guests       = res.data.guests;
+                        self.price        = res.data.price;
+                        self.avail_pro_id = res.data.avail_pro_id;
+                        self.square       = res.data.square;
+                        self.square_to    = res.data.square_to;
 
-                            self.hotel = self.getItem(self.hotels, '_id', res.data.hotel);
+                        self.hotel = self.getItem(self.hotels, '_id', res.data.hotel)
 
-                        }).catch(err => {
+                    }).catch(err => {
                         console.log(err)
                     })
                 }
@@ -172,26 +181,27 @@
 
             validate: function(e) {
                 if (this.name) {
-                    this.errors.name = {};
+                    this.errors.name = {}
                     return true;
                 } else {
-                    this.errors.name = ['To pole jest wymagane'];
+                    this.errors.name = ['To pole jest wymagane']
                 }
                 return false;
             },
 
             save: function(e) {
-                e.preventDefault();
+                e.preventDefault()
 
                 if (this.validate) {
                     let formData = new FormData();
-                    formData.append('_method', this.id ? 'PUT' : 'POST');
-                    formData.append('name', this.name);
-                    formData.append('hotel', this.hotel._id);
-                    formData.append('guests', this.guests);
-                    formData.append('price', this.price);
-                    formData.append('square', this.square);
-                    formData.append('square_to', this.square_to);
+                    formData.append('_method', this.id ? 'PUT' : 'POST')
+                    formData.append('name', this.name)
+                    formData.append('hotel', this.hotel._id)
+                    formData.append('guests', this.guests)
+                    formData.append('price', this.price)
+                    formData.append('avail_pro_id', this.avail_pro_id)
+                    formData.append('square', this.square)
+                    formData.append('square_to', this.square_to)
 
                     axios.post(this.url, formData, {
                         headers: {
@@ -199,19 +209,19 @@
                         }
                     })
                     .then(res => {
-                        window.location = res.data.redirect;
+                        window.location = res.data.redirect
                     }).catch(err => {
                         console.log(err);
-                    });
+                    })
                 } else {
-                    return false;
+                    return false
                 }
             }
         },
 
         watch: {
             name() {
-                this.validate();
+                this.validate()
             }
         }
     }
