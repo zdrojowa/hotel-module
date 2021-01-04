@@ -108,3 +108,6 @@
 
 ## Version 12.0.0
 - change Wellness
+
+## Version 12.1.0
+- Add customer alliance settings

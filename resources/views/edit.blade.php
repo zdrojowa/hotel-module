@@ -92,6 +92,14 @@
                                 {{ csrf_field() }}
                             </description>
                         </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
+                                <b-icon-list-check></b-icon-list-check> Customer alliance
+                            </template>
+                            <customer-alliance :_id=`{{ $hotel->_id }}`>
+                                {{ csrf_field() }}
+                            </customer-alliance>
+                        </b-tab>
                     @endisset
                 </b-tabs>
             </b-card>

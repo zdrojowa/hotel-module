@@ -58,7 +58,10 @@ class Hotels extends Model
         'wellness_work_days',
         'wellness_work_hours',
         'wellness_files',
-        'order'
+        'order',
+        'ca_id',
+        'ca_key',
+        'ca_link',
     ];
 
     /**

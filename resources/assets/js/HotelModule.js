@@ -44,6 +44,7 @@ Vue.component('program', require('./components/program.vue').default);
 Vue.component('pack', require('./components/pack.vue').default);
 Vue.component('convenience', require('./components/convenience.vue').default);
 Vue.component('objects', require('./components/objects.vue').default);
+Vue.component('customer-alliance', require('./components/customer-alliance.vue').default);
 
 const app = new Vue({
     el: '#app'
