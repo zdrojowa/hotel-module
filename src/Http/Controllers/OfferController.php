@@ -28,7 +28,7 @@ class OfferController extends Controller
 
     public function create()
     {
-        return view('OfferModule::edit');
+        return view('HotelModule::offer.edit');
     }
 
     public function edit(Offer $offer = null)

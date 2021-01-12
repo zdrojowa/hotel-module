@@ -111,3 +111,6 @@
 
 ## Version 12.1.0
 - Add customer alliance settings
+
+## Version 12.1.1
+- Remove offer module binding
