@@ -38,6 +38,8 @@ class Hotels extends Model
         'check_out',
         'children',
         'animals',
+        'animals_translations',
+        'animals_phone',
         'parking',
         'rental',
         'spa_phone',
@@ -62,6 +64,7 @@ class Hotels extends Model
         'ca_id',
         'ca_key',
         'ca_link',
+        'is_hotel',
     ];
 
     /**

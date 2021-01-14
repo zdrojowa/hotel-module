@@ -78,6 +78,14 @@
                         </b-tab>
                         <b-tab>
                             <template v-slot:title>
+                                <b-icon-person></b-icon-person> Zwierzęta
+                            </template>
+                            <animals :_id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/" field="animals_translations">
+                                {{ csrf_field() }}
+                            </animals>
+                        </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
                                 P Parking
                             </template>
                             <description :_id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/" field="parking">

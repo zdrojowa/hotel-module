@@ -24,8 +24,8 @@
         <div class="row mt-2">
 
             <div class="col-md-6">
-                <b-form-checkbox v-model.lazy="animals" switch>
-                    Zwierzeta
+                <b-form-checkbox v-model.lazy="is_hotel" switch>
+                    Obiekt jest hotelem
                 </b-form-checkbox>
             </div>
             <div class="col-md-6">
@@ -50,7 +50,7 @@
                 check_out: '',
                 booking: null,
                 bookings: [],
-                animals: false
+                is_hotel: false
             };
         },
 
@@ -87,7 +87,7 @@
                 .then(res => {
                     self.check_in  = res.data.check_in
                     self.check_out = res.data.check_out
-                    self.animals   = res.data.animals
+                    self.is_hotel   = res.data.is_hotel
 
                     self.bookings.forEach(booking => {
                       if (res.data.booking === booking._id) {
@@ -106,8 +106,11 @@
                 formData.append('_method', 'PUT')
                 formData.append('check_in', this.check_in)
                 formData.append('check_out', this.check_out)
-                formData.append('animals', this.animals)
-                formData.append('booking', this.booking._id)
+                formData.append('is_hotel', this.is_hotel)
+
+                if (this.booking) {
+                    formData.append('booking', this.booking._id)
+                }
 
                 axios.post('/dashboard/hotels/' + this._id, formData, {
                     headers: {

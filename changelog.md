@@ -114,3 +114,6 @@
 
 ## Version 12.1.1
 - Remove offer module binding
+
+## Version 12.2.0
+- Animals

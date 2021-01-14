@@ -89,6 +89,8 @@ class HotelController extends Controller
         $fields = [
             'video',
             'animals',
+            'animals_translations',
+            'animals_phone',
             'children',
             'parking',
             'rental',
@@ -101,6 +103,7 @@ class HotelController extends Controller
             'conference_awards',
             'conference_icons',
             'wellness_files',
+            'is_hotel',
         ];
 
         foreach($fields as $field) {

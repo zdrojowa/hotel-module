@@ -28,6 +28,7 @@ Vue.component('hotel', require('./components/hotel.vue').default);
 Vue.component('kitchen-type', require('./components/kitchen-type.vue').default);
 Vue.component('kitchen', require('./components/kitchen.vue').default);
 Vue.component('description', require('./components/description.vue').default);
+Vue.component('animals', require('./components/animals.vue').default);
 Vue.component('gallery', require('./components/gallery.vue').default);
 Vue.component('contact', require('./components/contact.vue').default);
 Vue.component('gallery-with-labels', require('./components/gallery-with-labels.vue').default);
