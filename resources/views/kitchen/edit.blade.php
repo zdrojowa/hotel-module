@@ -59,7 +59,7 @@
                             <template v-slot:title>
                                 <b-icon-images></b-icon-images> Galeria
                             </template>
-                            <gallery-with-labels :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/" field="images">
+                            <gallery-with-labels :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/" field="gallery">
                                 {{ csrf_field() }}
                             </gallery-with-labels>
                         </b-tab>

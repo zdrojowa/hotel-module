@@ -91,7 +91,7 @@ class KitchenController extends Controller
             'work_days',
             'video',
             'descriptions',
-            'images',
+            'gallery',
             'awards',
             'files',
             'prices'

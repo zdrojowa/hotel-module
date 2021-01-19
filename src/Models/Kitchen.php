@@ -24,7 +24,7 @@ class Kitchen extends Model
         'dinner',
         'prices',
         'logo',
-        'images',
+        'gallery',
         'facebook',
         'facebook_page_id',
         'instagram',

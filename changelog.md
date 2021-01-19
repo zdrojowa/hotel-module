@@ -121,4 +121,7 @@
 ## Version 12.3.0
 - Add hotel suggestion
 - Kitchens gallery with labels and descriptions
-- Add prices for kitchen meals 
+- Add prices for kitchen meals
+
+## Version 12.3.1
+- Rename kitchen images to Gallery
