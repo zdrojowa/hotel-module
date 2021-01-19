@@ -22,6 +22,7 @@ class Kitchen extends Model
         'breakfast',
         'lunch',
         'dinner',
+        'prices',
         'logo',
         'images',
         'facebook',

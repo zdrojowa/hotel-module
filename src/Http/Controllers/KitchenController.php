@@ -77,7 +77,7 @@ class KitchenController extends Controller
 
     private function save(Request $request, Kitchen $kitchen = null) {
         foreach ($request->all() as $key => $val) {
-            if ($val === 'null') {
+            if ($val === 'null' || $val == '') {
                 $request->merge([$key => null]);
             }
         }
@@ -87,28 +87,20 @@ class KitchenController extends Controller
             return Kitchen::create($request->all());
         }
 
-        if ($request->has('work_days')) {
-            $request->merge(['work_days' => json_decode($request->get('work_days'))]);
-        }
+        $fields = [
+            'work_days',
+            'video',
+            'descriptions',
+            'images',
+            'awards',
+            'files',
+            'prices'
+        ];
 
-        if ($request->has('video')) {
-            $request->merge(['video' => json_decode($request->get('video'))]);
-        }
-
-        if ($request->has('descriptions')) {
-            $request->merge(['descriptions' => json_decode($request->get('descriptions'))]);
-        }
-
-        if ($request->has('images')) {
-            $request->merge(['images' => json_decode($request->get('images'))]);
-        }
-
-        if ($request->has('awards')) {
-            $request->merge(['awards' => json_decode($request->get('awards'))]);
-        }
-
-        if ($request->has('files')) {
-            $request->merge(['files' => json_decode($request->get('files'))]);
+        foreach($fields as $field) {
+            if ($request->has($field)) {
+                $request->merge([$field => json_decode($request->get($field))]);
+            }
         }
 
         $kitchen->update($request->all());

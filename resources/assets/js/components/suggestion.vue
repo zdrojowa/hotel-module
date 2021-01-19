@@ -11,9 +11,28 @@
         <div class="row">
 
             <div class="col-md-6">
+              <div class="form-group">
+                <label>Hotel</label>
+                <multiselect
+                    v-model.lazy="hotel"
+                    :options="hotels"
+                    track-by="_id"
+                    label="name"
+                    placeholder="Wybierz hotel"
+                ></multiselect>
+              </div>
+            </div>
+
+            <div class="col-md-6">
                 <div class="form-group">
                     <label>Kuchnia</label>
-                    <multiselect v-model.lazy="kitchen" :options="kitchens" track-by="_id" label="name" placeholder="Wybierz kuchnie"></multiselect>
+                    <multiselect
+                        v-model.lazy="kitchen"
+                        :options="kitchens"
+                        track-by="_id"
+                        label="name"
+                        placeholder="Wybierz kuchnie"
+                    ></multiselect>
                 </div>
             </div>
         </div>
@@ -28,49 +47,61 @@
 
         data() {
             return {
+                hotels: [],
                 kitchens: [],
+                hotel: {},
                 kitchen: {},
             };
         },
 
         created() {
-            this.getKitchens();
+            this.getHotels()
         },
 
         methods: {
 
-            getKitchens: function() {
-                let self = this;
+            getHotels: function() {
+              axios.get('/api/hotels')
+                .then(res => {
+                  this.hotels = res.data
+                  this.getKitchens()
+                }).catch(err => {
+                  console.log(err)
+              })
+            },
 
+            getKitchens: function() {
                 axios.get('/api/hotels/kitchen')
-                    .then(res => {
-                        self.kitchens = res.data;
-                        self.getKitchen();
-                    }).catch(err => {
+                  .then(res => {
+                      this.kitchens = res.data
+                      this.getSuggestions()
+                  }).catch(err => {
                     console.log(err)
                 })
             },
 
             getItem: function(arr, key, val) {
 
-                let item = val;
+                let item = val
 
                 arr.forEach(it => {
                     if (it[key] === val) {
-                        item = it;
+                        item = it
                     }
-                });
+                })
 
-                return item;
+                return item
             },
 
-            getKitchen: function() {
-                let self = this;
-                if (self._id) {
-                    axios.get('/api/hotels?id=' + self._id)
+            getSuggestions: function() {
+                if (this._id) {
+                    axios.get('/api/hotels?id=' + this._id)
                     .then(res => {
+                        if (res.data.suggest_hotel) {
+                          this.hotel = this.getItem(this.hotels, '_id', res.data.suggest_hotel)
+                        }
                         if (res.data.suggest_kitchen) {
-                            self.kitchen = self.getItem(self.kitchens, '_id', res.data.suggest_kitchen);
+                            this.kitchen = this.getItem(this.kitchens, '_id', res.data.suggest_kitchen)
                         }
                     }).catch(err => {
                         console.log(err)
@@ -79,15 +110,14 @@
             },
 
             save: function(e) {
-                e.preventDefault();
+                e.preventDefault()
 
-                let self = this;
+                let formData = new FormData()
+                formData.append('_method', 'PUT')
+                formData.append('suggest_hotel', this.hotel ? this.hotel._id : null)
+                formData.append('suggest_kitchen', this.kitchen ? this.kitchen._id : null)
 
-                let formData = new FormData();
-                formData.append('_method', 'PUT');
-                formData.append('suggest_kitchen', this.kitchen ? this.kitchen._id : null);
-
-                axios.post('/dashboard/hotels/' + self._id, formData, {
+                axios.post('/dashboard/hotels/' + this._id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -104,7 +134,7 @@
                         variant: 'danger',
                         solid: true
                     })
-                });
+                })
             }
         }
     }

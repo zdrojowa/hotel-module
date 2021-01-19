@@ -117,3 +117,8 @@
 
 ## Version 12.2.0
 - Animals
+
+## Version 12.3.0
+- Add hotel suggestion
+- Kitchens gallery with labels and descriptions
+- Add prices for kitchen meals 

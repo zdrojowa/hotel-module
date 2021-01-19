@@ -41,6 +41,14 @@
                         </b-tab>
                         <b-tab>
                             <template v-slot:title>
+                                <b-icon-cup></b-icon-cup> Posiłki
+                            </template>
+                            <meals :_id=`{{ $kitchen->_id }}`>
+                                {{ csrf_field() }}
+                            </meals>
+                        </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
                                 <b-icon-card-text></b-icon-card-text> Opis
                             </template>
                             <description :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/" field="descriptions">
@@ -51,9 +59,9 @@
                             <template v-slot:title>
                                 <b-icon-images></b-icon-images> Galeria
                             </template>
-                            <gallery :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/" field="images">
+                            <gallery-with-labels :_id=`{{ $kitchen->_id }}` url_get="/api/hotels/kitchen" url_post="/dashboard/hotels-kitchen/" field="images">
                                 {{ csrf_field() }}
-                            </gallery>
+                            </gallery-with-labels>
                         </b-tab>
                         <b-tab>
                             <template v-slot:title>

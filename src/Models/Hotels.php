@@ -53,6 +53,7 @@ class Hotels extends Model
         'conference_images',
         'conference_link',
         'booking',
+        'suggest_hotel',
         'suggest_kitchen',
         'wellness_logo',
         'wellness_phone',

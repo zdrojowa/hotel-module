@@ -8,100 +8,80 @@
             </b-nav-item>
         </b-nav>
 
-        <div class="row">
+        <b-row>
+          <b-col>
+            <label>Nazwa</label>
+            <b-form-input
+                type="text"
+                :state="name.length > 0"
+                placeholder="Wpisz nazwe"
+                v-model.lazy="name"
+                description="To pole jest wymagane"
+            ></b-form-input>
+          </b-col>
+          <b-col>
+            <label>Hotel</label>
+            <multiselect
+                v-model.lazy="hotel"
+                :options="hotels"
+                track-by="_id"
+                label="name"
+                placeholder="Wybierz hotel"
+            ></multiselect>
+          </b-col>
+        </b-row>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Nazwa</label>
-                    <input type="text" :class="getInputClass('name')" name="name" placeholder="Wpisz nazwe" v-model.lazy="name">
-                    <small v-if="hasError('name')" class="error mt-2 text-danger">{{ errors.name[0] }}</small>
-                </div>
-            </div>
+        <b-row class="my-1">
+          <b-col>
+            <label>Typ</label>
+            <multiselect
+                v-model.lazy="type"
+                :options="types"
+                track-by="_id"
+                label="title"
+                placeholder="Wybierz typ"
+            ></multiselect>
+          </b-col>
+        </b-row>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Hotel</label>
-                    <multiselect v-model.lazy="hotel" :options="hotels" track-by="_id" label="name" placeholder="Wybierz hotel"></multiselect>
-                </div>
-            </div>
-        </div>
+        <b-row class="my-1">
+          <b-col>
+            <label>Telefon</label>
+            <b-form-input
+                type="text"
+                placeholder="Wpisz telefon"
+                v-model.lazy="phone"
+            ></b-form-input>
+          </b-col>
+          <b-col>
+            <label>Mail</label>
+            <b-form-input
+                type="text"
+                placeholder="Wpisz mail"
+                v-model.lazy="mail"
+            ></b-form-input>
+          </b-col>
+          <b-col>
+            <label>Godziny otwarcia cafe</label>
+            <b-form-input
+                type="text"
+                placeholder="Wpisz godziny otwarcia cafe"
+                v-model.lazy="cafe_work_hours"
+            ></b-form-input>
+          </b-col>
+        </b-row>
 
-        <div class="row">
+        <b-row class="my-1">
+          <b-col>
+            <b-form-group label="Logo">
+              <media-selector extensions="svg" @media-selected="select"></media-selector>
+            </b-form-group>
 
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Typ</label>
-                    <multiselect v-model.lazy="type" :options="types" track-by="_id" label="title" placeholder="Wybierz typ"></multiselect>
-                </div>
-            </div>
-        </div>
+            <b-img v-if="logo" thumbnail fluid :src="logo"></b-img>
 
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <b-form-group label="Logo">
-                        <media-selector extensions="svg" @media-selected="select"></media-selector>
-                    </b-form-group>
-
-                    <b-img v-if="logo" thumbnail fluid :src="logo"></b-img>
-
-                    <b-button v-if="logo" type="button" variant="danger" @click="remove">Usuń</b-button>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Telefon</label>
-                    <input type="text" class="form-control" name="phone" placeholder="Wpisz telefon" v-model.lazy="phone">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Mail</label>
-                    <input type="text" class="form-control" name="mail" placeholder="Wpisz mail" v-model.lazy="mail">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Godziny otwarcia cafe</label>
-                    <input type="text" class="form-control" name="cafe_work_hours" placeholder="Wpisz godziny otwarcia cafe" v-model.lazy="cafe_work_hours">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Śniadanie</label>
-                    <input type="text" class="form-control" name="breakfast" placeholder="Wpisz godziny śniadania" v-model.lazy="breakfast">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Obiad</label>
-                    <input type="text" class="form-control" name="lunch" placeholder="Wpisz godziny obiadu" v-model.lazy="lunch">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Obiadokolacja</label>
-                    <input type="text" class="form-control" name="dinner" placeholder="Wpisz godziny obiadokolacji" v-model.lazy="dinner">
-                </div>
-            </div>
-        </div>
+            <b-button v-if="logo" type="button" variant="danger" @click="remove">Usuń</b-button>
+          </b-col>
+        </b-row>
     </div>
 </template>
 
@@ -122,111 +102,81 @@
                 logo: '',
                 phone: '',
                 mail: '',
-                work_hours: '',
                 cafe_work_hours: '',
-                work_days: '',
-                breakfast: '',
-                lunch: '',
-                dinner: '',
-                errors: {
-                    name: {}
-                }
+                work_days: ''
             };
         },
 
         created() {
-            this.getHotels();
+            this.getHotels()
         },
 
         computed: {
 
             url() {
-                return this.id ? ('/dashboard/hotels-kitchen/' + this.id) : '/dashboard/hotels-kitchen/store';
+                return this.id ? ('/dashboard/hotels-kitchen/' + this.id) : '/dashboard/hotels-kitchen/store'
             }
         },
 
         methods: {
 
             select: function(url) {
-                this.logo = url;
+                this.logo = url
             },
 
             remove: function() {
-                this.logo = '';
+                this.logo = ''
             },
 
             hasError: function(key) {
-                return this.errors[key].length > 0;
-            },
-
-            getInputClass: function(key) {
-                let className = 'form-control ';
-                if (this.hasError(key)) {
-                    className += 'is-invalid';
-                } else {
-                    if (this[key]) {
-                        className += 'is-valid';
-                    }
-                }
-                return className;
+                return this.errors[key].length > 0
             },
 
             getHotels: function() {
-                let self = this;
-
                 axios.get('/api/hotels')
-                    .then(res => {
-                        self.hotels = res.data;
-                        self.getTypes();
-                    }).catch(err => {
+                  .then(res => {
+                      this.hotels = res.data
+                      this.getTypes()
+                  }).catch(err => {
                     console.log(err)
                 })
             },
 
             getTypes: function() {
-                let self = this;
-
                 axios.get('/api/hotels/kitchen-types')
-                    .then(res => {
-                        self.types = res.data;
-                        self.getKitchen();
-                    }).catch(err => {
+                  .then(res => {
+                      this.types = res.data
+                      this.getKitchen()
+                  }).catch(err => {
                     console.log(err)
                 })
             },
 
             getItem: function(arr, key, val) {
-
-                let item = val;
+                let item = val
 
                 arr.forEach(it => {
                     if (it[key] === val) {
-                        item = it;
+                        item = it
                     }
-                });
+                })
 
-                return item;
+                return item
             },
 
             getKitchen: function() {
-                let self = this;
-                if (self._id) {
-                    axios.get('/api/hotels/kitchen?id=' + self._id)
+                if (this._id) {
+                    axios.get('/api/hotels/kitchen?id=' + this._id)
                     .then(res => {
-                        self.id              = res.data._id;
-                        self.name            = res.data.name;
-                        self.logo            = res.data.logo;
-                        self.phone           = res.data.phone;
-                        self.mail            = res.data.mail;
-                        self.work_hours      = res.data.work_hours;
-                        self.cafe_work_hours = res.data.cafe_work_hours;
-                        self.work_days       = res.data.work_days;
-                        self.breakfast       = res.data.breakfast;
-                        self.lunch           = res.data.lunch;
-                        self.dinner          = res.data.dinner;
+                      this.id              = res.data._id
+                      this.name            = res.data.name
+                      this.logo            = res.data.logo
+                      this.phone           = res.data.phone
+                      this.mail            = res.data.mail
+                      this.cafe_work_hours = res.data.cafe_work_hours
 
-                        self.hotel = self.getItem(self.hotels, '_id', res.data.hotel);
-                        self.type  = self.getItem(self.types, '_id', res.data.type);
+                      this.hotel = this.getItem(this.hotels, '_id', res.data.hotel)
+                      this.type  = this.getItem(this.types, '_id', res.data.type)
 
                     }).catch(err => {
                         console.log(err)
@@ -234,34 +184,19 @@
                 }
             },
 
-            validate: function(e) {
-                if (this.name) {
-                    this.errors.name = {};
-                    return true;
-                } else {
-                    this.errors.name = ['To pole jest wymagane'];
-                }
-                return false;
-            },
-
             save: function(e) {
-                e.preventDefault();
+                e.preventDefault()
 
-                if (this.validate) {
-                    let formData = new FormData();
-                    formData.append('_method', this.id ? 'PUT' : 'POST');
-                    formData.append('name', this.name);
-                    formData.append('hotel', this.hotel._id);
-                    formData.append('type', this.type._id);
-                    formData.append('logo', this.logo);
-                    formData.append('phone', this.phone);
-                    formData.append('mail', this.mail);
-                    formData.append('work_hours', this.work_hours);
-                    formData.append('cafe_work_hours', this.cafe_work_hours);
-                    formData.append('work_days', this.work_days);
-                    formData.append('breakfast', this.breakfast);
-                    formData.append('lunch', this.lunch);
-                    formData.append('dinner', this.dinner);
+                if (this.name.length) {
+                    let formData = new FormData()
+                    formData.append('_method', this.id ? 'PUT' : 'POST')
+                    formData.append('name', this.name)
+                    formData.append('hotel', this.hotel._id)
+                    formData.append('type', this.type._id)
+                    formData.append('logo', this.logo)
+                    formData.append('phone', this.phone)
+                    formData.append('mail', this.mail)
+                    formData.append('cafe_work_hours', this.cafe_work_hours)
 
                     axios.post(this.url, formData, {
                         headers: {
@@ -269,19 +204,13 @@
                         }
                     })
                     .then(res => {
-                        window.location = res.data.redirect;
+                        window.location = res.data.redirect
                     }).catch(err => {
-                        console.log(err);
+                        console.log(err)
                     });
                 } else {
-                    return false;
+                    return false
                 }
-            }
-        },
-
-        watch: {
-            name() {
-                this.validate();
             }
         }
     }
