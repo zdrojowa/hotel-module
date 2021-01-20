@@ -104,6 +104,8 @@ class HotelController extends Controller
             'conference_icons',
             'wellness_files',
             'is_hotel',
+            'suggest_hotel_description',
+            'suggest_kitchen_description',
         ];
 
         foreach($fields as $field) {

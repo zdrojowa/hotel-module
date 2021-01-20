@@ -104,7 +104,7 @@
 - add offers
 
 ## Version 11.2.0
-- add AvailPro Id to Appartments
+- add AvailPro Id to Apartments
 
 ## Version 12.0.0
 - change Wellness
@@ -125,3 +125,6 @@
 
 ## Version 12.3.1
 - Rename kitchen images to Gallery
+
+## Version 12.3.2
+- Add suggestion descriptions
