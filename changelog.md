@@ -128,3 +128,6 @@
 
 ## Version 12.3.2
 - Add suggestion descriptions
+
+## Version 12.4.0
+- Add conference files

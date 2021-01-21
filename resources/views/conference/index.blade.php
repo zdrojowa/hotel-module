@@ -59,6 +59,14 @@
                             {{ csrf_field() }}
                         </gallery>
                     </b-tab>
+                    <b-tab>
+                        <template v-slot:title>
+                            <b-icon-files></b-icon-files> Pliki
+                        </template>
+                        <files :_id=`{{ $hotel->_id }}` url_get="/api/hotels/" url_post="/dashboard/hotels/" prefix="conference_">
+                            {{ csrf_field() }}
+                        </files>
+                    </b-tab>
                 </b-tabs>
             </b-card>
         </div>

@@ -102,6 +102,7 @@ class HotelController extends Controller
             'conference_images',
             'conference_awards',
             'conference_icons',
+            'conference_files',
             'wellness_files',
             'is_hotel',
             'suggest_hotel_description',
