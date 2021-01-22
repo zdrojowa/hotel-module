@@ -130,6 +130,11 @@
             save: function() {
                 let self = this
 
+                self.gallery.images.forEach(i => {
+                    i.titles = Array.isArray(i.titles) ? {...i.titles} : i.titles
+                    i.descriptions = Array.isArray(i.descriptions) ? {...i.descriptions} : i.descriptions
+                })
+
                 let formData = new FormData()
                 formData.append('_method', 'PUT')
                 formData.append(self.field, JSON.stringify(self.gallery))

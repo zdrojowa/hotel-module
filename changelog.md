@@ -131,3 +131,6 @@
 
 ## Version 12.4.0
 - Add conference files
+
+## Version 12.4.1
+- Fix kitchen gallery
