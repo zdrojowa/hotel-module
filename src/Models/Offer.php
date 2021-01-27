@@ -26,6 +26,7 @@ class Offer extends Model
         'min_nights',
         'discount',
         'programs',
+        'conditions',
         'packs',
         'files',
         'conveniences',

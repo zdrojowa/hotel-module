@@ -42,6 +42,7 @@ Vue.component('attraction', require('./components/attraction.vue').default);
 Vue.component('suggestion', require('./components/suggestion.vue').default);
 Vue.component('editor', require('./components/editor.vue').default);
 Vue.component('program', require('./components/program.vue').default);
+Vue.component('conditions', require('./components/conditions.vue').default);
 Vue.component('pack', require('./components/pack.vue').default);
 Vue.component('convenience', require('./components/convenience.vue').default);
 Vue.component('objects', require('./components/objects.vue').default);

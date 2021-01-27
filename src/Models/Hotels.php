@@ -54,6 +54,7 @@ class Hotels extends Model
         'conference_link',
         'conference_files',
         'booking',
+        'booking_disabled',
         'suggest_hotel',
         'suggest_hotel_description',
         'suggest_kitchen',

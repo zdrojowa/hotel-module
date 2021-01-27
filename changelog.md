@@ -134,3 +134,6 @@
 
 ## Version 12.4.1
 - Fix kitchen gallery
+
+## Version 12.5.0
+- Offers conditions, hotel booking disabled

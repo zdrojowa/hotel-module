@@ -72,6 +72,10 @@ class OfferController extends Controller
             return Offer::create($request->all());
         }
 
+        if ($request->has('conditions')) {
+            $request->merge(['conditions' => json_decode($request->get('conditions'))]);
+        }
+        
         if ($request->has('programs')) {
             $request->merge(['programs' => json_decode($request->get('programs'))]);
         }

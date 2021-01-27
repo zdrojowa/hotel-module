@@ -41,6 +41,14 @@
                         </b-tab>
                         <b-tab>
                             <template v-slot:title>
+                                <b-icon-file></b-icon-file> Warunki
+                            </template>
+                            <conditions :_id=`{{ $offer->_id }}`>
+                                {{ csrf_field() }}
+                            </conditions>
+                        </b-tab>
+                        <b-tab>
+                            <template v-slot:title>
                                 <b-icon-bag></b-icon-bag> Pakiet
                             </template>
                             <pack :_id=`{{ $offer->_id }}`>

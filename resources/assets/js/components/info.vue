@@ -22,7 +22,6 @@
         </div>
 
         <div class="row mt-2">
-
             <div class="col-md-6">
                 <b-form-checkbox v-model.lazy="is_hotel" switch>
                     Obiekt jest hotelem
@@ -33,6 +32,14 @@
                 <label>Booking</label>
                 <multiselect v-model.lazy="booking" :options="bookings" track-by="_id" label="name" placeholder="Wybierz booking"></multiselect>
               </div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <b-form-checkbox v-model.lazy="booking_disabled" switch>
+                    Wyłącz z bookingu
+                </b-form-checkbox>
             </div>
         </div>
     </div>
@@ -50,7 +57,8 @@
                 check_out: '',
                 booking: null,
                 bookings: [],
-                is_hotel: false
+                is_hotel: false,
+                booking_disabled: false,
             };
         },
 
@@ -85,9 +93,10 @@
 
                 axios.get('/api/hotels?id=' + self._id)
                 .then(res => {
-                    self.check_in  = res.data.check_in
-                    self.check_out = res.data.check_out
-                    self.is_hotel   = res.data.is_hotel
+                    self.check_in           = res.data.check_in
+                    self.check_out          = res.data.check_out
+                    self.is_hotel           = res.data.is_hotel
+                    self.booking_disabled   = res.data.booking_disabled
 
                     self.bookings.forEach(booking => {
                       if (res.data.booking === booking._id) {
@@ -107,6 +116,7 @@
                 formData.append('check_in', this.check_in)
                 formData.append('check_out', this.check_out)
                 formData.append('is_hotel', this.is_hotel)
+                formData.append('booking_disabled', this.booking_disabled)
 
                 if (this.booking) {
                     formData.append('booking', this.booking._id)
