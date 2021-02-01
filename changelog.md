@@ -140,3 +140,6 @@
 
 ## Version 12.6.0
 - Hotel reservation email
+
+## Version 12.6.1
+- Fix saving email
