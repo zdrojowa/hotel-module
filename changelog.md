@@ -137,3 +137,6 @@
 
 ## Version 12.5.0
 - Offers conditions, hotel booking disabled
+
+## Version 12.6.0
+- Hotel reservation email

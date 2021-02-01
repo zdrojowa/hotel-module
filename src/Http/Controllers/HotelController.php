@@ -108,6 +108,7 @@ class HotelController extends Controller
             'suggest_hotel_description',
             'suggest_kitchen_description',
             'booking_disabled',
+            'mail_reservations',
         ];
 
         foreach($fields as $field) {

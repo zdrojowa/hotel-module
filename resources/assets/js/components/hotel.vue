@@ -170,6 +170,14 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>E-mail rezerwacje</label>
+                    <b-form-input type="email" v-model.lazy="mail_reservations"></b-form-input>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -194,6 +202,7 @@
                 reception: '',
                 reservation: '',
                 mail: '',
+                mail_reservations: '',
                 address: '',
                 coordinates: {latitude: '', longitude: ''},
                 street: '',
@@ -269,22 +278,23 @@
                 if (self._id) {
                     axios.get('/api/hotels?id=' + self._id)
                     .then(res => {
-                        self.id          = res.data._id;
-                        self.name        = res.data.name;
-                        self.full_name   = res.data.full_name;
-                        self.label       = res.data.label;
-                        self.logo        = res.data.logo;
-                        self.photo       = res.data.photo;
-                        self.marker      = res.data.marker;
-                        self.star        = res.data.star;
-                        self.reception   = res.data.reception;
-                        self.reservation = res.data.reservation;
-                        self.mail        = res.data.mail;
-                        self.address     = res.data.address;
-                        self.coordinates = res.data.coordinates;
-                        self.street      = res.data.street;
-                        self.arrive      = res.data.arrive;
-                        self.copyright   = res.data.copyright;
+                        self.id                 = res.data._id;
+                        self.name               = res.data.name;
+                        self.full_name          = res.data.full_name;
+                        self.label              = res.data.label;
+                        self.logo               = res.data.logo;
+                        self.photo              = res.data.photo;
+                        self.marker             = res.data.marker;
+                        self.star               = res.data.star;
+                        self.reception          = res.data.reception;
+                        self.reservation        = res.data.reservation;
+                        self.mail               = res.data.mail;
+                        self.address            = res.data.address;
+                        self.coordinates        = res.data.coordinates;
+                        self.street             = res.data.street;
+                        self.arrive             = res.data.arrive;
+                        self.copyright          = res.data.copyright;
+                        self.mail_reservations  = res.data.mail_reservations;
 
                         self.city = self.getItem(self.cities, '_id', res.data.city);
 
@@ -324,6 +334,7 @@
                     formData.append('street', this.street);
                     formData.append('arrive', this.arrive);
                     formData.append('copyright', this.copyright);
+                    formData.append('mail_reservations', this.mail_reservations);
 
                     axios.post(this.url, formData, {
                         headers: {

@@ -32,6 +32,7 @@ class Hotels extends Model
         'linkedin',
         'video',
         'mail',
+        'mail_reservations',
         'copyright',
         'marker',
         'check_in',
