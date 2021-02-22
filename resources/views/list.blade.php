@@ -26,7 +26,7 @@
                                     <td>Nazwa</td>
                                     <td>Data utworzenia</td>
                                     <td>Akcje</td>
-                                    <td>Objekty</td>
+                                    <td>Obiekty</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,7 +48,7 @@
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn dropdown-toggle" type="button" id="{{ $hotel->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Objekty
+                                                    Obiekty
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="{{ $hotel->id }}">
                                                     <a class="dropdown-item" href="{{ route('HotelModule::apartments', ['hotel' => $hotel->id ]) }}" target="_blank">

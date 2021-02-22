@@ -73,7 +73,7 @@
                         </b-tab>
                         <b-tab>
                             <template v-slot:title>
-                                <b-icon-bookmarks></b-icon-bookmarks> Objekty
+                                <b-icon-bookmarks></b-icon-bookmarks> Obekty
                             </template>
                             <objects :_id=`{{ $offer->_id }}`>
                                 {{ csrf_field() }}

@@ -143,3 +143,6 @@
 
 ## Version 12.6.1
 - Fix saving email
+
+## Version 12.7.0
+- Add aquapark offers

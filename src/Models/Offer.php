@@ -33,6 +33,8 @@ class Offer extends Model
         'hotels',
         'wellness',
         'kitchens',
-        'order'
+        'aquaparks',
+        'order',
+        'is_aquapark_offer',
     ];
 }

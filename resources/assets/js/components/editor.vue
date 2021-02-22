@@ -66,9 +66,15 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Mimimalna iłość nocy</label>
-                    <input type="number" class="form-control" name="min_nights" placeholder="Wpisz minimalną iłość nocy" v-model.lazy="min_nights" max="100" min="0">
+                    <label>Mimimalna ilość nocy</label>
+                    <input type="number" class="form-control" name="min_nights" placeholder="Wpisz minimalną ilość nocy" v-model.lazy="min_nights" max="100" min="0">
                 </div>
+            </div>
+
+            <div class="col-md-6">
+                <b-form-checkbox v-model.lazy="is_aquapark_offer" switch>
+                    Oferta aquaparku
+                </b-form-checkbox>
             </div>
         </div>
     </div>
@@ -90,6 +96,7 @@
                 discount: 0,
                 price: 0,
                 min_nights: 0,
+                is_aquapark_offer: false,
                 errors: {
                     name: {},
                     date_from: {}
@@ -145,13 +152,14 @@
                 if (self._id) {
                     axios.get('/api/offers?id=' + self._id)
                     .then(res => {
-                        self.id         = res.data.id
-                        self.name       = res.data.name
-                        self.date_from  = res.data.date_from
-                        self.date_to    = res.data.date_to == null ? '' : res.data.date_to
-                        self.discount   = res.data.discount == null ? 0 : res.data.discount
-                        self.price      = res.data.price == null ? 0 : res.data.price
-                        self.min_nights = res.data.min_nights == null ? 0 : res.data.min_nights
+                        self.id                 = res.data.id
+                        self.name               = res.data.name
+                        self.date_from          = res.data.date_from
+                        self.is_aquapark_offer  = res.data.is_aquapark_offer
+                        self.date_to            = res.data.date_to == null ? '' : res.data.date_to
+                        self.discount           = res.data.discount == null ? 0 : res.data.discount
+                        self.price              = res.data.price == null ? 0 : res.data.price
+                        self.min_nights         = res.data.min_nights == null ? 0 : res.data.min_nights
 
                     }).catch(err => {
                         console.log(err)
@@ -186,6 +194,7 @@
                     formData.append('discount', this.discount)
                     formData.append('price', this.price)
                     formData.append('min_nights', this.min_nights)
+                    formData.append('is_aquapark_offer', this.is_aquapark_offer)
 
                     axios.post(this.url, formData, {
                         headers: {

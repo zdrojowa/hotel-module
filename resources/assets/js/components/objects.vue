@@ -34,6 +34,15 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <div class="form-group">
+                    <label>Aquapark</label>
+                    <multiselect v-model.lazy="aquaparks" :options="aquaparksOptions" track-by="id" label="name" placeholder="Wybierz aquapark" :multiple="true" :searchable="true"></multiselect>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -47,18 +56,20 @@
                 hotels: [],
                 wellness: [],
                 kitchens: [],
+                aquaparks: [],
                 hotelsOptions: [],
                 wellnessOptions: [],
                 kitchensOptions: [],
+                aquaparksOptions: [{id: 0, name: 'Wszystkie'}],
             };
         },
 
-        created() {
+        async created() {
+            await this.getAquaparks()
             this.getHotels();
         },
 
         methods: {
-
             getHotels: function() {
                 let self = this;
 
@@ -93,6 +104,11 @@
                 })
             },
 
+            async getAquaparks() {
+                const res = await axios.get('/api/aqua-parks')
+                res.data.forEach(a => this.aquaparksOptions.push({id: a._id, name: a.name}))
+            },
+
             getOffer: function() {
                 let self = this;
                 if (self._id) {
@@ -121,6 +137,15 @@
                                 self.kitchensOptions.forEach(item => {
                                     if (item.id === kitchen) {
                                         self.kitchens.push(item);
+                                    }
+                                });
+                            });
+                        }
+                        if (res.data.aquaparks != null) {
+                            res.data.aquaparks.forEach(aquapark => {
+                                self.aquaparksOptions.forEach(item => {
+                                    if (item.id === aquapark) {
+                                        self.aquaparks.push(item);
                                     }
                                 });
                             });
@@ -164,10 +189,20 @@
                         kitchens.push(item.id);
                     }
                 });
+                let aquaparks = [];
+                this.aquaparks.forEach(item => {
+                    if (item.id === 0) {
+                        aquaparks = [0];
+                    }
+                    if (aquaparks[0] !== 0) {
+                        aquaparks.push(item.id);
+                    }
+                });
 
                 formData.append('hotels', JSON.stringify(hotels));
                 formData.append('wellness', JSON.stringify(wellness));
                 formData.append('kitchens', JSON.stringify(kitchens));
+                formData.append('aquaparks', JSON.stringify(aquaparks));
 
                 axios.post('/dashboard/offers/' + this._id, formData, {
                     headers: {
@@ -175,8 +210,8 @@
                     }
                 })
                 .then(res => {
-                    this.$bvToast.toast('Objekty zaktualizowane', {
-                        title: `Objekty`,
+                    this.$bvToast.toast('Obiekty zaktualizowane', {
+                        title: `Obiekty`,
                         variant: 'success',
                         solid: true
                     })
