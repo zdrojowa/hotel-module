@@ -76,6 +76,12 @@
                     Oferta aquaparku
                 </b-form-checkbox>
             </div>
+
+            <div class="col-md-6">
+                <b-form-checkbox v-model.lazy="main_page_hidden" switch>
+                    Ukryj na stronie głównej
+                </b-form-checkbox>
+            </div>
         </div>
     </div>
 </template>
@@ -97,6 +103,7 @@
                 price: 0,
                 min_nights: 0,
                 is_aquapark_offer: false,
+                main_page_hidden: false,
                 errors: {
                     name: {},
                     date_from: {}
@@ -156,6 +163,7 @@
                         self.name               = res.data.name
                         self.date_from          = res.data.date_from
                         self.is_aquapark_offer  = res.data.is_aquapark_offer
+                        self.main_page_hidden   = res.data.main_page_hidden
                         self.date_to            = res.data.date_to == null ? '' : res.data.date_to
                         self.discount           = res.data.discount == null ? 0 : res.data.discount
                         self.price              = res.data.price == null ? 0 : res.data.price
@@ -195,6 +203,7 @@
                     formData.append('price', this.price)
                     formData.append('min_nights', this.min_nights)
                     formData.append('is_aquapark_offer', this.is_aquapark_offer)
+                    formData.append('main_page_hidden', this.main_page_hidden)
 
                     axios.post(this.url, formData, {
                         headers: {
