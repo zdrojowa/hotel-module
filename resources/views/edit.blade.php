@@ -30,6 +30,7 @@
                             <b-nav-item href="/dashboard/hotels-wellness/{{ $hotel->_id }}">Wellness</b-nav-item>
                             <b-nav-item href="/dashboard/hotels-conference/{{ $hotel->_id }}">Konferencje</b-nav-item>
                             <b-nav-item href="/dashboard/hotels-suggestions/{{ $hotel->_id }}">Propozycje</b-nav-item>
+                            <b-nav-item href="/dashboard/hotels-kids-club/{{ $hotel->_id }}">Kids Club</b-nav-item>
                         </b-navbar-nav>
                     @endisset
                 </b-collapse>

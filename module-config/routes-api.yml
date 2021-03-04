@@ -58,6 +58,12 @@ api.hotels-rent:
   methods:
     - GET
 
+api.schedule:
+  path: /hotels-schedule
+  controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@schedule
+  methods:
+    - GET
+
 api.conference.hall:
   path: /hotels/conference/hall
   controller: Selene\Modules\HotelModule\Http\Controllers\ApiController@conferenceHall

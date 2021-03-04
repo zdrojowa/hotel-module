@@ -261,6 +261,13 @@ suggestions:
     - GET
   permission: HotelModule
 
+kids-club:
+  path: /dashboard/hotels-kids-club/{{hotel}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\HotelController@kidsClub
+  methods:
+    - GET
+  permission: HotelModule
+
 hotel.attraction:
   path: /dashboard/hotels-attraction
   controller: Selene\Modules\HotelModule\Http\Controllers\AttractionController@index
@@ -385,6 +392,134 @@ rent.destroy:
 rent.saveOrder:
   path: /dashboard/hotels-rent/saveOrder
   controller: Selene\Modules\HotelModule\Http\Controllers\RentController@saveOrder
+  methods:
+    - POST
+  permission: HotelModule.edit
+
+schedules:
+  path: /dashboard/schedules
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubController@index
+  methods:
+    - GET
+  permission: HotelModule
+
+schedule.sort:
+  path: /dashboard/hotels-schedule/sort
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubController@sort
+  methods:
+    - GET
+  permission: HotelModule
+
+schedule.ajax:
+  path: /dashboard/hotels-schedule/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubController@ajax
+  methods:
+    - POST
+  permission: HotelModule
+
+schedule.create:
+  path: /dashboard/hotels-schedule/create
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubController@create
+  methods:
+    - GET
+  permission: HotelModule.add
+
+schedule.store:
+  path: /dashboard/hotels-schedule/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubController@store
+  methods:
+    - POST
+  permission: HotelModule.add
+
+schedule.edit:
+  path: /dashboard/hotels-schedule/{{schedule}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubController@edit
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+schedule.update:
+  path: /dashboard/hotels-schedule/{{schedule}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubController@update
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+schedule.destroy:
+  path: /dashboard/hotels-schedule/{{schedule}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubController@destroy
+  methods:
+    - DELETE
+  permission: HotelModule.delete
+
+schedule.saveOrder:
+  path: /dashboard/hotels-schedule/saveOrder
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubController@saveOrder
+  methods:
+    - POST
+  permission: HotelModule.edit
+
+schedule-item:
+  path: /dashboard/schedule-item
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@index
+  methods:
+    - GET
+  permission: HotelModule
+
+schedule-item.sort:
+  path: /dashboard/hotels-schedule-item/sort
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@sort
+  methods:
+    - GET
+  permission: HotelModule
+
+schedule-item.ajax:
+  path: /dashboard/hotels-schedule-item/ajax
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@ajax
+  methods:
+    - POST
+  permission: HotelModule
+
+schedule-item.create:
+  path: /dashboard/hotels-schedule-item/create
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@create
+  methods:
+    - GET
+  permission: HotelModule.add
+
+schedule-item.store:
+  path: /dashboard/hotels-schedule-item/store
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@store
+  methods:
+    - POST
+  permission: HotelModule.add
+
+schedule-item.edit:
+  path: /dashboard/hotels-schedule-item/{{schedule}}/edit
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@edit
+  methods:
+    - GET
+  permission: HotelModule.edit
+
+schedule-item.update:
+  path: /dashboard/hotels-schedule-item/{{schedule}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@update
+  methods:
+    - PUT
+    - PATCH
+  permission: HotelModule.edit
+
+schedule-item.destroy:
+  path: /dashboard/hotels-schedule-item/{{schedule}}
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@destroy
+  methods:
+    - DELETE
+  permission: HotelModule.delete
+
+schedule-item.saveOrder:
+  path: /dashboard/hotels-schedule-item/saveOrder
+  controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@saveOrder
   methods:
     - POST
   permission: HotelModule.edit
