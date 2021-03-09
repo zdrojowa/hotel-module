@@ -48,6 +48,8 @@ Vue.component('convenience', require('./components/convenience.vue').default);
 Vue.component('objects', require('./components/objects.vue').default);
 Vue.component('customer-alliance', require('./components/customer-alliance.vue').default);
 Vue.component('meals', require('./components/meals.vue').default);
+Vue.component('kids-club-schedule', require('./components/kids-club-schedule.vue').default);
+Vue.component('kids-club-schedule-item', require('./components/kids-club-schedule-item.vue').default);
 
 const app = new Vue({
     el: '#app'

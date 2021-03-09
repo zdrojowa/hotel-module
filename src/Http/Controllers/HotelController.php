@@ -158,4 +158,11 @@ class HotelController extends Controller
             'hotel' => $hotel
         ]);
     }
+
+    public function kidsClub(Hotels $hotel, Request $request)
+    {
+        return view('HotelModule::kids-club.index', [
+            'hotel' => $hotel
+        ]);
+    }
 }

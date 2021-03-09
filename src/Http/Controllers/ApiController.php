@@ -3,6 +3,7 @@
 namespace Selene\Modules\HotelModule\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -12,6 +13,8 @@ use Selene\Modules\HotelModule\Models\ConferenceHall;
 use Selene\Modules\HotelModule\Models\ConferenceHallConfiguration;
 use Selene\Modules\HotelModule\Models\HotelAttraction;
 use Selene\Modules\HotelModule\Models\Hotels;
+use Selene\Modules\HotelModule\Models\KidsClubSchedule;
+use Selene\Modules\HotelModule\Models\KidsClubScheduleItem;
 use Selene\Modules\HotelModule\Models\Kitchen;
 use Selene\Modules\HotelModule\Models\KitchenType;
 use Selene\Modules\HotelModule\Models\Rent;
@@ -165,6 +168,60 @@ class ApiController extends Controller
         }
 
         return response()->json($rent->get());
+    }
+
+    public function schedule(Request $request): JsonResponse
+    {
+        $schedule = KidsClubSchedule::query()->orderBy('order');
+
+        if ($request->has('id')) {
+            $schedule->where('_id', '=', $request->get('id'));
+            return response()->json($schedule->first());
+        }
+
+        if ($request->has('hotel')) {
+            $schedule->where('hotel', '=', $request->get('hotel'));
+        }
+
+        if ($request->has('per_page')) {
+            return response()->json(
+                $schedule->paginate(
+                    $request->get('per_page') >> 0,
+                    ['*'],
+                    'page',
+                    $request->get('page', 1)
+                )
+            );
+        }
+
+        return response()->json($schedule->get());
+    }
+
+    public function scheduleItem(Request $request): JsonResponse
+    {
+        $schedule = KidsClubScheduleItem::query()->orderBy('order');
+
+        if ($request->has('id')) {
+            $schedule->where('_id', '=', $request->get('id'));
+            return response()->json($schedule->first());
+        }
+
+        if ($request->has('schedule')) {
+            $schedule->where('kids_club_schedule', '=', $request->get('schedule'));
+        }
+
+        if ($request->has('per_page')) {
+            return response()->json(
+                $schedule->paginate(
+                    $request->get('per_page') >> 0,
+                    ['*'],
+                    'page',
+                    $request->get('page', 1)
+                )
+            );
+        }
+
+        return response()->json($schedule->get());
     }
 
     public function conferenceHall(Request $request): JsonResponse

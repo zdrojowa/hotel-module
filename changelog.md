@@ -149,3 +149,7 @@
 
 ## Version 12.7.1
 - Hide offers from main page
+
+
+## Version 12.8.0
+- Add kids club

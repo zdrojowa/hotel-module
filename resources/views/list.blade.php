@@ -66,6 +66,9 @@
                                                     <a class="dropdown-item" href="{{ route('HotelModule::rent', ['hotel' => $hotel->id ]) }}" target="_blank">
                                                         Wypożyczalnia
                                                     </a>
+                                                    <a class="dropdown-item" href="{{ route('HotelModule::schedules', ['hotel' => $hotel->id ]) }}" target="_blank">
+                                                        Plany zajęć
+                                                    </a>
                                                 </div>
                                             </div>
                                         </td>
