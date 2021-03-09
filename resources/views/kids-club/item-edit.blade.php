@@ -20,12 +20,12 @@
                         <template v-slot:title>
                             <b-icon-key></b-icon-key> Rozkład godzin
                         </template>
-                        @if (isset($schedule))
-                            <kids-club-schedule-item :_id=`{{ $schedule->_id }}` _name="schedule-item">
+                        @if (isset($schedule_item))
+                            <kids-club-schedule-item :_id=`{{ $schedule_item->id }}` _name="schedule-item">
                                 {{ csrf_field() }}
                             </kids-club-schedule-item>
                         @else
-                            <kids-club-schedule-item :_id="0" _name="schedule-item">
+                            <kids-club-schedule-item _schedule_id="{{$schedule}}" _name="schedule-item">
                                 {{ csrf_field() }}
                             </kids-club-schedule-item>
                         @endif

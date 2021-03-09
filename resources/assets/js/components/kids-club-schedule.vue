@@ -179,8 +179,7 @@
                         }
                     })
                         .then(res => {
-                            // window.location = res.data.redirect;
-                            console.log(res)
+                            window.location = res.data.redirect;
                         }).catch(err => {
                         console.log(err);
                     });

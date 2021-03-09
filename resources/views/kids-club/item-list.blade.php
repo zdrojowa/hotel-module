@@ -31,10 +31,10 @@
                                     <td>{{ $schedule_item->name }}</td>
                                     <td>{{ $schedule_item->created_at }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('HotelModule::schedule-item.edit', ['schedule' => $schedule_item->id ]) }}">
+                                        <a class="btn btn-primary" href="{{ route('HotelModule::schedule-item.edit', ['schedule_item' => $schedule_item->id ]) }}">
                                             <i class="mdi mdi-pencil"></i>
                                         </a>
-                                        <a class="btn btn-danger remove" href="{{ route('HotelModule::schedule-item.destroy', ['schedule' => $schedule_item->id ]) }}">
+                                        <a class="btn btn-danger remove" href="{{ route('HotelModule::schedule-item.destroy', ['schedule_item' => $schedule_item->id ]) }}">
                                             <i class="mdi mdi-delete"></i>
                                         </a>
                                     </td>

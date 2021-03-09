@@ -496,7 +496,7 @@ schedule-item.store:
   permission: HotelModule.add
 
 schedule-item.edit:
-  path: /dashboard/hotels-schedule-item/{{schedule}}/edit
+  path: /dashboard/hotels-schedule-item/{{schedule_item}}/edit
   controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@edit
   methods:
     - GET
@@ -511,7 +511,7 @@ schedule-item.update:
   permission: HotelModule.edit
 
 schedule-item.destroy:
-  path: /dashboard/hotels-schedule-item/{{schedule}}
+  path: /dashboard/hotels-schedule-item/{{schedule_item}}
   controller: Selene\Modules\HotelModule\Http\Controllers\KidsClubScheduleItemController@destroy
   methods:
     - DELETE

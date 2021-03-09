@@ -9,7 +9,6 @@
         </b-nav>
 
         <div class="row">
-
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Nazwa</label>
@@ -20,8 +19,8 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Hotel</label>
-                    <multiselect v-model.lazy="hotel" :options="hotels" track-by="_id" label="name" placeholder="Wybierz hotel"></multiselect>
+                    <label>Plan zajęć</label>
+                    <multiselect v-model.lazy="schedule" :options="schedules" track-by="id" label="name" placeholder="Wybierz plan"></multiselect>
                 </div>
             </div>
         </div>
@@ -31,6 +30,16 @@
                 <b-form-input v-model.lazy="titles[lang.key]"></b-form-input>
             </b-input-group>
         </div>
+        <br>
+
+        <div v-for="day in weekDays">
+            <div v-for="lang in langs">
+                <b-input-group :prepend="`${day.label} (${lang.name})`" class="row mt-3">
+                    <b-form-input v-model.lazy="data[day.key][lang.key]"></b-form-input>
+                </b-input-group>
+            </div>
+            <br>
+        </div>
     </div>
 </template>
 
@@ -38,27 +47,45 @@
 
     export default {
         name: 'kids-club-schedule',
-        props : ['_id', '_name'],
+        props : ['_id', '_name', '_schedule_id'],
 
         data() {
             return {
-                hotels: [],
+                data: {
+                    monday: {},
+                    tuesday: {},
+                    wednesday: {},
+                    thursday: {},
+                    friday: {},
+                    saturday: {},
+                    sunday: {},
+                },
                 langs: [],
                 id: 0,
                 name: '',
-                hotel: {},
+                schedule: {},
                 image: '',
                 titles: {},
                 info: {},
                 errors: {
                     name: {}
-                }
+                },
+                schedules: [],
+                weekDays: [
+                    {key: 'monday', label: 'Poniedziałek'},
+                    {key: 'tuesday', label: 'Wtorek'},
+                    {key: 'wednesday', label: 'Środa'},
+                    {key: 'thursday', label: 'Czwartek'},
+                    {key: 'friday', label: 'Piątek'},
+                    {key: 'saturday', label: 'Sobota'},
+                    {key: 'sunday', label: 'Niedziela'},
+                ]
             };
         },
 
         created() {
-            this.getHotels();
             this.getLangs();
+            this.getSchedules();
         },
 
         computed: {
@@ -92,12 +119,14 @@
                 return className;
             },
 
-            getHotels: function() {
-                let self = this;
-
-                axios.get('/api/hotels')
+            getSchedules: function() {
+                axios.get('/api/hotels-schedule')
                     .then(res => {
-                        self.hotels = res.data;
+                        this.schedules = res.data;
+                        if (this._schedule_id) {
+                            this.schedule = this.schedules.find(s => s.id == this._schedule_id)
+                        }
+                        this.get();
                     }).catch(err => {
                     console.log(err)
                 })
@@ -107,21 +136,9 @@
                 axios.get('/dashboard/languages/get')
                     .then(res => {
                         this.langs = res.data;
-                        this.get();
                     }).catch(err => {
                     console.log(err)
                 })
-            },
-
-            getItem: function(arr, key, val) {
-                let item = val;
-                arr.forEach(it => {
-                    if (it[key] === val) {
-                        item = it;
-                    }
-                });
-
-                return item;
             },
 
             get: function() {
@@ -132,9 +149,8 @@
                             self.id     = res.data._id;
                             self.name   = res.data.name;
                             self.titles = res.data.titles;
-
-                            self.hotel = self.getItem(self.hotels, '_id', res.data.hotel);
-
+                            self.data = res.data.data;
+                            self.schedule = this.schedules.find(s => s.id == res.data.kids_club_schedule)
                             self.checkLangs(self.titles);
                     }).catch(err => {
                         console.log(err)
@@ -170,8 +186,18 @@
                     let formData = new FormData();
                     formData.append('_method', self._id ? 'PUT' : 'POST');
                     formData.append('name', self.name);
-                    formData.append('hotel', self.hotel._id);
+                    formData.append('kids_club_schedule', self.schedule.id);
                     formData.append('titles', JSON.stringify(self.titles));
+
+                    Object.keys(this.data).forEach(i => {
+                        this.langs.forEach(l => {
+                            if (!this.data[i][l.key]) {
+                                this.data[i][l.key] = '';
+                            }
+                        })
+                    })
+
+                    formData.append('data', JSON.stringify(this.data));
 
                     axios.post(this.url, formData, {
                         headers: {
@@ -179,8 +205,7 @@
                         }
                     })
                         .then(res => {
-                            // window.location = res.data.redirect;
-                            console.log(res)
+                            window.location = res.data.redirect;
                         }).catch(err => {
                         console.log(err);
                     });

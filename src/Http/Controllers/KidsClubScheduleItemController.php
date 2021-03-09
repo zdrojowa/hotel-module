@@ -17,7 +17,7 @@ class KidsClubScheduleItemController extends Controller
 {
     public function index(Request $request)
     {
-        $scheduleId = $request->get('kids_club_schedule');
+        $scheduleId = $request->get('schedule');
         $scheduleItems   = KidsClubScheduleItem::query()->orderBy('order');
 
         if ($scheduleId) {
@@ -45,13 +45,14 @@ class KidsClubScheduleItemController extends Controller
     public function create(Request $request)
     {
         return view('HotelModule::kids-club.item-edit', [
-            'schedule' => $request->get('schedule')
+            'schedule' => $request->get('schedule'),
+            'schedule_item' => $request->get('schedule_item')
         ]);
     }
 
-    public function edit(KidsClubScheduleItem $schedule)
+    public function edit(KidsClubScheduleItem $schedule_item)
     {
-        return view('HotelModule::kids-club.item-edit', ['schedule' => $schedule]);
+        return view('HotelModule::kids-club.item-edit', ['schedule_item' => $schedule_item]);
     }
 
     public function store(Request $request): array
@@ -63,10 +64,10 @@ class KidsClubScheduleItemController extends Controller
             $request->session()->flash('alert-error', 'Ooops. Try again.');
         }
 
-        return ['redirect' => route('HotelModule::schedule.item-edit', ['schedule' => $schedule])];
+        return ['redirect' => route('HotelModule::schedule-item.edit', ['schedule_item' => $schedule])];
     }
 
-    public function update(Request $request, KidsClubSchedule $schedule): array
+    public function update(Request $request, KidsClubScheduleItem $schedule): array
     {
         if ($this->save($request, $schedule)) {
             $request->session()->flash('alert-success', 'Przedmiot do wypożyczenia pomyślnie zaktualizowany.');
@@ -74,7 +75,7 @@ class KidsClubScheduleItemController extends Controller
             $request->session()->flash('alert-error', 'Ooops. Try again.');
         }
 
-        return ['redirect' => route('HotelModule::schedule.item-edit', ['schedule' => $schedule])];
+        return ['redirect' => route('HotelModule::schedule-item.edit', ['schedule_item' => $schedule])];
     }
 
     private function save(Request $request, KidsClubScheduleItem $schedule = null) {
@@ -88,6 +89,10 @@ class KidsClubScheduleItemController extends Controller
             $request->merge(['titles' => json_decode($request->get('titles'))]);
         }
 
+        if ($request->has('data')) {
+            $request->merge(['data' => json_decode($request->get('data'))]);
+        }
+
         if ($schedule === null) {
             $request->merge(['order' => KidsClubScheduleItem::query()->where('kids_club_schedule', '=', $request->get('kids_club_schedule'))->count() + 1]);
             return KidsClubScheduleItem::create($request->all());
@@ -98,10 +103,10 @@ class KidsClubScheduleItemController extends Controller
         return $schedule;
     }
 
-    public function destroy(KidsClubSchedule $schedule, Request $request): void
+    public function destroy(KidsClubScheduleItem $schedule_item, Request $request): void
     {
         try {
-            $schedule->delete();
+            $schedule_item->delete();
             $request->session()->flash('alert-success', 'Schedule is deleted');
         } catch (Exception $e) {
             $request->session()->flash('alert-error', 'Error: ' . $e->getMessage());

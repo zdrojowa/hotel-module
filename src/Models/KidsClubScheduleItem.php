@@ -21,13 +21,8 @@ class KidsClubScheduleItem extends Model
         'name',
         'hour',
         'order',
-        'kids_club_schedule_id',
-        'monday',
-        'tuesday',
-        'wednesday',
-        'thursday',
-        'friday',
-        'saturday',
-        'sunday',
+        'titles',
+        'kids_club_schedule',
+        'data'
     ];
 }
