@@ -153,3 +153,6 @@
 
 ## Version 12.8.0
 - Add kids club
+
+## Version 12.9.0
+- Add kids club icons
