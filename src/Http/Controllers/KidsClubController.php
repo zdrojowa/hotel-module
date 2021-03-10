@@ -113,10 +113,11 @@ class KidsClubController extends Controller
 
         $hotelId = '';
         foreach ($list as $i => $item) {
-            KidsClubSchedule::query()->where('_id', '=', $item['_id'])->update(['order' => $i + 1]);
+            KidsClubSchedule::query()->where('_id', '=', $item['id'])->update(['order' => $i + 1]);
             $hotelId = $item['hotel'];
         }
-        return ['redirect' => route('HotelModule::kids-club', [
+
+        return ['redirect' => route('HotelModule::schedules', [
             'hotel' => Hotels::query()->where('_id', '=', $hotelId)->first()
         ])];
     }

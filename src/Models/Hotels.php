@@ -71,6 +71,7 @@ class Hotels extends Model
         'ca_key',
         'ca_link',
         'is_hotel',
+        'kids_club_icons',
     ];
 
     /**

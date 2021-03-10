@@ -25,6 +25,11 @@
                 type: String,
                 required: false,
                 default: ''
+            },
+            schedule: {
+                type: String,
+                required: false,
+                default: ''
             }
         },
 
@@ -41,8 +46,11 @@
         computed: {
             url() {
                 let url = '/api/' + this.name;
-                if (this.hotel != null) {
+                if (this.hotel) {
                     url += '?hotel=' + this.hotel;
+                }
+                if (this.schedule) {
+                    url += '?schedule=' + this.schedule;
                 }
                 return url;
             }

@@ -50,6 +50,7 @@ Vue.component('customer-alliance', require('./components/customer-alliance.vue')
 Vue.component('meals', require('./components/meals.vue').default);
 Vue.component('kids-club-schedule', require('./components/kids-club-schedule.vue').default);
 Vue.component('kids-club-schedule-item', require('./components/kids-club-schedule-item.vue').default);
+Vue.component('kids-club-settings', require('./components/kids-club-settings.vue').default);
 
 const app = new Vue({
     el: '#app'

@@ -41,7 +41,7 @@
                         <template v-slot:title>
                             <b-icon-brightness-high></b-icon-brightness-high> Kids Club
                         </template>
-
+                        <kids-club-settings :id=`{{ $hotel->_id }}` url_get="/api/hotels" url_post="/dashboard/hotels/" field="kids_club_icons"></kids-club-settings>
                     </b-tab>
                 </b-tabs>
             </b-card>
@@ -52,5 +52,9 @@
 @section('javascripts')
     @parent
     @javascript('csrf', csrf_token())
+    @javascript('ajaxUpload', route('MediaManager::media.upload.ajax'))
+    @javascript('infoUrl', route('MediaManager::media.image.info', ['media' => '%%id%%']))
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@13.0.1/dist/lazyload.min.js"></script>
+    <script src="{{ mix('vendor/js/MediaManager.js') }}"></script>
     <script src="{{ mix('vendor/js/HotelModule.js') }}"></script>
 @endsection

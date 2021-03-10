@@ -15,6 +15,14 @@
     <div class="content-wrapper">
         <div id="app">
             <b-card no-body>
+                <div class="card-header clearfix">
+                    <h4 class="card-title float-left">Plan zajęć</h4>
+                    @if(isset($schedule_item))
+                        <a href="{{route('HotelModule::schedule-item', ['schedule' => $schedule_item->kids_club_schedule])}}" class="btn btn-primary float-right">
+                            <i class="mdi mdi-keyboard-backspace"></i> Do listy
+                        </a>
+                    @endif
+                </div>
                 <b-tabs card>
                     <b-tab active>
                         <template v-slot:title>

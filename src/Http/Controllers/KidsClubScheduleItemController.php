@@ -32,8 +32,8 @@ class KidsClubScheduleItemController extends Controller
 
     public function sort(Request $request)
     {
-        return view('HotelModule::kids-club.sort', [
-            'hotel' => Hotels::query()->where('_id', '=', $request->get('hotel'))->first()
+        return view('HotelModule::kids-club.item-sort', [
+            'schedule' => KidsClubSchedule::query()->where('_id', '=', $request->get('schedule'))->first()
         ]);
     }
 
@@ -117,13 +117,13 @@ class KidsClubScheduleItemController extends Controller
     {
         $list = json_decode($request->get('list'), true);
 
-        $hotelId = '';
+        $scheduleId = '';
         foreach ($list as $i => $item) {
-            KidsClubSchedule::query()->where('_id', '=', $item['_id'])->update(['order' => $i + 1]);
-            $hotelId = $item['hotel'];
+            KidsClubScheduleItem::query()->where('_id', '=', $item['id'])->update(['order' => $i + 1]);
+            $scheduleId = $item['kids_club_schedule'];
         }
-        return ['redirect' => route('HotelModule::kids-club', [
-            'hotel' => Hotels::query()->where('_id', '=', $hotelId)->first()
+        return ['redirect' => route('HotelModule::schedule-item', [
+            'schedule' => KidsClubSchedule::query()->where('_id', '=', $scheduleId)->first()
         ])];
     }
 }

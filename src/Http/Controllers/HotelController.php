@@ -107,7 +107,8 @@ class HotelController extends Controller
             'is_hotel',
             'suggest_hotel_description',
             'suggest_kitchen_description',
-            'booking_disabled'
+            'booking_disabled',
+            'kids_club_icons',
         ];
 
         foreach($fields as $field) {
