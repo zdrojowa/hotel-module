@@ -177,6 +177,12 @@
                     <b-form-input type="email" v-model.lazy="mail_reservations"></b-form-input>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Livacall url</label>
+                    <b-form-input type="text" v-model.lazy="livecall_url"></b-form-input>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -201,6 +207,7 @@
                 marker: '',
                 reception: '',
                 reservation: '',
+                livecall_url: '',
                 mail: '',
                 mail_reservations: '',
                 address: '',
@@ -295,6 +302,7 @@
                         self.arrive             = res.data.arrive;
                         self.copyright          = res.data.copyright;
                         self.mail_reservations  = res.data.mail_reservations;
+                        self.livecall_url       = res.data.livecall_url;
 
                         self.city = self.getItem(self.cities, '_id', res.data.city);
 
@@ -335,6 +343,7 @@
                     formData.append('arrive', this.arrive);
                     formData.append('copyright', this.copyright);
                     formData.append('mail_reservations', this.mail_reservations);
+                    formData.append('livecall_url', this.livecall_url);
 
                     axios.post(this.url, formData, {
                         headers: {

@@ -156,3 +156,6 @@
 
 ## Version 12.9.0
 - Add kids club icons
+
+## Version 12.10.0
+- Add livecall
