@@ -159,3 +159,6 @@
 
 ## Version 12.10.0
 - Add livecall
+
+## Version 12.11.0
+- Add labels

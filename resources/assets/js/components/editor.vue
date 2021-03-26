@@ -83,6 +83,32 @@
                 </b-form-checkbox>
             </div>
         </div>
+
+        <br>
+        <div class="row mt-6">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Label (polski)</label>
+                        <input type="text" class="form-control" v-model="labels.pl">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Label (angielski)</label>
+                        <input type="text" class="form-control" v-model="labels.en">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Label (niemiecki)</label>
+                        <input type="text" class="form-control" v-model="labels.de">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -104,6 +130,11 @@
                 min_nights: 0,
                 is_aquapark_offer: false,
                 main_page_hidden: false,
+                labels: {
+                    pl: '',
+                    en: '',
+                    de: '',
+                },
                 errors: {
                     name: {},
                     date_from: {}
@@ -168,6 +199,7 @@
                         self.discount           = res.data.discount == null ? 0 : res.data.discount
                         self.price              = res.data.price == null ? 0 : res.data.price
                         self.min_nights         = res.data.min_nights == null ? 0 : res.data.min_nights
+                        self.labels             = res.data.labels || self.labels
 
                     }).catch(err => {
                         console.log(err)
@@ -204,6 +236,7 @@
                     formData.append('min_nights', this.min_nights)
                     formData.append('is_aquapark_offer', this.is_aquapark_offer)
                     formData.append('main_page_hidden', this.main_page_hidden)
+                    formData.append('labels', JSON.stringify(this.labels))
 
                     axios.post(this.url, formData, {
                         headers: {

@@ -108,6 +108,10 @@ class OfferController extends Controller
             $request->merge(['aquaparks' => json_decode($request->get('aquaparks'))]);
         }
 
+        if ($request->has('labels')) {
+            $request->merge(['labels' => json_decode($request->get('labels'))]);
+        }
+
         $offer->update($request->all());
         return $offer;
     }

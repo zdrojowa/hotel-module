@@ -37,5 +37,6 @@ class Offer extends Model
         'order',
         'is_aquapark_offer',
         'main_page_hidden',
+        'labels',
     ];
 }
