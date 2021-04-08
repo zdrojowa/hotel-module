@@ -162,3 +162,6 @@
 
 ## Version 12.11.0
 - Add labels
+
+## Version 12.11.1
+- Fix labels
